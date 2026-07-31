@@ -1,21 +1,45 @@
+/*
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║ ██╗     ██╗███╗   ███╗██╗████████╗ █████╗  ██████╗ ██████╗ ███████╗███████╗  ║
+║ ██║     ██║████╗ ████║██║╚══██╔══╝██╔══██╗██╔════╝██╔═══██╗██╔════╝██╔════╝  ║
+║ ██║     ██║██╔████╔██║██║   ██║   ███████║██║     ██║   ██║█████╗  ███████╗  ║
+║ ██║     ██║██║╚██╔╝██║██║   ██║   ██╔══██║██║     ██║   ██║██╔══╝  ╚════██║  ║
+║ ███████╗██║██║ ╚═╝ ██║██║   ██║   ██║  ██║╚██████╗╚██████╔╝███████╗███████║  ║
+║ ╚══════╝╚═╝╚═╝     ╚═╝╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝  ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+ ➤ Responsável pelas rotas relacionadas às Limitações (Limitations),
+
+ ➤ Disponibiliza endpoints GET para:
+    - Listar todas as limitações.
+    - Buscar uma limitação por ID.
+
+ ➤ Os dados são consultados na tabela Limitations através do Prisma.
+
+ ➤ Os relacionamentos necessários são carregados utilizando o objeto limitationInclude.
+
+ ➤ O resultado é retornado em formato JSON para consumo pelo frontend.
+
+*/
+
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
+
 
 const router = Router();
-const prisma = new PrismaClient();
 
 const limitationInclude = {
   types: {
-    include: { types: true },
+    include: { type: true },
   },
 };
 
-// GET /limitations — lista todas as limitações
 router.get("/", async (req, res) => {
   try {
-    const limitations = await prisma.limitations.findMany({
-      include: limitationInclude,
-    });
+    const limitations = await prisma.limitations.findMany({ include: limitationInclude });
 
     return res.json(limitations);
   } catch (error) {
@@ -24,15 +48,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /limitations/:id — busca uma limitação por ID
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const limitation = await prisma.limitations.findUnique({
-      where: { id },
-      include: limitationInclude,
-    });
+    const limitation = await prisma.limitations.findUnique({ where: { id }, include: limitationInclude });
 
     if (!limitation) {
       return res.status(404).json({ error: "Limitação não encontrada." });

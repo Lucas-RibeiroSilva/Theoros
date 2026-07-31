@@ -1,8 +1,34 @@
+/*
+╔════════════════════════════════════════════════════╗
+║                                                    ║
+║ ███╗   ███╗ █████╗  ██████╗ ██╗ █████╗ ███████╗    ║
+║ ████╗ ████║██╔══██╗██╔════╝ ██║██╔══██╗██╔════╝    ║
+║ ██╔████╔██║███████║██║  ███╗██║███████║███████╗    ║
+║ ██║╚██╔╝██║██╔══██║██║   ██║██║██╔══██║╚════██║    ║
+║ ██║ ╚═╝ ██║██║  ██║╚██████╔╝██║██║  ██║███████║    ║
+║ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝    ║
+║                                                    ║
+╚════════════════════════════════════════════════════╝
+
+ ➤ Responsável pelas rotas relacionadas às Mágias (Magics),
+
+ ➤ Disponibiliza endpoints GET para:
+    - Listar todas as maǵias.
+    - Buscar uma mágia por ID.
+
+ ➤ Os dados são consultados na tabela Races através do Prisma.
+
+ ➤ Os relacionamentos necessários são carregados utilizando o objeto magicInclude.
+
+ ➤ O resultado é retornado em formato JSON para consumo pelo frontend.
+
+*/
+
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 const magicInclude = {
   types: { include: { type: true } },
@@ -11,12 +37,9 @@ const magicInclude = {
   effects: true,
 };
 
-// GET /magics — lista todas as magias
 router.get("/", async (req, res) => {
   try {
-    const magics = await prisma.magics.findMany({
-      include: magicInclude,
-    });
+    const magics = await prisma.magics.findMany({ include: magicInclude });
 
     return res.json(magics);
   } catch (error) {
@@ -25,15 +48,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /magics/:id — busca uma magia por ID
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const magic = await prisma.magics.findUnique({
-      where: { id },
-      include: magicInclude,
-    });
+    const magic = await prisma.magics.findUnique({ where: { id }, include: magicInclude });
 
     if (!magic) {
       return res.status(404).json({ error: "Magia não encontrada." });

@@ -1,12 +1,46 @@
+/*
+╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                    ║
+║  █████╗ ██╗   ██╗████████╗███████╗███╗   ██╗████████╗██╗ ██████╗ █████╗  ██████╗ █████╗  ██████╗   ║
+║ ██╔══██╗██║   ██║╚══██╔══╝██╔════╝████╗  ██║╚══██╔══╝██║██╔════╝██╔══██╗██╔════╝██╔══██╗██╔═══██╗  ║
+║ ███████║██║   ██║   ██║   █████╗  ██╔██╗ ██║   ██║   ██║██║     ███████║██║     ███████║██║   ██║  ║
+║ ██╔══██║██║   ██║   ██║   ██╔══╝  ██║╚██╗██║   ██║   ██║██║     ██╔══██║██║     ██╔══██║██║   ██║  ║
+║ ██║  ██║╚██████╔╝   ██║   ███████╗██║ ╚████║   ██║   ██║╚██████╗██║  ██║╚██████╗██║  ██║╚██████╔╝  ║
+║ ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝   ║
+║                                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+➤ Responsável pelas rotas de autenticação e controle de acesso dos usuários.
+
+➤ Define o authMiddleware, responsável por validar tokens JWT e proteger rotas que exigem autenticação.
+
+➤ Disponibiliza a rota "guest-session" para gerar um token temporário de visitante com validade de 24 horas.
+
+➤ Disponibiliza a rota "register" para cadastrar novos usuários.
+
+➤ Antes de criar um usuário, o sistema verifica se o e-mail ou nome de usuário já estão cadastrados.
+
+➤ As senhas são criptografadas utilizando bcrypt antes de serem armazenadas no banco de dados.
+
+➤ Disponibiliza a rota "login" para autenticar usuários através de e-mail e senha.
+
+➤ Durante o login, a senha informada é comparada com o hash armazenado no banco utilizando bcrypt.
+
+➤ Após o registro ou login, um token JWT com validade de 7 dias é gerado e retornado ao usuário.
+
+➤ Quando um token válido é enviado, o authMiddleware disponibiliza os dados do usuário em req.user para utilização nas rotas protegidas.
+
+➤ Os dados dos usuários são consultados e armazenados na tabela User através do Prisma.
+
+➤ As respostas são retornadas em formato JSON para consumo pelo frontend.
+
+*/
 import { Router } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 
 const router = Router();
-// Instância do Prisma Client para interagir com o banco PostgreSQL.
-// O Prisma Client é gerado automaticamente com base no schema.prisma e nos modelos definidos lá. Ele fornece métodos para criar, ler, atualizar e deletar dados no banco de dados de forma fácil e segura.
-const prisma = new PrismaClient();
 
 // ────────────────────────────── MIDDLEWARE ──────────────────────────────────────
 
@@ -114,10 +148,5 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// ────────────────────────────── HOME (rota protegida de teste) ──────────────────
-
-router.get("/home", authMiddleware, (req, res) => {
-  return res.json({ message: "Usuário autenticado", user: req.user });
-});
 
 export { router as authRoutes };

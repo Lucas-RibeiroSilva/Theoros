@@ -22,7 +22,7 @@
     "formula": "2d6 + nivel",
     "formulaDescription": "Dano base de 2d6 acrescido do nível da magia",
 
-    "types": ["Mental"],
+    "types": ["Fire"],
 
     "classes": ["Mago", "Feiticeiro"],
 
@@ -67,7 +67,7 @@
     "formula": "1d6 + nivel",
     "formulaDescription": "Cura base de 1d6 acrescido do nível da magia",
 
-    "types": ["Mental"],
+    "types": ["Healing"],
 
     "classes": ["Clérigo", "Druida"],
 

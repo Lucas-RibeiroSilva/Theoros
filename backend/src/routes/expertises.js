@@ -1,20 +1,43 @@
+/*
+╔══════════════════════════════════════════════════════════╗
+║                                                          ║
+║ ██████╗ ███████╗██████╗ ██╗ ██████╗██╗ █████╗ ███████╗   ║
+║ ██╔══██╗██╔════╝██╔══██╗██║██╔════╝██║██╔══██╗██╔════╝   ║
+║ ██████╔╝█████╗  ██████╔╝██║██║     ██║███████║███████╗   ║
+║ ██╔═══╝ ██╔══╝  ██╔══██╗██║██║     ██║██╔══██║╚════██║   ║
+║ ██║     ███████╗██║  ██║██║╚██████╗██║██║  ██║███████║   ║
+║ ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝   ║
+║                                                          ║
+╚══════════════════════════════════════════════════════════╝
+
+ ➤ Responsável pelas rotas relacionadas às Péricias (Expertises),
+
+ ➤ Disponibiliza endpoints GET para:
+    - Listar todas as péricias.
+    - Buscar uma péricia por ID.
+
+ ➤ Os dados são consultados na tabela Expertises através do Prisma.
+
+ ➤ Os relacionamentos necessários são carregados utilizando o objeto expertiseInclude.
+
+ ➤ O resultado é retornado em formato JSON para consumo pelo frontend.
+
+*/
+
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 const expertiseInclude = {
   difficulties: { include: { difficulty: true } },
   requirements: true,
 };
 
-// GET /expertises — lista todas as perícias
 router.get("/", async (req, res) => {
   try {
-    const expertises = await prisma.expertises.findMany({
-      include: expertiseInclude,
-    });
+    const expertises = await prisma.expertises.findMany({ include: expertiseInclude });
 
     return res.json(expertises);
   } catch (error) {
@@ -23,15 +46,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /expertises/:id — busca uma perícia por ID
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const expertise = await prisma.expertises.findUnique({
-      where: { id },
-      include: expertiseInclude,
-    });
+    const expertise = await prisma.expertises.findUnique({ where: { id }, include: expertiseInclude });
 
     if (!expertise) {
       return res.status(404).json({ error: "Perícia não encontrada." });

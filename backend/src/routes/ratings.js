@@ -1,18 +1,45 @@
+/*
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                ║
+║  █████╗ ██╗   ██╗ █████╗ ██╗     ██╗ █████╗  ██████╗ ██████╗ ███████╗███████╗  ║
+║ ██╔══██╗██║   ██║██╔══██╗██║     ██║██╔══██╗██╔════╝██╔═══██╗██╔════╝██╔════╝  ║
+║ ███████║██║   ██║███████║██║     ██║███████║██║     ██║   ██║█████╗  ███████╗  ║
+║ ██╔══██║╚██╗ ██╔╝██╔══██║██║     ██║██╔══██║██║     ██║   ██║██╔══╝  ╚════██║  ║
+║ ██║  ██║ ╚████╔╝ ██║  ██║███████╗██║██║  ██║╚██████╗╚██████╔╝███████╗███████║  ║
+║ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝  ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+  ➤ Responsável pelas rotas relacionadas às Avaliações (Ratings).
+
+  ➤ Disponibiliza endpoints GET para:
+    - Listar todas as avaliações de um card através do cardId.
+
+  ➤ Disponibiliza endpoints POST para:
+    - Criar uma nova avaliação.
+    - Atualizar uma avaliação existente do mesmo usuário.
+
+  ➤ As rotas de avaliação utilizam autenticação através do authMiddleware.
+
+  ➤ Os dados são consultados na tabela Ratings através do Prisma.
+
+  ➤ Após cada avaliação, a média do card é recalculada e atualizada automaticamente.
+
+  ➤ O resultado é retornado em formato JSON para consumo pelo frontend.
+*/
+
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 import { authMiddleware } from "./auth.js";
 
 const router = Router();
-const prisma = new PrismaClient();
 
-// GET /ratings/:cardId — busca as avaliações de uma ficha
 router.get("/:cardId", async (req, res) => {
   const { cardId } = req.params;
 
   try {
-    const ratings = await prisma.ratings.findMany({
-      where: { cardId },
-    });
+    const ratings = await prisma.ratings.findMany({ where: { cardId } });
 
     return res.json(ratings);
   } catch (error) {
@@ -21,16 +48,15 @@ router.get("/:cardId", async (req, res) => {
   }
 });
 
-// POST /ratings — cria ou atualiza uma avaliação (requer autenticação)
 router.post("/", authMiddleware, async (req, res) => {
-  const { cardId, score } = req.body;
+  const { cardId, score, commentary } = req.body;
 
   if (!cardId || score == null) {
-    return res.status(400).json({ error: "cardId e score são obrigatórios." });
+    return res.status(400).json({ error: "cardId e pontos são obrigatórios." });
   }
 
   if (score < 1 || score > 5) {
-    return res.status(400).json({ error: "Score deve ser entre 1 e 5." });
+    return res.status(400).json({ error: "Pontuação deve ser entre 1 e 5." });
   }
 
   try {
@@ -42,23 +68,24 @@ router.post("/", authMiddleware, async (req, res) => {
           cardId,
         },
       },
-      update: { score },
+      update: { score, commentary },
       create: {
         userId: req.user.id,
         cardId,
         score,
+        commentary,
       },
     });
 
     // Recalcula a média da ficha
-    const avg = await prisma.ratings.aggregate({
+    const averageRating = await prisma.ratings.aggregate({
       where: { cardId },
       _avg: { score: true },
     });
 
     await prisma.card.update({
       where: { id: cardId },
-      data: { ratingAverage: avg._avg.score },
+      data: { ratingAverage: averageRating._avg.score },
     });
 
     return res.status(201).json(rating);

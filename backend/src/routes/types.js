@@ -1,10 +1,27 @@
+/*
+╔════════════════════════════════════════════════╗
+║                                                ║
+║     ████████╗██╗██████╗  ██████╗ ███████╗      ║
+║     ╚══██╔══╝██║██╔══██╗██╔═══██╗██╔════╝      ║
+║        ██║   ██║██████╔╝██║   ██║███████╗      ║
+║        ██║   ██║██╔═══╝ ██║   ██║╚════██║      ║
+║        ██║   ██║██║     ╚██████╔╝███████║      ║
+║        ╚═╝   ╚═╝╚═╝      ╚═════╝ ╚══════╝      ║
+║                                                ║
+╚════════════════════════════════════════════════╝
+
+ ➤ Responsável pelas rotas relacionadas aos Tipos (Types).
+ ➤ Disponibiliza um endpoint GET para listar todos os tipos cadastrados.
+ ➤ Os dados são consultados na tabela Types através do Prisma.
+ ➤ O resultado é retornado no formato JSON para consumo pelo frontend.
+
+*/
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 
 const router = Router();
-const prisma = new PrismaClient();
 
-// GET /types — lista todos os tipos
 router.get("/", async (req, res) => {
   try {
     const types = await prisma.types.findMany();

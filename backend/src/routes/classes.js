@@ -1,10 +1,28 @@
+/*
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║  ██████╗██╗      █████╗ ███████╗███████╗███████╗███████╗     ║
+║ ██╔════╝██║     ██╔══██╗██╔════╝██╔════╝██╔════╝██╔════╝     ║
+║ ██║     ██║     ███████║███████╗███████╗█████╗  ███████╗     ║
+║ ██║     ██║     ██╔══██║╚════██║╚════██║██╔══╝  ╚════██║     ║
+║ ╚██████╗███████╗██║  ██║███████║███████║███████╗███████║     ║
+║  ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝     ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+ ➤ Responsável pelas rotas relacionadas as Classes (Classes).
+ ➤ Disponibiliza um endpoint GET para listar todas as classes cadastradas.
+ ➤ Os dados são consultados na tabela Classes através do Prisma.
+ ➤ O resultado é retornado no formato JSON para consumo pelo frontend.
+
+*/
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 
 const router = Router();
-const prisma = new PrismaClient();
 
-// GET /classes — lista todas as classes
+
 router.get("/", async (req, res) => {
   try {
     const classes = await prisma.classes.findMany();

@@ -1,10 +1,28 @@
+/*
+╔══════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                              ║
+║ ██████╗ ██╗███████╗██╗ ██████╗██╗   ██╗██╗     ██████╗  █████╗ ██████╗ ███████╗███████╗      ║
+║ ██╔══██╗██║██╔════╝██║██╔════╝██║   ██║██║     ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝      ║
+║ ██║  ██║██║█████╗  ██║██║     ██║   ██║██║     ██║  ██║███████║██║  ██║█████╗  ███████╗      ║
+║ ██║  ██║██║██╔══╝  ██║██║     ██║   ██║██║     ██║  ██║██╔══██║██║  ██║██╔══╝  ╚════██║      ║
+║ ██████╔╝██║██║     ██║╚██████╗╚██████╔╝███████╗██████╔╝██║  ██║██████╔╝███████╗███████║      ║
+║ ╚═════╝ ╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝      ║
+║                                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════╝
+
+ ➤ Responsável pelas rotas relacionadas as Dificuldades (Difficulties).
+ ➤ Disponibiliza um endpoint GET para listar todas as dificuldades cadastradas.
+ ➤ Os dados são consultados na tabela Difficulties através do Prisma.
+ ➤ O resultado é retornado no formato JSON para consumo pelo frontend.
+
+*/
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 
 const router = Router();
-const prisma = new PrismaClient();
 
-// GET /difficulties — lista todas as dificuldades
+
 router.get("/", async (req, res) => {
   try {
     const difficulties = await prisma.difficulties.findMany();

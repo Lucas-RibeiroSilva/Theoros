@@ -14,10 +14,24 @@
     "maxLevel": 3,
 
     "shortDescription": "Você reage mais rapidamente que pessoas normais.",
-    "fullDescription": "Você reage mais rapidamente que pessoas normais.",
+    "fullDescription": "O cérebro do personagem está condicionado a reagir instintivamente a ameaças e perigos súbitos. Ele treinou extensivamente para lidar com emboscadas ou possui um talento natural para entrar no <strong>estado de alerta</strong> em frações de segundo, tornando quase impossível pegá-lo de surpresa em situações mortais.",
+    "rules": [
+      {
+        "name": "Bônus em Defesas",
+        "description": "Concede um bônus constante de +1 em todas as rolagens de Defesa Ativa do personagem (Aparar, Bloquear e Esquiva)."
+      },
+      {
+        "name": "Surpresa e Atordoamento",
+        "description": "O personagem recebe +1 em testes de Prontidão (Fast-Draw) e um bônus enorme de +6 em todas as rolagens de Inteligência (IQ) para acordar subitamente, resistir ao atordoamento mental ou se recuperar de surpresas no início de um combate."
+      },
+      {
+        "name": "Resistência Psicológica",
+        "description": "Concede +2 em testes de Pânico (Fright Checks), visto que o pânico do momento é convertido em ação reflexa de combate. Ele nunca congela numa situação de surpresa parcial."
+      }
+      ],
 
-    "formula": null,
-    "formulaDescription": null,
+    "formula": "Cf = 15",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de 15 pontos.",
 
     "types": ["Physical", "Combat"],
 

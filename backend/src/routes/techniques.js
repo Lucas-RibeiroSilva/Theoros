@@ -1,19 +1,38 @@
+/*
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║  ████████╗███████╗ ██████╗███╗   ██╗██╗ ██████╗ █████╗ ███████╗  ║
+║  ╚══██╔══╝██╔════╝██╔════╝████╗  ██║██║██╔════╝██╔══██╗██╔════╝  ║
+║     ██║   █████╗  ██║     ██╔██╗ ██║██║██║     ███████║███████╗  ║
+║     ██║   ██╔══╝  ██║     ██║╚██╗██║██║██║     ██╔══██║╚════██║  ║
+║     ██║   ███████╗╚██████╗██║ ╚████║██║╚██████╗██║  ██║███████║  ║
+║     ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═══╝╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝  ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+ ➤ Responsável pelas rotas relacionadas às Técnicas (Techniques),
+
+ ➤ Disponibiliza endpoints GET para:
+    - Listar todas as técnicas.
+    - Buscar uma técnicas por ID.
+
+ ➤ Os dados são consultados na tabela Techniques através do Prisma.
+
+ ➤ Os relacionamentos necessários são carregados utilizando o objeto trechniqueInclude.
+
+ ➤ O resultado é retornado em formato JSON para consumo pelo frontend.
+*/
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 
 const router = Router();
-const prisma = new PrismaClient();
 
-const techniqueInclude = {
-  difficulties: { include: { difficulty: true } },
-};
+const techniqueInclude = { difficulties: { include: { difficulty: true } }};
 
-// GET /techniques — lista todas as técnicas
 router.get("/", async (req, res) => {
   try {
-    const techniques = await prisma.techniques.findMany({
-      include: techniqueInclude,
-    });
+    const techniques = await prisma.techniques.findMany({ include: techniqueInclude });
 
     return res.json(techniques);
   } catch (error) {
@@ -22,15 +41,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /techniques/:id — busca uma técnica por ID
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const technique = await prisma.techniques.findUnique({
-      where: { id },
-      include: techniqueInclude,
-    });
+    const technique = await prisma.techniques.findUnique({ where: { id }, include: techniqueInclude });
 
     if (!technique) {
       return res.status(404).json({ error: "Técnica não encontrada." });

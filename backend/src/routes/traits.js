@@ -1,14 +1,39 @@
+/*
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                    ║
+║   ██████╗ █████╗ ██████╗  █████╗  ██████╗████████╗███████╗██████╗ ██╗███████╗████████╗██╗ ██████╗ █████╗ ███████╗  ║
+║  ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗██║██╔════╝╚══██╔══╝██║██╔════╝██╔══██╗██╔════╝  ║
+║  ██║     ███████║██████╔╝███████║██║        ██║   █████╗  ██████╔╝██║███████╗   ██║   ██║██║     ███████║███████╗  ║
+║  ██║     ██╔══██║██╔══██╗██╔══██║██║        ██║   ██╔══╝  ██╔══██╗██║╚════██║   ██║   ██║██║     ██╔══██║╚════██║  ║
+║   ██████╗██║  ██║██║  ██║██║  ██║╚██████╗   ██║   ███████╗██║  ██║██║███████║   ██║   ██║╚██████╗██║  ██║███████║  ║
+║   ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝  ║
+║                                                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+ ➤ Responsável pelas rotas relacionadas às Características (Traits),
+    incluindo Vantagens e Desvantagens.
+
+ ➤ Disponibiliza endpoints GET para:
+    - Listar todas as vantagens.
+    - Buscar uma vantagem por ID. (exemplo /combat_reflexes)
+    - Listar todas as desvantagens.
+    - Buscar uma desvantagem por ID.
+
+ ➤ Os dados são consultados na tabela Traits através do Prisma.
+
+ ➤ Os relacionamentos necessários são carregados utilizando o objeto traitInclude.
+
+ ➤ O resultado é retornado em formato JSON para consumo pelo frontend.
+*/
+
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 // Include padrão para traits (evita repetição)
 const traitInclude = {
-  types: {
-    include: { types: true },
-  },
+  types: { include: { type: true }, },
   requirements: true,
   restricts: true,
   blockedBy: true,
@@ -18,13 +43,9 @@ const traitInclude = {
 
 // ────────────────────────────── VANTAGENS ───────────────────────────────────────
 
-// GET /traits/advantages — lista todas as vantagens
 router.get("/advantages", async (req, res) => {
   try {
-    const advantages = await prisma.traits.findMany({
-      where: { isAdvantage: true },
-      include: traitInclude,
-    });
+    const advantages = await prisma.traits.findMany({ where: { isAdvantage: true }, include: traitInclude });
 
     return res.json(advantages);
   } catch (error) {
@@ -33,15 +54,11 @@ router.get("/advantages", async (req, res) => {
   }
 });
 
-// GET /traits/advantages/:id — busca uma vantagem por ID
 router.get("/advantages/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const advantage = await prisma.traits.findFirst({
-      where: { id, isAdvantage: true },
-      include: traitInclude,
-    });
+    const advantage = await prisma.traits.findFirst({ where: { id, isAdvantage: true }, include: traitInclude });
 
     if (!advantage) {
       return res.status(404).json({ error: "Vantagem não encontrada." });
@@ -56,13 +73,9 @@ router.get("/advantages/:id", async (req, res) => {
 
 // ────────────────────────────── DESVANTAGENS ────────────────────────────────────
 
-// GET /traits/disadvantages — lista todas as desvantagens
 router.get("/disadvantages", async (req, res) => {
   try {
-    const disadvantages = await prisma.traits.findMany({
-      where: { isAdvantage: false },
-      include: traitInclude,
-    });
+    const disadvantages = await prisma.traits.findMany({ where: { isAdvantage: false }, include: traitInclude });
 
     return res.json(disadvantages);
   } catch (error) {
@@ -71,15 +84,11 @@ router.get("/disadvantages", async (req, res) => {
   }
 });
 
-// GET /traits/disadvantages/:id — busca uma desvantagem por ID
 router.get("/disadvantages/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const disadvantage = await prisma.traits.findFirst({
-      where: { id, isAdvantage: false },
-      include: traitInclude,
-    });
+    const disadvantage = await prisma.traits.findFirst({ where: { id, isAdvantage: false }, include: traitInclude });
 
     if (!disadvantage) {
       return res.status(404).json({ error: "Desvantagem não encontrada." });

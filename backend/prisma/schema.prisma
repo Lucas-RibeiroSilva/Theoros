@@ -14,6 +14,7 @@ datasource db {
 // @default é usado para definir um valor padrão para um campo, como gerar um UUID automaticamente ou definir a data de criação como o momento atual.
 // @relation é usado para definir relações entre tabelas, especificando os campos de referência e garantindo a integridade referencial.
 // [] é usado para definir relacionamentos de um para muitos, onde um registro em uma tabela pode estar relacionado a vários registros em outra tabela.
+// (OnDelete: Cascade) serve para quando você deletar um registro pai (Card), ele automaticamente deleta todos os registros filhos (CardTraits) que possuem chave estrangeira apontando para ele
 
 //  /────────────────────────────────────────\
 //  |           Tabelas príncipais           |
@@ -22,15 +23,17 @@ datasource db {
 // ──────────────────── Usuários ────────────────────
 
 model User {
-  id          String    @id @default(uuid())
-  username    String    @unique @db.VarChar(100)
-  email       String    @unique @db.VarChar(100)
-  password    String    @db.VarChar(255)
-  description String?   @db.Text
-  createdAt   DateTime  @default(now())
-  admin       Boolean   @default(false)
-  cards       Card[]
-  ratings     Ratings[]
+  id             String           @id @default(uuid())
+  username       String           @db.VarChar(100)
+  email          String           @unique @db.VarChar(100)
+  password       String           @db.VarChar(255)
+  description    String?          @db.Text
+  image          String?           @db.Text
+  createdAt      DateTime         @default(now())
+  admin          Boolean          @default(false)
+  cards          Card[]
+  cardsFavorites CardsFavorites[]
+  ratings        Ratings[]
 
   @@index([createdAt])
 }
@@ -38,33 +41,36 @@ model User {
 // ────────────────── Fichas ──────────────────
 
 model Card {
-  id            String            @id @default(uuid())
-  userId        String?
-  user          User?             @relation(fields: [userId], references: [id])
-  name          String            @db.VarChar(100)
-  image         String?
-  gender        String?           @db.VarChar(50)
-  height        Float?
-  age           Int?
-  raceId        Int?
-  race          Races?            @relation(fields: [raceId], references: [id])
-  strength      Int
-  life          Int
-  dexterity     Int
-  intelligence  Int
-  perception    Int
-  willing       Int
-  history       String?           @db.Text
-  alignment     String?           @db.VarChar(50)
-  traits        CardTraits[]
-  limitations   CardLimitations[]
-  expertises    CardExpertises[]
-  expansions    CardExpansions[]
-  magics        CardMagics[]
-  techniques    CardTechniques[]
-  ratings       Ratings[]
-  ratingAverage Float?
-  createdAt     DateTime          @default(now())
+  id             String            @id @default(uuid())
+  userId         String?
+  user           User?             @relation(fields: [userId], references: [id])
+  name           String            @db.VarChar(100)
+  image          String?           @db.Text
+  gender         String?           @db.VarChar(50)
+  height         Float?
+  age            Int?
+  raceId         Int?
+  race           Races?            @relation(fields: [raceId], references: [id])
+  strength       Int
+  life           Int
+  dexterity      Int
+  health         Int
+  fatigue        Int
+  intelligence   Int
+  perception     Int
+  willing        Int
+  history        String?           @db.Text
+  alignment      String?           @db.VarChar(50)
+  traits         CardTraits[]
+  limitations    CardLimitations[]
+  expertises     CardExpertises[]
+  expansions     CardExpansions[]
+  magics         CardMagics[]
+  techniques     CardTechniques[]
+  ratings        Ratings[]
+  ratingAverage  Float?
+  createdAt      DateTime          @default(now())
+  CardsFavorites CardsFavorites[]
 
   @@index([userId])
   @@index([raceId])
@@ -85,6 +91,7 @@ model Traits {
   blockedBy          TraitRestriction[] @relation("TraitBlockedBy")
   modifiers          TraitModifier[]
   effects            TraitEffect[]
+  rules              TraitRules[]
   baseCost           Int
   costIsVariable     Boolean
   variableCost       Int?
@@ -263,18 +270,18 @@ model Ratings {
   userId String
   cardId String
 
-  rating     Int
+  score     Int
   commentary String? @db.VarChar(100)
 
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
-  card Card @relation(fields: [cardId], references: [id])
+  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
 
   @@unique([userId, cardId])
   @@index([userId])
   @@index([cardId])
-  @@index([cardId, rating])
+  @@index([cardId, score])
 }
 
 // ──────────────────── Requerimentos das Cararactéristicas ────────────────────
@@ -336,6 +343,16 @@ model TraitEffect {
   @@index([effectType])
 }
 
+model TraitRules {
+  id          Int    @id @default(autoincrement())
+  traitId     String @db.VarChar(50)
+  name        String @db.VarChar(100)
+  description String @db.VarChar(255)
+  trait       Traits @relation(fields: [traitId], references: [id])
+
+  @@index([traitId])
+}
+
 // ──────────────────── Modificadores das Racas ────────────────────
 
 model RaceModifier {
@@ -343,7 +360,6 @@ model RaceModifier {
   raceId    Int
   race      Races         @relation(fields: [raceId], references: [id])
   attribute String        @db.VarChar(50)
-  operator  MathOperators
   value     Int
   display   String?       @db.VarChar(100)
 
@@ -394,6 +410,17 @@ model MagicEffect {
   @@index([effectType])
 }
 
+model CardsFavorites {
+  id     Int    @id @default(autoincrement())
+  userId String
+  cardId String
+
+  username User @relation(fields: [userId], references: [id])
+  card     Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@index([cardId])
+}
+
 //  /────────────────────────────────────────\
 //  |           Tabelas de ligacao           |
 //  \────────────────────────────────────────/
@@ -405,7 +432,7 @@ model TraitType {
   traitId String @db.VarChar(50)
   typeId  Int
   trait   Traits @relation(fields: [traitId], references: [id])
-  types   Types  @relation(fields: [typeId], references: [id])
+  type    Types  @relation(fields: [typeId], references: [id])
 
   @@unique([traitId, typeId])
   @@index([traitId])
@@ -419,7 +446,7 @@ model CardTraits {
   traitId     String @db.VarChar(50)
   level       Int    @default(0)
   currentCost Int    @default(0)
-  card        Card   @relation(fields: [cardId], references: [id])
+  card        Card   @relation(fields: [cardId], references: [id], onDelete: Cascade)
   trait       Traits @relation(fields: [traitId], references: [id])
 
   @@unique([cardId, traitId])
@@ -434,7 +461,7 @@ model CardLimitations {
   limitationId String      @db.VarChar(50)
   level        Int         @default(0)
   currentCost  Int         @default(0)
-  card         Card        @relation(fields: [cardId], references: [id])
+  card         Card        @relation(fields: [cardId], references: [id], onDelete: Cascade)
   limitation   Limitations @relation(fields: [limitationId], references: [id])
 
   @@unique([cardId, limitationId])
@@ -448,7 +475,7 @@ model LimitationsTypes {
   limitationId String      @db.VarChar(50)
   typeId       Int
   limitation   Limitations @relation(fields: [limitationId], references: [id])
-  types        Types       @relation(fields: [typeId], references: [id])
+  type         Types       @relation(fields: [typeId], references: [id])
 
   @@unique([limitationId, typeId])
   @@index([limitationId])
@@ -462,7 +489,7 @@ model CardExpertises {
   expertiseId String     @db.VarChar(50)
   level       Int        @default(0)
   currentCost Int        @default(0)
-  card        Card       @relation(fields: [cardId], references: [id])
+  card        Card       @relation(fields: [cardId], references: [id], onDelete: Cascade)
   expertise   Expertises @relation(fields: [expertiseId], references: [id])
 
   @@unique([cardId, expertiseId])
@@ -490,7 +517,7 @@ model CardExpansions {
   expansionId String     @db.VarChar(50)
   level       Int        @default(0)
   currentCost Int        @default(0)
-  card        Card       @relation(fields: [cardId], references: [id])
+  card        Card       @relation(fields: [cardId], references: [id], onDelete: Cascade)
   expansion   Expansions @relation(fields: [expansionId], references: [id])
 
   @@unique([cardId, expansionId])
@@ -504,7 +531,7 @@ model ExpansionsTypes {
   expansionId String     @db.VarChar(50)
   typeId      Int
   expansion   Expansions @relation(fields: [expansionId], references: [id])
-  types       Types      @relation(fields: [typeId], references: [id])
+  type        Types      @relation(fields: [typeId], references: [id])
 
   @@unique([expansionId, typeId])
   @@index([expansionId])
@@ -518,7 +545,7 @@ model CardTechniques {
   techniqueId String     @db.VarChar(50)
   level       Int        @default(0)
   currentCost Int        @default(0)
-  card        Card       @relation(fields: [cardId], references: [id])
+  card        Card       @relation(fields: [cardId], references: [id], onDelete: Cascade)
   technique   Techniques @relation(fields: [techniqueId], references: [id])
 
   @@unique([cardId, techniqueId])
@@ -546,7 +573,7 @@ model CardMagics {
   magicId     String @db.VarChar(50)
   level       Int    @default(0)
   currentCost Int    @default(0)
-  card        Card   @relation(fields: [cardId], references: [id])
+  card        Card   @relation(fields: [cardId], references: [id], onDelete: Cascade)
   magic       Magics @relation(fields: [magicId], references: [id])
 
   @@unique([cardId, magicId])
