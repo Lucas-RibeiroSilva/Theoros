@@ -1,7 +1,9 @@
 /* ===== OVERLAY (NEVOA SOMBRIA) ===== */
-.modal-overlay {
+.modal-login-overlay {
   position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100%;
 
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(4px);
@@ -10,15 +12,12 @@
   align-items: center;
   justify-content: center;
 
-  z-index: 999;
-
-  animation: fadeIn 0.25s ease-out;
+  z-index: 1900;
 }
 
 /* ===== MODAL CARD (GRIMÓRIO / PERGAMINHO) ===== */
-.modal-card {
-  width: 420px;
-  max-width: 90%;
+.modal-login-card {
+  width: 400px;
 
   background: linear-gradient(180deg, #1a120b, #2b1b0f);
   color: #e6d8b5;
@@ -39,10 +38,38 @@
   font-family: "Georgia", "Times New Roman", serif;
 }
 
+.top-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#label-login {
+  justify-content: start;
+}
+
+#login-door, #login-feather {
+  font-size: 25px;
+  color: #c9b48a;
+}
+
+#title-login {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  color: #c9b48a;
+  font-weight: bold;
+}
+
 /* ===== ANIMAÇÕES ===== */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes popIn {
@@ -57,7 +84,7 @@
 }
 
 /* ===== BOTÃO FECHAR (RUNA / FERRO) ===== */
-.close-btn {
+.login-close-btn {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -67,17 +94,17 @@
 
   border-radius: 8px;
 
-  border: 1px solid #d4af37;
-  background: #1a120b;
+  background: transparent;
+  border: transparent;
   color: #d4af37;
 
   cursor: pointer;
-  font-size: 18px;
+  font-size: 25px;
 
   transition: 0.25s;
 }
 
-.close-btn:hover {
+.login-close-btn:hover {
   background: #2b1b0f;
   transform: scale(1.05);
 }
@@ -151,14 +178,14 @@ button[type="submit"] {
 
   transition: 0.25s;
 
-  box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
 }
 
 button[type="submit"]:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 10px 25px rgba(0,0,0,0.7),
-    0 0 12px rgba(212,175,55,0.25);
+    0 10px 25px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(212, 175, 55, 0.25);
 }
 
 button[type="submit"]:disabled {
@@ -197,7 +224,48 @@ button[type="submit"]:disabled {
 }
 
 /* ===== RESPONSIVO ===== */
+@media (max-width: 1024px) {
+
+  .modal-login-card{
+    min-width: 30px;
+  }
+  
+  .modal-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .auth-logo {
+    font-size: 22px;
+  }
+}
+
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+
+  .modal-login-card{
+    min-width: 30px;
+  }
+  
+  .modal-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .auth-logo {
+    font-size: 22px;
+  }
+}
+
+
+/* ===== RESPONSIVO ===== */
 @media (max-width: 480px) {
+
+  .modal-login-card{
+    max-width: 220px;
+  }
+
   .modal-card {
     padding: 20px;
     border-radius: 12px;

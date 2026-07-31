@@ -1,6 +1,6 @@
 /* ===== OVERLAY / FUNDO EXTERNO ===== */
-.section-overlay {
-    width: 96vw;
+.section-create-overlay {
+    width: 60vw;
     min-height: 95vh;
 
     margin: 20px auto;
@@ -24,7 +24,6 @@
         );
 
     border: 2px solid #3a2a1a;
-
     border-radius: 24px;
 
     box-shadow:
@@ -33,14 +32,18 @@
 }
 
 /* ===== CONTAINER PRINCIPAL ===== */
-.section {
-    width: 100%;
+.section-create {
+    width: 63vw;
     max-width: 1800px;
 
-    max-height: 92vh;
+    height: auto;
+
     overflow-y: auto;
 
     padding: 32px;
+    padding-bottom: 180px;
+
+    box-sizing: border-box;
 
     border-radius: 20px;
 
@@ -63,7 +66,7 @@
 }
 
 /* ===== TÍTULO ===== */
-.section h2 {
+.section-create h2 {
     margin-bottom: 30px;
 
     text-align: center;
@@ -80,49 +83,29 @@
         0 0 20px rgba(0, 0, 0, 0.8);
 }
 
-/* ===== INPUTS ===== */
-input,
-select,
-textarea {
-    width: 95%;
+/* ===== SCROLLBAR ===== */
+.section-create::-webkit-scrollbar {
+    width: 10px;
+}
 
-    padding: 12px 14px;
+.section-create::-webkit-scrollbar-track {
+    background: rgba(10, 10, 10, 0.6);
+    border-radius: 10px;
+}
+
+.section-create::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        180deg,
+        #6b4f1d,
+        #b08a3c
+    );
 
     border-radius: 10px;
-
-    border: 1px solid #6b4f1d;
-
-    background: rgba(0, 0, 0, 0.4);
-
-    color: #f5e6c8;
-
-    outline: none;
-
-    transition: all 0.25s ease;
-
-    font-family: "Georgia", "Times New Roman", serif;
-}
-
-/* ===== PLACEHOLDER ===== */
-input::placeholder,
-textarea::placeholder {
-    color: #a89672;
-}
-
-/* ===== FOCUS ===== */
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #d4af37;
-
-    background: rgba(25, 18, 10, 0.95);
-
-    box-shadow:
-        0 0 12px rgba(212, 175, 55, 0.22);
+    border: 1px solid #d4af37;
 }
 
 /* ===== SCROLLBAR ===== */
-.section::-webkit-scrollbar {
+.section-create::-webkit-scrollbar {
     width: 10px;
 }
 
@@ -132,7 +115,7 @@ textarea:focus {
     border-radius: 10px;
 }
 
-.section::-webkit-scrollbar-thumb {
+.section-create::-webkit-scrollbar-thumb {
     background:
         linear-gradient(
             180deg,
@@ -144,6 +127,7 @@ textarea:focus {
 
     border: 1px solid #d4af37;
 }
+
 
 /* ===== ANIMAÇÃO ===== */
 @keyframes popIn {

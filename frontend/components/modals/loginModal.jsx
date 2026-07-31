@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { loginUser, registerUser } from "../../services/api";
 import "../../styles/modals/loginModal.css";
+import { BsFeather } from "react-icons/bs";
+import { GiClosedDoors } from "react-icons/gi";
+
 
 export default function LoginModal({ onClose }) {
   const [email, setEmail] = useState("");
@@ -77,20 +80,21 @@ export default function LoginModal({ onClose }) {
   }
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-        <button className="close-btn" onClick={onClose}>
+    <div className="modal-login-overlay" onClick={onClose}>
+      <div className="modal-login-card" onClick={(e) => e.stopPropagation()}>
+        <button className="login-close-btn" onClick={onClose}>
           ✕
         </button>
 
-        <h1 className="auth-logo">⚔️ Theoros</h1>
-        <p className="auth-subtitle">Sua plataforma de fichas de RPG</p>
-
-        {/* ================= LOGIN ================= */}
+        {/* LOGIN */}
         {!isRegister && (
           <form onSubmit={handleLogin} className="auth-form">
+            <div className="top-login">
+              <GiClosedDoors id="login-door"/>
+              <h2 id="title-login">Login</h2>
+            </div>
             <div className="input-group">
-              <label>E-mail</label>
+              <label id="label-login">E-mail</label>
               <input
                 type="email"
                 value={email}
@@ -99,7 +103,7 @@ export default function LoginModal({ onClose }) {
             </div>
 
             <div className="input-group">
-              <label>Senha</label>
+              <label id="label-login">Senha</label>
               <input
                 type="password"
                 value={password}
@@ -115,11 +119,15 @@ export default function LoginModal({ onClose }) {
           </form>
         )}
 
-        {/* ================= REGISTER ================= */}
+        {/*  REGISTER  */}
         {isRegister && (
           <form onSubmit={handleRegister} className="auth-form">
+            <div className="top-login">
+              <BsFeather id="login-feather"/>
+              <h2 id="title-login">Registrar-se</h2>
+            </div>
             <div className="input-group">
-              <label>Nome</label>
+              <label id="label-login">Nome</label>
               <input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -127,7 +135,7 @@ export default function LoginModal({ onClose }) {
             </div>
 
             <div className="input-group">
-              <label>E-mail</label>
+              <label id="label-login">E-mail</label>
               <input
                 type="email"
                 value={registerEmail}
@@ -136,7 +144,7 @@ export default function LoginModal({ onClose }) {
             </div>
 
             <div className="input-group">
-              <label>Senha</label>
+              <label id="label-login">Senha</label>
               <input
                 type="password"
                 value={registerPassword}

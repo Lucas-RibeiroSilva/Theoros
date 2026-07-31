@@ -1,13 +1,25 @@
-import "../../../styles/sections/sectionsCreate.css";
+import "../../../styles/cards/separateBoxs.css"
+import ExpertiseSection from "./expertise";
+import TechniqueSection from "./technique";
 
-export default function SpecializationsSection({ onClose }) {
+export default function SpecializationsSection({ onLoading }) {
+  const handleChildLoading = (isLoading) => {
+        onLoading(isLoading);
+    };
+
   return (
-    <section>
-        <h2>Especializações</h2>
+    <div className="lists">
+      
+      {/* Esquerda - Perícias */}
+      <div className="list-expertise">
+        <ExpertiseSection onLoading={handleChildLoading}/>
+      </div>
 
-        <div className="searchBar">
+      {/* Direieta - Técnicas */}
+      <div className="list-technique">
+        <TechniqueSection onLoading={handleChildLoading}/>
+      </div>
 
-        </div>
-    </section>
+    </div>
   );
 }

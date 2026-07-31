@@ -1,5 +1,5 @@
 /* ===== MODAL OVERLAY (MEDIEVAL) ===== */
-.modal-overlay {
+.modal-expired-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@
 }
 
 /* ===== CAIXA DO MODALS (PERGAMINHO / FANTASY) ===== */
-.modal {
+.modal-expired {
   background: linear-gradient(180deg, #1a120b, #2b1b0f);
   color: #e6d8b5;
 
@@ -42,7 +42,7 @@
 }
 
 /* ===== TÍTULO ===== */
-.modal h2 {
+.modal-expired h2 {
   margin-bottom: 1rem;
   color: #d4af37;
   font-size: 1.9rem;
@@ -53,7 +53,7 @@
 }
 
 /* ===== TEXTO ===== */
-.modal p {
+.modal-expired p {
   margin-bottom: 1.5rem;
   font-size: 1rem;
   line-height: 1.6;
@@ -61,7 +61,7 @@
 }
 
 /* ===== BOTÃO (MEDIEVAL / PERIGO / AÇÃO) ===== */
-.btn-primary {
+.expired-btn-close {
   background: linear-gradient(135deg, #5a1a1a, #8b2f2f);
   color: #f5e6c8;
 
@@ -80,16 +80,13 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
 }
 
-.btn-primary:hover {
+.expired-btn-close:hover {
   transform: translateY(-2px);
   box-shadow:
     0 10px 20px rgba(0, 0, 0, 0.7),
     0 0 12px rgba(212, 175, 55, 0.25);
 }
 
-.btn-primary:active {
-  transform: scale(0.97);
-}
 
 /* ===== ANIMAÇÃO ===== */
 @keyframes modalFade {

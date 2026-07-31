@@ -1,27 +1,27 @@
-import { useState } from "react";
-
-import FilterAltTwoToneIcon from "@mui/icons-material/FilterAltTwoTone";
-
-import "./characteristics.css";
+import "../../../styles/cards/separateBoxs.css"
 import DisadvantagensSection from "./disadvantage";
 import AdvantagensSection from "./advantagens";
 
-export default function CharacteristicsSection() {
+export default function CharacteristicsSection({ onLoading }) {
+    const handleChildLoading = (isLoading) => {
+        onLoading(isLoading);
+    };
+
     return (
         <>
-        <div className="filter-align">
-            
-            {/* Esquerda - Vantagens */}
-            <div className="filter-advantagens">
-                <AdvantagensSection />
-            </div>
+            <div className="lists">
 
-            {/* Direita - Desvantagens */}
-            <div className="filter-disadvantagens">
-                <DisadvantagensSection />
-            </div>
+                {/* Esquerda - Vantagens */}
+                <div className="list-advantages">
+                    <AdvantagensSection onLoading={handleChildLoading}/>
+                </div>
 
-        </div>
+                {/* Direita - Desvantagens */}
+                <div className="list-disadvantages">
+                    <DisadvantagensSection onLoading={handleChildLoading}/>
+                </div>
+
+            </div>
         </>
     );
 }

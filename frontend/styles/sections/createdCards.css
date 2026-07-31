@@ -1,0 +1,405 @@
+/* ===== LISTA DE FICHAS FAVORITAS ===== */
+.list-created-cards {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+/* ===== SCROLLBAR ===== */
+.list-created-cards::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list-created-cards::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.6);
+  border-radius: 10px;
+}
+
+.list-created-cards::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,
+      #6b4f1d,
+      #b08a3c);
+  border-radius: 10px;
+  border: 1px solid #d4af37;
+}
+
+
+/* ===== ITEM INDIVIDUAL ===== */
+.item-created {
+  background: rgba(20, 16, 22, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  position: relative;
+  width: 94%;
+}
+
+.item-created:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(212, 175, 55, 0.05);
+}
+
+/* ===== CONTAINER DO TOPO ===== */
+.top-created {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+/* ===== IMAGEM DA FICHA ===== */
+#img-created {
+  width: 160px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+#img-created:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== INFORMAÇÕES ===== */
+.info-created {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  position: relative;
+  padding-right: 120px;
+}
+
+/* ===== NOME DA FICHA ===== */
+#created-card-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #d4af37;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+  letter-spacing: 0.5px;
+  font-family: "Georgia", "Times New Roman", serif;
+  word-break: break-word;
+}
+
+/* ===== HISTÓRIA/DESCRIÇÃO ===== */
+#created-card-history {
+  font-size: 0.9rem;
+  color: #c9b48a;
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height: 44px;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+/* ===== RAÇA DA FICHA ===== */
+.race-created-card {
+  position: absolute;
+  top: -14px;
+  right: 450px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#race-created-card {
+  font-weight: bold;
+  color: #d4af37;
+}
+
+.race-created-card img {
+  width: 24px;
+}
+
+/* ===== AVALIAÇÃO - CANTO SUPERIOR DIREITO ===== */
+.rating-created {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(212, 175, 55, 0.05);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+/* ===== ESTRELAS DOURADAS ===== */
+#stars-rating-created {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+#star {
+  color: #d4af37 !important;
+  font-size: 1.1rem;
+  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.3));
+  transition: all 0.2s ease;
+}
+
+#star-empty {
+  color: #4a4a4a !important;
+  font-size: 1.1rem;
+  opacity: 0.5;
+}
+
+#star-half {
+  color: #d4af37 !important;
+  font-size: 1.1rem;
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.4));
+}
+
+#star:hover,
+#star-half:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6));
+}
+
+/* ===== BOTÕES ===== */
+.buttons-created {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+/* ===== BOTÃO DOWNLOAD ===== */
+#download-created-card-btn {
+  background: linear-gradient(135deg, #6b4f1d, #b08a3c);
+  color: #1a120b;
+  border: 2px solid #d4af37;
+  border-radius: 6px;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+#download-created-card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.7),
+    0 0 15px rgba(212, 175, 55, 0.3);
+  background: linear-gradient(135deg, #8a6828, #c9a44a);
+}
+
+#download-created-card-btn:active {
+  transform: scale(0.97);
+}
+
+/* ===== BOTÃO EXCLUIR ===== */
+#delete-created-card-btn {
+  background: linear-gradient(135deg, #5a1a1a, #8a2a2a);
+  color: #e6d8b5;
+  border: 2px solid #8a2a2a;
+  border-radius: 6px;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+#delete-created-card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.7),
+    0 0 15px rgba(200, 50, 50, 0.2);
+  background: linear-gradient(135deg, #7a2222, #aa3a3a);
+  border-color: #aa3a3a;
+}
+
+#delete-created-card-btn:active {
+  transform: scale(0.97);
+}
+
+/* ===== MENSAGEM SEM FAVORITOS ===== */
+#empty-list-createds-cards{
+  text-align: center;
+  padding: 2.5rem;
+  font-size: 1.1rem;
+  color: #80725a;
+  background: rgba(20, 16, 22, 0.6);
+  border-radius: 10px;
+  border: 1px dashed rgba(212, 175, 55, 0.2);
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .top-favorites {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #img-favorite {
+    width: 100%;
+    max-width: 200px;
+    height: 200px;
+  }
+
+  .info-favorites {
+    width: 100%;
+    padding-right: 0;
+    position: relative;
+    align-items: center;
+  }
+
+  #favorite-card-name {
+    font-size: 1.1rem;
+    text-align: center;
+    padding-right: 60px;
+  }
+
+  #favorite-card-history {
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .race-favorite-card {
+    align-self: center;
+  }
+
+  .buttons-favorites {
+    justify-content: center;
+  }
+
+  .rating-favorites {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.1rem 0.4rem;
+  }
+
+  #stars-rating-favorites .star,
+  #stars-rating-favorites .star-empty,
+  #stars-rating-favorites .star-filled {
+    font-size: 0.9rem;
+  }
+
+  .item-favorites {
+    padding: 1rem;
+  }
+
+  #download-favorite-card-btn,
+  #delete-favorite-card-btn {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .item-favorites {
+    padding: 0.8rem;
+  }
+
+  #img-favorite {
+    max-width: 150px;
+    height: 160px;
+  }
+
+  #favorite-card-name {
+    font-size: 1rem;
+    padding-right: 50px;
+  }
+
+  #favorite-card-history {
+    font-size: 0.8rem;
+  }
+
+  .race-favorite-card {
+    font-size: 0.85rem;
+  }
+
+  .rating-favorites {
+    padding: 0.1rem 0.3rem;
+  }
+
+  #stars-rating-favorites .star,
+  #stars-rating-favorites .star-empty,
+  #stars-rating-favorites .star-filled {
+    font-size: 0.8rem;
+  }
+
+  .buttons-favorites {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #download-favorite-card-btn,
+  #delete-favorite-card-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .list-favorites-cards>p {
+    font-size: 0.95rem;
+    padding: 1.5rem;
+  }
+}
+
+/* ===== ANIMAÇÃO DE ENTRADA ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.item-favorites {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.item-favorites:nth-child(2) {
+  animation-delay: 0.05s;
+}
+
+.item-favorites:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+.item-favorites:nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+.item-favorites:nth-child(5) {
+  animation-delay: 0.2s;
+}

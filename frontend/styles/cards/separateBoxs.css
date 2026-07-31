@@ -1,0 +1,26 @@
+.lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+
+/* ===== RESPONSIVO - Até 1024px ===== */
+@media (max-width: 1024px) {
+    .lists {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 16px;
+}
+}
+
+/* ===== RESPONSIVO - Até 768px ===== */
+@media (max-width: 768px) {
+    .lists {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 16px;
+}
+}
+

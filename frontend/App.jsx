@@ -4,10 +4,13 @@ import { useState } from "react";
 import Home from "./pages/home";
 import Create from "./pages/create";
 import Profile from "./pages/profile";
+import CardFull from "./pages/cardFull";
+import SearchCards from "./pages/searchCards";
+import "./App.css";
 
 import SessionManager from "./components/sessionManager";
-
 import ExpiredModal from "./components/modals/expiredModal";
+import { useCardStore } from './components/stores/cardStore';
 
 export default function App() {
   const navigate = useNavigate();
@@ -24,14 +27,15 @@ export default function App() {
 
   //LOGOUT GLOBAL
   const handleLogout = (autoLogout = false) => {
+    useCardStore.getState().resetCard();
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("guest_token");
+    localStorage.removeItem('card-storage');
 
     // Logout automático
     if (autoLogout) {
       setShowExpiredModal(true);
-
       return;
     }
 
@@ -48,7 +52,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home handleLogout={handleLogout} />} />
         <Route path="/create" element={<Create handleLogout={handleLogout} />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile handleLogout={handleLogout}/>} />
+        <Route path="/profile/:userId" element={<Profile handleLogout={handleLogout}/>} />
+        <Route path="/searchCards" element={<SearchCards handleLogout={handleLogout}/>} />
+        <Route path="/card/:id" element={<CardFull handleLogout={handleLogout} />} />
       </Routes>
     </SessionManager>
   );

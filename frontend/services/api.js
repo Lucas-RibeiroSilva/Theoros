@@ -1,12 +1,11 @@
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3333";
+const API_URL =  "http://localhost:3333";
 
 // Helper interno — monta os headers com token se existir
 function getHeaders(auth = false) {
   const headers = { "Content-Type": "application/json" };
 
   if (auth) {
-    const token =
-      localStorage.getItem("token") ?? localStorage.getItem("guest_token");
+    const token = localStorage.getItem("token") ?? localStorage.getItem("guest_token");
 
     if (token) headers["Authorization"] = `Bearer ${token}`;
   }
@@ -76,6 +75,44 @@ export async function createGuestSession() {
 
 /*
 ══════════════════════════════════════════════════════
+USER — Informações do usuário
+══════════════════════════════════════════════════════
+*/
+
+// Buscar a informação de um usuário
+export async function getUserInfo(id) {
+  return request(`/user/${id}`, {
+    method: "GET",
+    headers: getHeaders(),
+  });
+}
+
+export async function updateUserImage(id, image) {
+  return request(`/user/${id}/image`, {
+    method: "POST",
+    headers: getHeaders(true),
+    body: JSON.stringify({ image }),
+  });
+}
+
+export async function updateUserName(id, username) {
+  return request(`/user/${id}/username`, {
+    method: "POST",
+    headers: getHeaders(true),
+    body: JSON.stringify({ username }),
+  });
+}
+
+export async function updateUserDescription(id, description) {
+  return request(`/user/${id}/description`, {
+    method: "POST",
+    headers: getHeaders(true),
+    body: JSON.stringify({ description }),
+  });
+}
+
+/*
+══════════════════════════════════════════════════════
 TRAITS — Vantagens e Desvantagens
 ══════════════════════════════════════════════════════
 */
@@ -137,7 +174,7 @@ CARDS — Fichas
 export async function getCards() {
   return request("/cards", {
     method: "GET",
-    headers: getHeaders(),
+    headers: getHeaders(true),
   });
 }
 
@@ -145,6 +182,13 @@ export async function getCardById(id) {
   return request(`/cards/${id}`, {
     method: "GET",
     headers: getHeaders(),
+  });
+}
+
+export async function getUserCards(userId) {
+  return request(`/cards/user/${userId}`, {
+    method: "GET",
+    headers: getHeaders(true),
   });
 }
 
@@ -290,10 +334,39 @@ export async function getRatingsByCard(cardId) {
   });
 }
 
-export async function rateCard(cardId, score) {
-  return request("/ratings", {
+export async function rateCard(cardId, score, commentary) {
+   return request("/ratings", {
+     method: "POST",
+     headers: getHeaders(true),
+     body: JSON.stringify({ cardId, score, commentary}),
+   });
+}
+
+/*
+══════════════════════════════════════════════════════
+FAVORITES — Buscar as fichas favoritadas, favoritar ficha, remover ficha favoritada
+══════════════════════════════════════════════════════
+*/
+
+export async function getFavoritesCards(userId) {
+  return request(`/favorites/${userId}`, {
+    method: "GET",
+    headers: getHeaders(true),
+  });
+}
+
+export async function favoriteCard(userId, cardId) {
+  return request(`/favorites`, {
     method: "POST",
     headers: getHeaders(true),
-    body: JSON.stringify({ cardId, score }),
+    body: JSON.stringify({ userId, cardId }),
+  });
+}
+
+export async function removeFavoriteCard(userId, cardId) {
+  return request(`/favorites/${userId}/${cardId}`, {
+    method: "DELETE",
+    headers: getHeaders(true),
+    body: JSON.stringify({ userId, cardId }),
   });
 }

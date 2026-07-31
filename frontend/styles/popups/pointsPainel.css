@@ -1,0 +1,161 @@
+.points-box {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 150px;
+
+  padding: 10px 16px;
+
+  background: #252525;
+
+  border: 1px solid #404040;
+  border-radius: 10px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.15s ease;
+
+  user-select: none;
+}
+
+.points-box:hover {
+  transform: translateY(-1px);
+
+  border-color: #5f5f5f;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.points-label {
+  font-size: 18px;
+  color: #bbb;
+  margin-bottom: 1px;
+}
+
+.points-total {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1px;
+}
+
+.points-delta {
+  margin-left: auto;
+
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+
+.points-delta.positive {
+  color: #5bd65b;
+}
+
+.points-delta.negative {
+  color: #ff6961;
+}
+
+.points-tooltip {
+  position: absolute;
+
+  bottom: calc(100% + 8px);
+  left: 35%;
+
+  transform: translateX(-50%);
+
+  min-width: 250px;
+
+  padding: 10px;
+
+  background: #222;
+
+  border: 1px solid #444;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.15s ease;
+
+  z-index: 9999;
+}
+
+.points-box:hover .points-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.points-tooltip span{
+    font-size: 15px;
+    margin-bottom: 1px;
+}
+
+.tooltip-title {
+  margin-bottom: 10px;
+
+  font-weight: 700;
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 4px 0;
+
+}
+
+.tooltip-divider {
+  height: 1px;
+
+  margin: 8px 0;
+
+  background: #444;
+}
+
+.tooltip-row.total {
+  font-weight: 700;
+}
+
+.tooltip-empty {
+  color: #bdbdbd;
+}
+
+.points-edit {
+  cursor: pointer;
+
+  opacity: 0.6;
+
+  font-size: 18px;
+
+  transition: 0.15s;
+}
+
+.points-edit:hover {
+  opacity: 1;
+
+  transform: scale(1.1);
+}
+
+.points-input {
+  width: 70px;
+
+  padding: 2px 6px;
+
+  border: 1px solid #555;
+
+  border-radius: 4px;
+
+  background: #333;
+
+  color: white;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  text-align: center;
+}
