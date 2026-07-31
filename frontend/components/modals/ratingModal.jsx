@@ -80,6 +80,7 @@ export default function RatingModal({ onClose, cardId }) {
             alert('Erro ao enviar avaliação. Tente novamente.');
         } finally {
             setIsSubmitting(false);
+            window.location.reload();
         }
     }
 
