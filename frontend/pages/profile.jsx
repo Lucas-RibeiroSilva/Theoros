@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate, Await } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import "../styles/pages/profile.css";
 import FavoritesSection from "../components/cards/profile/favoritesCards";
@@ -54,8 +54,8 @@ export default function Profile({ handleLogout }) {
   };
 
   const handleConfirmProfile = async () => {
-      setShowConfirmDeleteProfile(false);
-      window.location.reload();
+    setShowConfirmDeleteProfile(false);
+    navigate("/");
   };
 
   const handleCancel = () => {
@@ -99,7 +99,6 @@ export default function Profile({ handleLogout }) {
       try {
         setLoading(true);
 
-        // Pega o ID do usuário logado
         const loggedUserId = getUserIdFromToken();
 
         if (!loggedUserId) {
@@ -109,13 +108,9 @@ export default function Profile({ handleLogout }) {
           return;
         }
 
-        // Serve para saber qual id usar (loggedUserId = ID do próprio usuário | userId = ID do usuário que deseja ver o perfil)
         const targetUserId = userId || loggedUserId;
-
-        // Verifica se é o próprio perfil
         setIsOwnProfile(targetUserId === loggedUserId);
 
-        // Busca os dados do usuário
         const data = await getUserInfo(targetUserId);
 
         if (data?.error) {
@@ -125,6 +120,8 @@ export default function Profile({ handleLogout }) {
         }
 
         setUserData(data);
+        setUserName(data.username || "");
+        setUserDescription(data.description || "");
         setLoading(false);
       } catch (error) {
         console.error("Erro:", error);
@@ -133,7 +130,7 @@ export default function Profile({ handleLogout }) {
     }
 
     loadInfos();
-  }, [userId]); // Recarrega quando o userId mudar
+  }, [userId, navigate]);
 
   // ──────────────────────────────────────────────
   // Funções para editar/apagar (só no próprio perfil)
@@ -142,37 +139,80 @@ export default function Profile({ handleLogout }) {
     fileInputRef.current.click();
   }
 
-  async function imageChange(userId) {
+  // função para atualizar a imagem de perfil
+  async function handleImageChange(event) {
     const file = event.target.files[0];
-    let imageBase64 = null;
+    if (!file) return;
 
-    const getBase64 = async (file) => {
-      return new Promise((resolve, reject) => {
-        if (!file) {
-          reject(new Error("Nenhuma imagem selecionada"));
-          return;
-        }
+    try {
+      setLoading(true);
 
-        // Verifica se é um File
-        if (!(file instanceof File) && !(file instanceof Blob)) {
-          reject(new Error("Arquivo inválido"));
-          return;
-        }
+      // Converter para base64
+      const getBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = (error) => reject(error);
+          reader.readAsDataURL(file);
+        });
+      };
 
-        const reader = new FileReader();
+      const imageBase64 = await getBase64(file);
 
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
+      // Envia para a API
+      await updateUserImage(userData.id, imageBase64);
 
-        reader.readAsDataURL(file);
-      });
-    };
+      // Atualiza o estado local com a nova imagem
+      setUserData((prev) => ({
+        ...prev,
+        image: imageBase64,
+      }));
 
-    imageBase64 = await getBase64(file);
-
-    updateUserImage(userData.id, imageBase64);
-    window.location.reload();
+      setLoading(false);
+    } catch (error) {
+      console.error("Erro ao atualizar imagem:", error);
+      setLoading(false);
+    }
   }
+
+  // Função para atualizar nome
+  const handleUpdateName = async () => {
+    if (!userName.trim()) {
+      alert("O nome não pode estar vazio.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await updateUserName(userData.id, userName);
+      setUserData((prev) => ({
+        ...prev,
+        username: userName,
+      }));
+      setEditName(false);
+      setLoading(false);
+    } catch (error) {
+      console.error("Erro ao atualizar nome:", error);
+      setLoading(false);
+    }
+  };
+
+  // Função para atualizar descrição
+  const handleUpdateDescription = async () => {
+    try {
+      setLoading(true);
+      await updateUserDescription(userData.id, userDescription);
+      setUserData((prev) => ({
+        ...prev,
+        description: userDescription,
+      }));
+      setEditDescription(false);
+      setLoading(false);
+    } catch (error) {
+      console.error("Erro ao atualizar descrição:", error);
+      setLoading(false);
+    }
+  };
 
   if (!userData) {
     return (
@@ -195,8 +235,8 @@ export default function Profile({ handleLogout }) {
             type="file"
             ref={fileInputRef}
             accept="image/*"
-            style={{ display: "none" }} // Serve para ficar trasnparente
-            onChange={imageChange}
+            style={{ display: "none" }}
+            onChange={handleImageChange}
           />
 
           {userData.image ? (
@@ -223,6 +263,7 @@ export default function Profile({ handleLogout }) {
               )}
             </div>
           )}
+
           {editName ? (
             <input
               id="input-name-profile"
@@ -231,10 +272,12 @@ export default function Profile({ handleLogout }) {
               onChange={(e) => setUserName(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  updateUserName(userData.id, userName);
-                  setEditName(false);
-                  window.location.reload(); // Atualiza a página para mostrar o novo nome
+                  handleUpdateName();
                 }
+              }}
+              onBlur={() => {
+                // Opcional: salvar ao perder foco também
+                // handleUpdateName();
               }}
               autoFocus
             />
@@ -246,6 +289,7 @@ export default function Profile({ handleLogout }) {
                   <FiEdit2
                     id="edit-name-profile"
                     onClick={() => {
+                      setUserName(userData.username); // Inicializa com valor atual
                       setEditName(true);
                     }}
                   />
@@ -262,10 +306,12 @@ export default function Profile({ handleLogout }) {
               onChange={(e) => setUserDescription(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  updateUserDescription(userData.id, userDescription);
-                  setEditDescription(false);
-                  window.location.reload(); // Atualiza a página para mostrar a nova descrição
+                  handleUpdateDescription();
                 }
+              }}
+              onBlur={() => {
+                // Opcional: salvar ao perder foco
+                // handleUpdateDescription();
               }}
               autoFocus
             />
@@ -279,6 +325,7 @@ export default function Profile({ handleLogout }) {
                   <FiEdit2
                     id="edit-description-profile"
                     onClick={() => {
+                      setUserDescription(userData.description || ""); // Inicializa com valor atual
                       setEditDescription(true);
                     }}
                   />
