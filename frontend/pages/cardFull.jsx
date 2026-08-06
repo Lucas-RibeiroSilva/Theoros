@@ -348,7 +348,7 @@ export default function CardFull({ handleLogout }) {
               <li
                 key={commentary.id}
                 className="commentary"
-                onClick={() => navigate(`/profile/${commentary.userId}`)}
+                onClick={() => navigate(`/profile/${commentary.user.id}`)}
               >
                 <div className="top-commentary">
                   <img
@@ -356,7 +356,7 @@ export default function CardFull({ handleLogout }) {
                     alt="avatar do usuário"
                     id="img-commentary"
                   />
-                  {console.log(commentary)}
+                
                   <div className="info-commentary">
                     <p id="commentary-user-name">{commentary.user?.username}</p>
                     <p id="commentary-user">{commentary.commentary}</p>
