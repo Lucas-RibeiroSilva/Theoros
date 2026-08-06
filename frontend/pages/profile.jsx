@@ -10,6 +10,7 @@ import { FiEdit2 } from "react-icons/fi";
 
 import {
   getUserInfo,
+  getMyUserInfo,
   updateUserImage,
   updateUserName,
   updateUserDescription,
@@ -118,14 +119,14 @@ export default function Profile({ handleLogout }) {
         // Verifica se é o próprio perfil
         setIsOwnProfile(targetUserId === loggedUserId);
 
-        // Verifica se o usuário é adminstrador
-        const dataAdmin = await getUserInfo(loggedUserId)
+        // Verifica se o usuário é adminstrador através do próprio perfil logado
+        const loggedUser = await getMyUserInfo();
 
-        if (dataAdmin.admin){
-          setIsAdmin(true)
+        if (loggedUser?.admin) {
+          setIsAdmin(true);
         }
-        
-        // Busca os dados do usuário
+
+        // Busca os dados do usuário ou perfil alvo
         const data = await getUserInfo(targetUserId);
 
         if (data?.error) {

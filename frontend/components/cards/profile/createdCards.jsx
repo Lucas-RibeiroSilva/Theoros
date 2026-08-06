@@ -6,7 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import Header from "../../header";
 import Loading from "../../loading";
 
-import { getUserCards, deleteCard, getUserInfo } from "../../../services/api";
+import { getUserCards, deleteCard, getMyUserInfo } from "../../../services/api";
 
 import "../../../styles/sections/createdCards.css"
 
@@ -35,11 +35,11 @@ export default function CreatedSection({ onLoading, openConfirmDialog }) {
         // Verifica se é o próprio perfil
         setIsOwnProfile(targetUserId === loggedUserId);
 
-        // Verifica se o usuário é adminstrador
-        const dataAdmin = await getUserInfo(loggedUserId)
+        // Verifica se o usuário é adminstrador através do próprio perfil logado
+        const loggedUser = await getMyUserInfo();
 
-        if (dataAdmin.admin){
-          setIsAdmin(true)
+        if (loggedUser?.admin) {
+          setIsAdmin(true);
         }
 
         // Busca os dados do usuário

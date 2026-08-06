@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
-import { getCardById, favoriteCard, getUserInfo, getRatingsByCard } from "../services/api";
+import { getCardById, favoriteCard, getRatingsByCard } from "../services/api";
 import Header from "../components/header";
 import Loading from "../components/loading";
 import RatingModal from "../components/modals/ratingModal";
@@ -56,10 +56,18 @@ export default function CardFull({ handleLogout }) {
       try {
         setLoading(true);
         const data = await getCardById(id);
-        const dataProfile = await getUserInfo(data?.userId);
         const dataCommentarys = await getRatingsByCard(id);
+
         setCard(data);
-        setProfile(dataProfile);
+        setProfile(
+          data?.user
+            ? {
+                id: data.user.id,
+                username: data.user.username,
+                image: data.user.image,
+              }
+            : null
+        );
         setCommentarys(dataCommentarys);
       } catch (error) {
         console.error("Erro ao carregar ficha:", error);
@@ -356,7 +364,6 @@ export default function CardFull({ handleLogout }) {
                     alt="avatar do usuário"
                     id="img-commentary"
                   />
-                
                   <div className="info-commentary">
                     <p id="commentary-user-name">{commentary.user?.username}</p>
                     <p id="commentary-user">{commentary.commentary}</p>

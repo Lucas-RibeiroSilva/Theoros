@@ -87,6 +87,13 @@ export async function getUserInfo(id) {
   });
 }
 
+export async function getMyUserInfo() {
+  return request(`/user/me`, {
+    method: "GET",
+    headers: getHeaders(true),
+  });
+}
+
 export async function deleteUser(id) {
   return request(`/user/${id}`, {
     method: "DELETE",
