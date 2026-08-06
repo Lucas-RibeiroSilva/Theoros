@@ -1,0 +1,639 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// @@index é usado para criar índices no banco de dados, melhorando a performance de consultas frequentes.
+// @@unique é usado para garantir que os valores em um campo ou combinação de campos sejam únicos, evitando duplicatas.
+// @db.VarChar é usado para definir o tipo de dado no banco de dados, limitando o número de caracteres e otimizando o armazenamento.
+// @db.Text é usado para campos de texto mais longos, sem limite de caracteres, ideal para descrições ou histórias.
+// @default é usado para definir um valor padrão para um campo, como gerar um UUID automaticamente ou definir a data de criação como o momento atual.
+// @relation é usado para definir relações entre tabelas, especificando os campos de referência e garantindo a integridade referencial.
+// [] é usado para definir relacionamentos de um para muitos, onde um registro em uma tabela pode estar relacionado a vários registros em outra tabela.
+// (OnDelete: Cascade) serve para quando você deletar um registro pai (Card), ele automaticamente deleta todos os registros filhos (CardTraits) que possuem chave estrangeira apontando para ele
+
+//  /────────────────────────────────────────\
+//  |           Tabelas príncipais           |
+//  \────────────────────────────────────────/
+
+// ──────────────────── Usuários ────────────────────
+
+model User {
+  id             String           @id @default(uuid())
+  username       String           @db.VarChar(100)
+  email          String           @unique @db.VarChar(100)
+  password       String           @db.VarChar(255)
+  description    String?          @db.Text
+  image          String?           @db.Text
+  createdAt      DateTime         @default(now())
+  admin          Boolean          @default(false)
+  cards          Card[]
+  cardsFavorites CardsFavorites[]
+  ratings        Ratings[]
+
+  @@index([createdAt])
+}
+
+// ────────────────── Fichas ──────────────────
+
+model Card {
+  id             String            @id @default(uuid())
+  userId         String?
+  user           User?             @relation(fields: [userId], references: [id])
+  name           String            @db.VarChar(100)
+  image          String?           @db.Text
+  gender         String?           @db.VarChar(50)
+  height         Float?
+  age            Int?
+  raceId         Int?
+  race           Races?            @relation(fields: [raceId], references: [id])
+  strength       Int
+  life           Int
+  dexterity      Int
+  health         Int
+  fatigue        Int
+  intelligence   Int
+  perception     Int
+  willing        Int
+  history        String?           @db.Text
+  alignment      String?           @db.VarChar(50)
+  traits         CardTraits[]
+  limitations    CardLimitations[]
+  expertises     CardExpertises[]
+  expansions     CardExpansions[]
+  magics         CardMagics[]
+  techniques     CardTechniques[]
+  ratings        Ratings[]
+  ratingAverage  Float?
+  createdAt      DateTime          @default(now())
+  CardsFavorites CardsFavorites[]
+
+  @@index([userId])
+  @@index([raceId])
+  @@index([createdAt])
+}
+
+// ──────────────────── Caracteristicas (Vantagens e Desvantagens) ────────────────────
+
+model Traits {
+  id                 String             @id @db.VarChar(50)
+  isAdvantage        Boolean
+  name               String             @db.VarChar(100)
+  types              TraitType[]
+  requirements       TraitRequirement[]
+  // quem esse trait bloqueia
+  restricts          TraitRestriction[] @relation("TraitRestricts")
+  // quem bloqueia esse trait (opcional, inverso)
+  blockedBy          TraitRestriction[] @relation("TraitBlockedBy")
+  modifiers          TraitModifier[]
+  effects            TraitEffect[]
+  rules              TraitRules[]
+  baseCost           Int
+  costIsVariable     Boolean
+  variableCost       Int?
+  display            String?            @db.VarChar(100)
+  isAllowedLevel     Boolean
+  maxLevel           Int?
+  shortDescription   String?            @db.VarChar(100)
+  fullDescription    String?
+  formula            String?            @db.VarChar(100)
+  formulaDescription String?
+  cards              CardTraits[]
+}
+
+// ──────────────────── Limitacoes ────────────────────
+
+model Limitations {
+  id                 String             @id @db.VarChar(50)
+  name               String             @db.VarChar(100)
+  types              LimitationsTypes[]
+  baseCost           Int
+  costIsVariable     Boolean
+  variableCost       Int?
+  display            String?            @db.VarChar(100)
+  isAllowedLevel     Boolean
+  maxLevel           Int?
+  shortDescription   String?            @db.VarChar(255)
+  fullDescription    String?
+  formula            String?            @db.VarChar(100)
+  formulaDescription String?
+  cards              CardLimitations[]
+}
+
+// ──────────────────── Perícias ────────────────────
+
+model Expertises {
+  id                 String                   @id @db.VarChar(50)
+  name               String                   @db.VarChar(100)
+  difficulties       ExpertisesDifficulties[]
+  requirements       ExpertiseRequirement[]
+  attributeModify    String?                  @db.VarChar(50)
+  baseCost           Int
+  costIsVariable     Boolean
+  variableCost       Int?
+  display            String?                  @db.VarChar(100)
+  isAllowedLevel     Boolean
+  maxLevel           Int?
+  shortDescription   String?                  @db.VarChar(255)
+  fullDescription    String?
+  formula            String?                  @db.VarChar(100)
+  formulaDescription String?
+  cards              CardExpertises[]
+}
+
+// ──────────────────── Ampliacoes ────────────────────
+
+model Expansions {
+  id                 String            @id @db.VarChar(50)
+  name               String            @db.VarChar(100)
+  types              ExpansionsTypes[]
+  baseCost           Int
+  costIsVariable     Boolean
+  variableCost       Int?
+  display            String?           @db.VarChar(100)
+  isAllowedLevel     Boolean
+  maxLevel           Int?
+  shortDescription   String?           @db.VarChar(255)
+  fullDescription    String?
+  formula            String?           @db.VarChar(100)
+  formulaDescription String?
+  cards              CardExpansions[]
+}
+
+// ──────────────────── Técnicas ────────────────────
+
+model Techniques {
+  id                 String                   @id @db.VarChar(50)
+  name               String                   @db.VarChar(100)
+  difficulties       TechniquesDifficulties[]
+  attributeModify    String?                  @db.VarChar(50)
+  baseCost           Int
+  costIsVariable     Boolean
+  variableCost       Int?
+  display            String?                  @db.VarChar(100)
+  isAllowedLevel     Boolean
+  maxLevel           Int?
+  shortDescription   String?                  @db.VarChar(255)
+  fullDescription    String?
+  formula            String?                  @db.VarChar(100)
+  formulaDescription String?
+  cards              CardTechniques[]
+}
+
+// ──────────────────── Magias ────────────────────
+
+model Magics {
+  id                 String             @id @db.VarChar(50)
+  name               String             @db.VarChar(100)
+  requirements       MagicRequirement[]
+  types              MagicTypes[]
+  classes            MagicClass[]
+  effects            MagicEffect[]
+  attributeModify    String?            @db.VarChar(50)
+  timeDuration       String?            @db.VarChar(100)
+  timeOperating      String?            @db.VarChar(100)
+  baseCost           Int
+  costIsVariable     Boolean
+  variableCost       Int?
+  display            String?            @db.VarChar(100)
+  isAllowedLevel     Boolean
+  maxLevel           Int?
+  shortDescription   String?            @db.VarChar(255)
+  fullDescription    String?
+  formula            String?            @db.VarChar(100)
+  formulaDescription String?
+  cards              CardMagics[]
+}
+
+// ──────────────────── Classes ────────────────────
+
+model Classes {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(50)
+
+  magics MagicClass[]
+
+  @@unique([name])
+}
+
+// ──────────────────── Tipos ────────────────────
+
+model Types {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(50)
+
+  traits      TraitType[]
+  limitations LimitationsTypes[]
+  expansions  ExpansionsTypes[]
+  magics      MagicTypes[]
+
+  @@unique([name])
+}
+
+// ──────────────────── Dificuldades ────────────────────
+
+model Difficulties {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(50)
+
+  expertises ExpertisesDifficulties[]
+  techniques TechniquesDifficulties[]
+
+  @@unique([name])
+}
+
+// ──────────────────── Racas ────────────────────
+
+model Races {
+  id          Int            @id @default(autoincrement())
+  name        String         @db.VarChar(100)
+  description String?
+  cards       Card[]
+  modifiers   RaceModifier[]
+
+  @@unique([name])
+}
+
+//  /────────────────────────────────────────\
+//  |           Tabelas Segundarias          |
+//  \────────────────────────────────────────/
+
+// ──────────────────── Avaliações ────────────────────
+
+model Ratings {
+  id Int @id @default(autoincrement())
+
+  userId String
+  cardId String
+
+  score     Int
+  commentary String? @db.VarChar(100)
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, cardId])
+  @@index([userId])
+  @@index([cardId])
+  @@index([cardId, score])
+}
+
+// ──────────────────── Requerimentos das Cararactéristicas ────────────────────
+
+model TraitRequirement {
+  id        Int                 @id @default(autoincrement())
+  traitId   String              @db.VarChar(50)
+  attribute Attributes
+  operator  ComparisonOperators
+  value     Int
+  display   String?             @db.VarChar(100)
+  trait     Traits              @relation(fields: [traitId], references: [id])
+
+  @@index([traitId])
+}
+
+// ──────────────────── Restricoes das Cararactéristicas ────────────────────
+
+model TraitRestriction {
+  id Int @id @default(autoincrement())
+
+  traitId      String
+  restrictedId String
+  display      String? @db.VarChar(100)
+
+  trait      Traits @relation("TraitRestricts", fields: [traitId], references: [id])
+  restricted Traits @relation("TraitBlockedBy", fields: [restrictedId], references: [id])
+
+  @@unique([traitId, restrictedId])
+  @@index([traitId])
+  @@index([restrictedId])
+}
+
+// ──────────────────── Modificadores das Cararactéristicas ────────────────────
+
+model TraitModifier {
+  id        Int           @id @default(autoincrement())
+  traitId   String        @db.VarChar(50)
+  attribute Attributes
+  operator  MathOperators
+  value     Int
+  display   String        @db.VarChar(100)
+  trait     Traits        @relation(fields: [traitId], references: [id])
+
+  @@index([traitId])
+}
+
+// ──────────────────── Efeitos das Cararactéristicas ────────────────────
+
+model TraitEffect {
+  id         Int    @id @default(autoincrement())
+  traitId    String @db.VarChar(50)
+  name       String @db.VarChar(100)
+  display    String @db.VarChar(100)
+  effectType String @db.VarChar(50)
+  trait      Traits @relation(fields: [traitId], references: [id])
+
+  @@index([traitId])
+  @@index([effectType])
+}
+
+model TraitRules {
+  id          Int    @id @default(autoincrement())
+  traitId     String @db.VarChar(50)
+  name        String @db.VarChar(100)
+  description String @db.VarChar(255)
+  trait       Traits @relation(fields: [traitId], references: [id])
+
+  @@index([traitId])
+}
+
+// ──────────────────── Modificadores das Racas ────────────────────
+
+model RaceModifier {
+  id        Int           @id @default(autoincrement())
+  raceId    Int
+  race      Races         @relation(fields: [raceId], references: [id])
+  attribute String        @db.VarChar(50)
+  value     Int
+  display   String?       @db.VarChar(100)
+
+  @@index([raceId])
+}
+
+// ──────────────────── Requerimentos das Perícias ────────────────────
+
+model ExpertiseRequirement {
+  id          Int                 @id @default(autoincrement())
+  expertiseId String              @db.VarChar(50)
+  attribute   Attributes
+  operator    ComparisonOperators
+  value       Int
+  display     String?             @db.VarChar(100)
+  expertise   Expertises          @relation(fields: [expertiseId], references: [id])
+
+  @@index([expertiseId])
+}
+
+// ──────────────────── Requerimentos das Magias ────────────────────
+
+model MagicRequirement {
+  id        Int                 @id @default(autoincrement())
+  magicId   String              @db.VarChar(50)
+  attribute Attributes
+  operator  ComparisonOperators
+  value     Int
+  display   String?             @db.VarChar(100)
+  magic     Magics              @relation(fields: [magicId], references: [id])
+
+  @@index([magicId])
+}
+
+// ──────────────────── Efeitos das Magias ────────────────────
+
+model MagicEffect {
+  id      Int    @id @default(autoincrement())
+  magicId String @db.VarChar(50)
+
+  name       String @db.VarChar(100)
+  display    String @db.VarChar(100)
+  effectType String @db.VarChar(50)
+
+  magic Magics @relation(fields: [magicId], references: [id])
+
+  @@index([magicId])
+  @@index([effectType])
+}
+
+model CardsFavorites {
+  id     Int    @id @default(autoincrement())
+  userId String
+  cardId String
+
+  username User @relation(fields: [userId], references: [id])
+  card     Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@index([cardId])
+}
+
+//  /────────────────────────────────────────\
+//  |           Tabelas de ligacao           |
+//  \────────────────────────────────────────/
+
+/// ──────────────────── Ligação Caracteristicas e Tipos ────────────────────
+
+model TraitType {
+  id      Int    @id @default(autoincrement())
+  traitId String @db.VarChar(50)
+  typeId  Int
+  trait   Traits @relation(fields: [traitId], references: [id])
+  type    Types  @relation(fields: [typeId], references: [id])
+
+  @@unique([traitId, typeId])
+  @@index([traitId])
+}
+
+// ──────────────────── Ligação Caracteristicas e Fichas ────────────────────
+
+model CardTraits {
+  id          Int    @id @default(autoincrement())
+  cardId      String @db.VarChar(50)
+  traitId     String @db.VarChar(50)
+  level       Int    @default(0)
+  currentCost Int    @default(0)
+  card        Card   @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  trait       Traits @relation(fields: [traitId], references: [id])
+
+  @@unique([cardId, traitId])
+  @@index([traitId])
+}
+
+// ──────────────────── Ligação Limitações e Fichas ────────────────────
+
+model CardLimitations {
+  id           Int         @id @default(autoincrement())
+  cardId       String      @db.VarChar(50)
+  limitationId String      @db.VarChar(50)
+  level        Int         @default(0)
+  currentCost  Int         @default(0)
+  card         Card        @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  limitation   Limitations @relation(fields: [limitationId], references: [id])
+
+  @@unique([cardId, limitationId])
+  @@index([limitationId])
+}
+
+// ──────────────────── Ligação Limitações e Tipos ────────────────────
+
+model LimitationsTypes {
+  id           Int         @id @default(autoincrement())
+  limitationId String      @db.VarChar(50)
+  typeId       Int
+  limitation   Limitations @relation(fields: [limitationId], references: [id])
+  type         Types       @relation(fields: [typeId], references: [id])
+
+  @@unique([limitationId, typeId])
+  @@index([limitationId])
+}
+
+// ──────────────────── Ligação Perícias e Fichas ────────────────────
+
+model CardExpertises {
+  id          Int        @id @default(autoincrement())
+  cardId      String     @db.VarChar(50)
+  expertiseId String     @db.VarChar(50)
+  level       Int        @default(0)
+  currentCost Int        @default(0)
+  card        Card       @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  expertise   Expertises @relation(fields: [expertiseId], references: [id])
+
+  @@unique([cardId, expertiseId])
+  @@index([expertiseId])
+}
+
+// ──────────────────── Ligação Perícias e Dificuldades ────────────────────
+
+model ExpertisesDifficulties {
+  id           Int          @id @default(autoincrement())
+  expertiseId  String       @db.VarChar(50)
+  difficultyId Int
+  expertise    Expertises   @relation(fields: [expertiseId], references: [id])
+  difficulty   Difficulties @relation(fields: [difficultyId], references: [id])
+
+  @@unique([expertiseId, difficultyId])
+  @@index([expertiseId])
+}
+
+// ──────────────────── Ligação Ampliacoes e Fichas ────────────────────
+
+model CardExpansions {
+  id          Int        @id @default(autoincrement())
+  cardId      String     @db.VarChar(50)
+  expansionId String     @db.VarChar(50)
+  level       Int        @default(0)
+  currentCost Int        @default(0)
+  card        Card       @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  expansion   Expansions @relation(fields: [expansionId], references: [id])
+
+  @@unique([cardId, expansionId])
+  @@index([expansionId])
+}
+
+// ──────────────────── Ligação Ampliacoes e Tipos ────────────────────
+
+model ExpansionsTypes {
+  id          Int        @id @default(autoincrement())
+  expansionId String     @db.VarChar(50)
+  typeId      Int
+  expansion   Expansions @relation(fields: [expansionId], references: [id])
+  type        Types      @relation(fields: [typeId], references: [id])
+
+  @@unique([expansionId, typeId])
+  @@index([expansionId])
+}
+
+// ──────────────────── Ligação Técnicas e Fichas ────────────────────
+
+model CardTechniques {
+  id          Int        @id @default(autoincrement())
+  cardId      String     @db.VarChar(50)
+  techniqueId String     @db.VarChar(50)
+  level       Int        @default(0)
+  currentCost Int        @default(0)
+  card        Card       @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  technique   Techniques @relation(fields: [techniqueId], references: [id])
+
+  @@unique([cardId, techniqueId])
+  @@index([techniqueId])
+}
+
+// ──────────────────── Ligação Técnicas e Dificuldades ────────────────────
+
+model TechniquesDifficulties {
+  id           Int          @id @default(autoincrement())
+  techniqueId  String       @db.VarChar(50)
+  difficultyId Int
+  technique    Techniques   @relation(fields: [techniqueId], references: [id])
+  difficulty   Difficulties @relation(fields: [difficultyId], references: [id])
+
+  @@unique([techniqueId, difficultyId])
+  @@index([techniqueId])
+}
+
+// ──────────────────── Ligação Magias e Fichas ────────────────────
+
+model CardMagics {
+  id          Int    @id @default(autoincrement())
+  cardId      String @db.VarChar(50)
+  magicId     String @db.VarChar(50)
+  level       Int    @default(0)
+  currentCost Int    @default(0)
+  card        Card   @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  magic       Magics @relation(fields: [magicId], references: [id])
+
+  @@unique([cardId, magicId])
+  @@index([magicId])
+}
+
+// ──────────────────── Ligação Magias e Tipos ────────────────────
+
+model MagicTypes {
+  id      Int    @id @default(autoincrement())
+  magicId String @db.VarChar(50)
+  typeId  Int
+  magic   Magics @relation(fields: [magicId], references: [id])
+  type    Types  @relation(fields: [typeId], references: [id])
+
+  @@unique([magicId, typeId])
+  @@index([magicId])
+}
+
+// ──────────────────── Ligação Magias e Classes ────────────────────
+
+model MagicClass {
+  id      Int     @id @default(autoincrement())
+  magicId String  @db.VarChar(50)
+  classId Int
+  magic   Magics  @relation(fields: [magicId], references: [id])
+  class   Classes @relation(fields: [classId], references: [id])
+
+  @@unique([magicId, classId])
+  @@index([magicId])
+}
+
+//  /────────────────────────────────────────\
+//  |           Tabelas Enums (Fixas)        |
+//  \────────────────────────────────────────/
+
+// ──────────────────── Atributos Fixos (servirá para os  attribute Attributes) ────────────────────
+enum Attributes {
+  ST // Força
+  DX // Destreza
+  IQ // Inteligência
+  HT // Saúde
+  PV // Vida
+  PER // Percepção
+  PF // Fadiga
+}
+
+// ──────────────────── Operadores Fixos (servirá para os operator  Operators) ────────────────────
+
+enum ComparisonOperators {
+  GT // >
+  GTE // >=
+  LT //<
+  LTE // <=
+  EQ // ==
+}
+
+enum MathOperators {
+  ADD // +
+  SUB // -
+  MUL // *
+  DIV // ÷
+}

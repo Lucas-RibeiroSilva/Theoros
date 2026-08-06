@@ -1,0 +1,45 @@
+[
+  {
+    "id": "low_pain_tolerance",
+    "name": "Baixa Tolerância à Dor",
+
+    "baseCost": -10,
+    "costIsVariable": false,
+    "variableCost": null,
+
+    "display": "Baixa Tolerância à Dor",
+
+    "isAllowedLevel": false,
+    "maxLevel": null,
+
+    "shortDescription": "Você sofre penalidades adicionais ao receber dano.",
+    "fullDescription": "Você sofre penalidades adicionais ao receber dano. Qualquer dano sofrido conta como se fosse 1 ponto a mais para efeitos de penalidade.",
+
+    "formula": null,
+    "formulaDescription": null,
+
+    "types": ["Physical"]
+  },
+
+  {
+    "id": "fragile",
+    "name": "Frágil",
+
+    "baseCost": -15,
+    "costIsVariable": false,
+    "variableCost": null,
+
+    "display": "Frágil",
+
+    "isAllowedLevel": false,
+    "maxLevel": null,
+
+    "shortDescription": "Seu corpo é mais vulnerável a impactos.",
+    "fullDescription": "Seu corpo é mais vulnerável a impactos. Dano contundente recebido é aumentado em 1.",
+
+    "formula": null,
+    "formulaDescription": null,
+
+    "types": ["Physical"]
+  }
+]

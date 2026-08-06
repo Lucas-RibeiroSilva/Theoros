@@ -1,0 +1,91 @@
+[
+  {
+    "id": "fireball",
+    "name": "Bola de Fogo",
+    "display": "Bola de Fogo",
+
+    "attributeModify": "IQ",
+
+    "timeDuration": "Instantâneo",
+    "timeOperating": "1 segundo",
+
+    "baseCost": 5,
+    "costIsVariable": true,
+    "variableCost": 2,
+
+    "isAllowedLevel": true,
+    "maxLevel": 5,
+
+    "shortDescription": "Lança uma esfera de fogo que explode ao atingir o alvo.",
+    "fullDescription": "Lança uma esfera de fogo que explode ao atingir o alvo, causando dano em área.",
+
+    "formula": "2d6 + nivel",
+    "formulaDescription": "Dano base de 2d6 acrescido do nível da magia",
+
+    "types": ["Fire"],
+
+    "classes": ["Mago", "Feiticeiro"],
+
+    "requirements": [
+      {
+        "attribute": "IQ",
+        "operator": "GTE",
+        "value": 2,
+        "display": "Inteligência +2"
+      }
+    ],
+
+    "effects": [
+      {
+        "name": "Dano de Fogo em Área",
+        "effectType": "fire_damage",
+        "display": "Causa dano de fogo em área"
+      }
+    ]
+  },
+
+  {
+    "id": "healing_touch",
+    "name": "Toque Curativo",
+    "display": "Toque Curativo",
+
+    "attributeModify": "IQ",
+
+    "timeDuration": "Instantâneo",
+    "timeOperating": "2 segundos",
+
+    "baseCost": 4,
+    "costIsVariable": true,
+    "variableCost": 1,
+
+    "isAllowedLevel": true,
+    "maxLevel": 5,
+
+    "shortDescription": "Cura ferimentos de um alvo pelo toque.",
+    "fullDescription": "Cura ferimentos de um alvo pelo toque. Cada nível aumenta a quantidade de vida restaurada.",
+
+    "formula": "1d6 + nivel",
+    "formulaDescription": "Cura base de 1d6 acrescido do nível da magia",
+
+    "types": ["Healing"],
+
+    "classes": ["Clérigo", "Druida"],
+
+    "requirements": [
+      {
+        "attribute": "IQ",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Inteligência +1"
+      }
+    ],
+
+    "effects": [
+      {
+        "name": "Cura",
+        "effectType": "heal",
+        "display": "Restaura pontos de vida"
+      }
+    ]
+  }
+]

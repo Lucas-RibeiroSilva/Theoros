@@ -1,0 +1,43 @@
+[
+  {
+    "id": "extra_attack",
+    "name": "Ataque Extra",
+    "display": "Ataque Extra",
+
+    "baseCost": 25,
+    "costIsVariable": false,
+    "variableCost": null,
+
+    "isAllowedLevel": true,
+    "maxLevel": 2,
+
+    "shortDescription": "Você pode realizar um ataque adicional por turno.",
+    "fullDescription": "Você pode realizar um ataque adicional por turno. Cada nível concede mais um ataque adicional.",
+
+    "formula": null,
+    "formulaDescription": null,
+
+    "types": ["Combat"]
+  },
+
+  {
+    "id": "enhanced_defense",
+    "name": "Defesa Aprimorada",
+    "display": "Defesa Aprimorada",
+
+    "baseCost": 15,
+    "costIsVariable": false,
+    "variableCost": null,
+
+    "isAllowedLevel": true,
+    "maxLevel": 3,
+
+    "shortDescription": "Seus reflexos defensivos são superiores.",
+    "fullDescription": "Seus reflexos defensivos são superiores. Cada nível concede +1 em qualquer defesa ativa.",
+
+    "formula": null,
+    "formulaDescription": null,
+
+    "types": ["Combat", "Physical"]
+  }
+]

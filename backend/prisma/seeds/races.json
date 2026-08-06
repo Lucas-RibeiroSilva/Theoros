@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Anão",
+    "description": "Povo resistente e habilidoso com metais, conhecido por sua força e teimosia.",
+    "modifiers": [
+      { "attribute": "ST", "value": 12, "display": "12 Força" },
+      { "attribute": "PV", "value": 12, "display": "12 Vida" },
+      { "attribute": "DX", "value": 9, "display": "9 Destreza" },
+      { "attribute": "HP", "value": 12, "display": "12 Saúde" },
+      { "attribute": "HT", "value": 11, "display": "11 Fadiga" },
+      { "attribute": "IQ", "value": 9, "display": "9 Inteligência" },
+      { "attribute": "Per", "value": 10, "display": "10 Percepção" },
+      { "attribute": "Von", "value": 11, "display": "11 Vontade" }
+    ]
+  },
+  {
+    "name": "Elfo",
+    "description": "Seres graciosos e longevos com afinidade natural pela magia e pela natureza.",
+    "modifiers": [
+      { "attribute": "ST", "value": 8, "display": "8 Força" },
+      { "attribute": "PV", "value": 10, "display": "10 Vida" },
+      { "attribute": "DX", "value": 8, "display": "8 Destreza" },
+      { "attribute": "HP", "value": 11, "display": "11 Saúde" },
+      { "attribute": "HT", "value": 7, "display": "7 Fadiga" },
+      { "attribute": "IQ", "value": 12, "display": "12 Inteligência" },
+      { "attribute": "Per", "value": 11, "display": "11 Percepção" },
+      { "attribute": "Von", "value": 10, "display": "10 Vontade" }
+    ]
+  },
+  {
+    "name": "Homem Fera",
+    "description": "Criaturas híbridas que combinam traços humanos e animais, possuindo força bruta e sentidos aguçados.",
+    "modifiers": [
+      { "attribute": "ST", "value": 13, "display": "13 Força" },
+      { "attribute": "PV", "value": 12, "display": "12 Vida" },
+      { "attribute": "DX", "value": 11, "display": "11 Destreza" },
+      { "attribute": "HP", "value": 11, "display": "11 Saúde" },
+      { "attribute": "HT", "value": 10, "display": "10 Fadiga" },
+      { "attribute": "IQ", "value": 9, "display": "9 Inteligência" },
+      { "attribute": "Per", "value": 13, "display": "13 Percepção" },
+      { "attribute": "Von", "value": 10, "display": "10 Vontade" }
+    ]
+  },
+  {
+    "name": "Humano",
+    "description": "A raça mais comum e adaptável. Humanos não possuem modificadores especiais, mas recebem pontos extras de vantagem na criação.",
+    "modifiers": [
+      { "attribute": "ST", "value": 10, "display": "10 Força" },
+      { "attribute": "PV", "value": 10, "display": "10 Vida" },
+      { "attribute": "DX", "value": 10, "display": "10 Destreza" },
+      { "attribute": "HP", "value": 10, "display": "10 Saúde" },
+      { "attribute": "HT", "value": 10, "display": "10 Fadiga" },
+      { "attribute": "IQ", "value": 10, "display": "10 Inteligência" },
+      { "attribute": "Per", "value": 10, "display": "10 Percepção" },
+      { "attribute": "Von", "value": 10, "display": "10 Vontade" }
+    ]
+  },
+  {
+    "name": "Morto Vivo",
+    "description": "Seres que retornaram da morte, imunes a dores e cansaço, mas com lentidão e falta de vitalidade.",
+    "modifiers": [
+      { "attribute": "ST", "value": 11, "display": "11 Força" },
+      { "attribute": "PV", "value": 8, "display": "8 Vida" },
+      { "attribute": "DX", "value": 8, "display": "8 Destreza" },
+      { "attribute": "HP", "value": 14, "display": "14 Saúde" },
+      { "attribute": "HT", "value": 13, "display": "13 Fadiga" },
+      { "attribute": "IQ", "value": 9, "display": "9 Inteligência" },
+      { "attribute": "Per", "value": 8, "display": "8 Percepção" },
+      { "attribute": "Von", "value": 12, "display": "12 Vontade" }
+    ]
+  },
+  {
+    "name": "Vampiro",
+    "description": "Criaturas noturnas imortais que se alimentam de sangue, possuindo força sobre-humana e habilidades de sedução.",
+    "modifiers": [
+      { "attribute": "ST", "value": 14, "display": "14 Força" },
+      { "attribute": "PV", "value": 12, "display": "12 Vida" },
+      { "attribute": "DX", "value": 13, "display": "13 Destreza" },
+      { "attribute": "HP", "value": 10, "display": "10 Saúde" },
+      { "attribute": "HT", "value": 9, "display": "9 Fadiga" },
+      { "attribute": "IQ", "value": 11, "display": "11 Inteligência" },
+      { "attribute": "Per", "value": 12, "display": "12 Percepção" },
+      { "attribute": "Von", "value": 13, "display": "13 Vontade" }
+    ]
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "power_strike",
+    "name": "Golpe Poderoso",
+    "display": "Golpe Poderoso",
+
+    "attributeModify": "ST",
+
+    "baseCost": 3,
+    "costIsVariable": false,
+    "variableCost": null,
+
+    "isAllowedLevel": true,
+    "maxLevel": 3,
+
+    "shortDescription": "Um golpe carregado que causa mais dano à custa da precisão.",
+    "fullDescription": "Um golpe carregado que causa mais dano à custa da precisão. Cada nível aumenta o dano em 1, mas reduz a chance de acerto em 1.",
+
+    "formula": null,
+    "formulaDescription": null,
+
+    "difficulties": ["Hard"]
+  },
+
+  {
+    "id": "disarm",
+    "name": "Desarmar",
+    "display": "Desarmar",
+
+    "attributeModify": "DX",
+
+    "baseCost": 3,
+    "costIsVariable": false,
+    "variableCost": null,
+
+    "isAllowedLevel": true,
+    "maxLevel": 2,
+
+    "shortDescription": "Técnica para remover a arma do oponente.",
+    "fullDescription": "Técnica para remover a arma do oponente. Em caso de sucesso, o alvo fica desarmado.",
+
+    "formula": null,
+    "formulaDescription": null,
+
+    "difficulties": ["Hard"]
+  }
+]

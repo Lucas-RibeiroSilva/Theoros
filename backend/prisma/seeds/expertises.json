@@ -1,0 +1,58 @@
+[
+  {
+    "id": "sword_fighting",
+    "name": "Espadas",
+    "display": "Espadas",
+
+    "attributeModify": "DX",
+
+    "baseCost": 2,
+    "costIsVariable": false,
+    "variableCost": null,
+
+    "isAllowedLevel": true,
+    "maxLevel": 4,
+
+    "shortDescription": "Habilidade com espadas de todos os tipos.",
+    "fullDescription": "Habilidade com espadas de todos os tipos. Cada nível concede +1 nos testes de combate com espadas.",
+
+    "formula": null,
+    "formulaDescription": null,
+
+    "difficulties": ["Average"],
+
+    "requirements": [
+      {
+        "attribute": "DX",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Destreza +1"
+      }
+    ]
+  },
+
+  {
+    "id": "stealth",
+    "name": "Furtividade",
+    "display": "Furtividade",
+
+    "attributeModify": "DX",
+
+    "baseCost": 2,
+    "costIsVariable": false,
+    "variableCost": null,
+
+    "isAllowedLevel": true,
+    "maxLevel": 4,
+
+    "shortDescription": "Habilidade de mover-se sem ser percebido.",
+    "fullDescription": "Habilidade de mover-se sem ser percebido. Cada nível concede +1 nos testes de furtividade.",
+
+    "formula": null,
+    "formulaDescription": null,
+
+    "difficulties": ["Average"],
+
+    "requirements": []
+  }
+]
