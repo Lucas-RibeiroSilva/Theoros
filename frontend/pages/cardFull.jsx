@@ -356,6 +356,7 @@ export default function CardFull({ handleLogout }) {
                     alt="avatar do usuário"
                     id="img-commentary"
                   />
+                  {console.log(commentary)}
                   <div className="info-commentary">
                     <p id="commentary-user-name">{commentary.user?.username}</p>
                     <p id="commentary-user">{commentary.commentary}</p>
