@@ -28,7 +28,6 @@
   ➤ O resultado é retornado em formato JSON para consumo pelo frontend.
 */
 
-
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authMiddleware } from "./auth.js";
@@ -40,16 +39,16 @@ router.get("/:cardId", async (req, res) => {
 
   try {
     const ratings = await prisma.ratings.findMany({
-  where: { cardId },
-  include: {
-    user: {
-      select: {
-        username: true,
-        image: true,
+      where: { cardId },
+      include: {
+        user: {
+          select: {
+            username: true,
+            image: true,
+          },
+        },
       },
-    },
-  },
-});
+    });
 
     return res.json(ratings);
   } catch (error) {
