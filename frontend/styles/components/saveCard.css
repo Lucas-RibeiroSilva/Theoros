@@ -1,0 +1,126 @@
+.save-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 8px;
+
+  padding: 10px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.15s ease;
+
+  user-select: none;
+}
+
+.save-box:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.save-button{
+  background: #073d17;
+  background: linear-gradient(90deg,rgba(7, 61, 23, 1) 0%, rgba(0, 110, 46, 1) 100%);
+  border-radius: 10px;
+  border: 2px solid #02662f;
+  
+}
+
+.save-button:disabled {
+  background: #2a2e2c;
+  border: 2px solid #404442;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+#icon-save-card {
+  font-size: 35px;
+  color: #ececec;
+}
+
+.popup-alert-overlay {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  transition: opacity 2s ease-in-out;
+  opacity: 1;
+  z-index: 6000;
+}
+
+.popup-alert-overlay.closing {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== CAIXA DO ALERTA ===== */
+.alert-dialog {
+  display: flex;
+  background: linear-gradient(180deg, #47290e, #4a2e0f);
+  color: #e6d8b5;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1.4rem;
+
+  width: 500px;
+  height: 30px;
+
+  border-radius: 14px;
+
+  text-align: center;
+
+  border: 2px solid #d89e33;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 0 15px rgba(212, 175, 55, 0.15);
+
+  animation: modalFade 0.3s ease;
+
+  font-family: "Georgia", "Times New Roman", serif;
+
+  position: relative;
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+
+.alert-dialog.closing {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* ===== MENSAGEM ===== */
+.alert-dialog p {
+  font-size: 1.4rem;
+  font-weight: bold;
+  line-height: 1.6;
+  color: #d3c4a7;
+}
+
+/* ===== ANIMAÇÃO (mesma do modal) ===== */
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

@@ -1,0 +1,310 @@
+/* =========================
+   OVERLAY - INFO MODAL
+========================= */
+.overlay-info-modal {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.596);
+
+  z-index: 9999;
+
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* =========================
+   MODAL - INFO
+========================= */
+.modal-info {
+  min-width: 640px;
+  max-width: 750px;
+  width: 90%;
+  max-height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  padding: 24px 24px 20px;
+
+  border-radius: 16px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(32, 22, 12, 0.98),
+    rgba(18, 12, 8, 0.98)
+  );
+
+  border: 2px solid #6b4f1d;
+
+  color: #e6d8b5;
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.8),
+    inset 0 0 12px rgba(212, 175, 55, 0.08);
+
+  transition: border-color 0.25s ease;
+
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-info:hover {
+  border-color: #d4af37;
+}
+
+/* =========================
+   HEADER
+========================= */
+.modal-info-header {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 40px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(240, 199, 63, 0.466);
+  
+}
+
+.modal-info-header h2 {
+  margin: 0;
+
+  color: #d4af37;
+
+  font-size: 1.6rem;
+  font-weight: bold;
+
+  letter-spacing: 1px;
+}
+
+/* =========================
+   FECHAR
+========================= */
+.close-btn-modal-info {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  color: #d4af37;
+
+  font-size: 1.6rem;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.close-btn-modal-info:hover {
+  color: #ffe08a;
+  transform: translateY(-50%) scale(1.1);
+  background: transparent;
+}
+
+/* =========================
+   SUBHEADER (Descrição Completa)
+========================= */
+.modal-info-subheader {
+  padding: 0 0 12px 0;
+  margin-bottom: 16px;
+
+  border-bottom: 1px solid rgba(240, 199, 63, 0.342);
+}
+
+.modal-info-subheader h3 {
+  margin: 0;
+
+  color: #d9c79d;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* =========================
+   CONTEÚDO (Descrição)
+========================= */
+.modal-info-content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+
+  padding-right: 6px;
+}
+
+.modal-info-content p {
+  margin: 0;
+
+  color: #e6d8b5;
+
+  font-size: 1rem;
+  line-height: 1.7;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Scroll personalizado */
+.modal-info-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-info-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+}
+
+.modal-info-content::-webkit-scrollbar-thumb {
+  background: #6b4f1d;
+  border-radius: 999px;
+}
+
+.modal-info-content::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+.modal-info-variable-cost{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(240, 199, 63, 0.342);
+}
+
+.modal-info-max-level{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(240, 199, 63, 0.342);
+}
+
+.modal-info-formula{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(240, 199, 63, 0.342);
+}
+
+/* =========================
+   ANIMAÇÕES
+========================= */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   RESPONSIVO - 1024px
+========================= */
+@media (max-width: 1024px) {
+  .modal-info {
+    min-width: 500px;
+    max-width: 600px;
+    padding: 20px;
+  }
+
+  .modal-info-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .close-btn-modal-info {
+    font-size: 1.4rem;
+  }
+}
+
+/* =========================
+   RESPONSIVO - 768px
+========================= */
+@media (max-width: 768px) {
+  .modal-info {
+    min-width: unset;
+    width: 92%;
+    max-height: 85vh;
+    padding: 18px 18px 16px;
+  }
+
+  .modal-info-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .close-btn-modal-info {
+    font-size: 1.2rem;
+  }
+
+  .modal-info-subheader h3 {
+    font-size: 0.9rem;
+  }
+
+  .modal-info-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+
+/* =========================
+   RESPONSIVO - 480px
+========================= */
+@media (max-width: 480px) {
+  .modal-info {
+    padding: 14px 14px 12px;
+    border-radius: 12px;
+    width: 96%;
+  }
+
+  .modal-info-header {
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+  }
+
+  .modal-info-header h2 {
+    font-size: 1rem;
+  }
+
+  .close-btn-modal-info {
+    font-size: 1rem;
+    right: 0;
+  }
+
+  .modal-info-subheader {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+  }
+
+  .modal-info-subheader h3 {
+    font-size: 0.8rem;
+  }
+
+  .modal-info-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .modal-info-content::-webkit-scrollbar {
+    width: 5px;
+  }
+}

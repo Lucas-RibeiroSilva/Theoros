@@ -1,0 +1,648 @@
+/* =========================
+   BOXS
+========================= */
+.advantages-box,
+.disadvantages-box,
+.magic-box,
+.expansions-box,
+.limitation-box,
+.expertise-box,
+.technique-box {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding: 24px;
+
+    border-radius: 14px;
+    min-height: 200px;
+    background-size:cover;
+    border: 3px solid transparent;
+    border-image: linear-gradient(90deg, rgb(94, 77, 46)) 1;
+    background:linear-gradient(180deg, #352719 0%, #47352600 100%);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    
+    
+    
+
+    color: #e6d8b5;
+
+    margin: 10px;
+
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.advantages-box:hover,
+.disadvantages-box:hover,
+.magic-box:hover,
+.expansions-box:hover,
+.limitation-box:hover,
+.expertise-box:hover,
+.technique-box:hover {
+    border-color: #d4af37;
+    box-shadow:
+        0 0 20px rgba(212, 175, 55, 0.18),
+        0 10px 30px rgba(0, 0, 0, 0.65);
+}
+
+.box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* =========================
+   LABEL
+========================= */
+.advantages-box label,
+.disadvantages-box label,
+.magic-box label,
+.expansions-box label,
+.limitation-box label,
+.expertise-box label,
+.technique-box label {
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    color: #d4af37;
+
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   ÍCONES DE AÇÃO (+ adicionar)
+========================= */
+.add-advantage,
+.add-disadvantage,
+.add-magic,
+.add-expansion,
+.add-limitation,
+.add-expertise,
+.add-technique {
+    color: #d4af37;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.add-advantage:hover,
+.add-disadvantage:hover,
+.add-magic:hover,
+.add-expansion:hover,
+.add-limitation:hover,
+.add-expertise:hover,
+.add-technique:hover {
+    transform: scale(1.15);
+    color: #ffe08a;
+}
+
+/* =========================
+   INPUT WRAPPER
+========================= */
+.input-advantage,
+.input-disadvantage,
+.input-magic,
+.input-expansion,
+.input-limitation,
+.input-expertise,
+.input-technique {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #6b4f1d;
+
+    background: rgba(10, 8, 5, 0.6);
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-advantage:focus-within,
+.input-disadvantage:focus-within,
+.input-magic:focus-within,
+.input-expansion:focus-within,
+.input-limitation:focus-within,
+.input-expertise:focus-within,
+.input-technique:focus-within {
+    border-color: #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+}
+
+.input-advantage input,
+.input-disadvantage input,
+.input-magic input,
+.input-expansion input,
+.input-limitation input,
+.input-expertise input,
+.input-technique input {
+    width: 100%;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: #e6d8b5;
+
+    font-size: 0.95rem;
+}
+
+.input-advantage input::placeholder,
+.input-disadvantage input::placeholder,
+.input-magic input::placeholder,
+.input-expansion input::placeholder,
+.input-limitation input::placeholder,
+.input-expertise input::placeholder,
+.input-technique input::placeholder {
+    color: #9c8a64;
+}
+
+/* =========================
+   ÍCONES DE FILTRO
+========================= */
+.filter-icon {
+    color: #d4af37;
+    cursor: pointer;
+
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.filter-icon:hover {
+    transform: scale(1.15);
+    color: #ffe08a;
+}
+
+/* =========================
+   FILTROS VANTAGENS / DESVANTAGENS
+========================= */
+.advantages-filters,
+.disadvantages-filters,
+.magics-filters,
+.expansions-filters,
+.limitations-filters,
+.expertises-filters,
+.techniques-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 14px;
+    padding-top: 14px;
+
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+
+    animation: fadeFilters 0.2s ease;
+}
+
+.advantages-filters button,
+.disadvantages-filters button,
+.magics-filters button,
+.expansions-filters button,
+.limitations-filters button,
+.expertises-filters button,
+.techniques-filters button {
+    min-width: 110px;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    border: 2px solid #6b4f1d;
+
+    background: linear-gradient(135deg, #6b4f1d, #b08a3c);
+
+    color: #1a120b;
+
+    font-size: 0.85rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.advantages-filters button:hover,
+.disadvantages-filters button:hover,
+.magics-filters button:hover,
+.expansions-filters button:hover,
+.limitations-filters button:hover,
+.expertises-filters button:hover,
+.techniques-filters button:hover {
+    border-color: #d4af37;
+
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.7),
+        0 0 12px rgba(212, 175, 55, 0.2);
+
+    transform: translateY(-1px);
+}
+
+.advantages-filters button.active,
+.disadvantages-filters button.active,
+.magics-filters button.active,
+.expansions-filters button.active,
+.limitations-filters button.active,
+.expertises-filters button.active,
+.techniques-filters button.active {
+    border-color: #d4af37;
+
+    background: linear-gradient(135deg,
+            rgba(107, 79, 29, 0.95),
+            rgba(176, 138, 60, 0.85));
+
+    color: #fff4cf;
+
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+/* ══════════════════════════════════════════════════════
+   TOPICS - CABEÇALHOS DA LISTA
+   ══════════════════════════════════════════════════════ */
+
+/* Cabeçalho: pontos | nome | tipos | nivel | remover */
+.topics-information {
+    display: grid;
+    grid-template-columns: 80px 1fr 350px 60px 40px;
+    align-items: center;
+    padding: 8px 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #d4af37;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    gap: 8px;
+}
+
+/* Cabeçalho: pontos | nome | tipo | tempo duração | tempo operação | nivel | remover */
+.topics-information-magic {
+    display: grid;
+    grid-template-columns: 80px 1fr 460px 300px 300px 220px 40px;
+    align-items: center;
+    padding: 8px 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #d4af37;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    gap: 8px;
+}
+
+#topics-points {
+    text-align: center;
+    margin: 0;
+}
+
+#topics-name {
+    text-align: left;
+    margin: 0;
+}
+
+#topics-types {
+    text-align: center;
+    margin: 0;
+}
+
+#topics-difficultie {
+    text-align: center;
+    margin: 0;
+}
+
+#topics-level {
+    text-align: center;
+    margin: 0;
+}
+
+#topics-remove {
+    text-align: right;
+    margin: 0;
+    visibility: hidden;
+}
+
+/* ══════════════════════════════════════════════════════
+   LISTA DE VANTAGENS / DESVANTAGENS SELECIONADAS
+   ══════════════════════════════════════════════════════ */
+
+.selected-advantagens-list,
+.selected-disadvantagens-list,
+.selected-magics-list,
+.selected-expansions-list,
+.selected-limitations-list,
+.selected-expertises-list,
+.selected-techniques-list {
+    list-style: none;
+    margin: 8px 0 0 0;
+    padding: 0;
+
+    max-height: 220px;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.selected-advantagens-list::-webkit-scrollbar,
+.selected-disadvantagens-list::-webkit-scrollbar,
+.selected-magics-list::-webkit-scrollbar,
+.selected-expansions-list::-webkit-scrollbar,
+.selected-limitations-list::-webkit-scrollbar,
+.selected-expertises-list::-webkit-scrollbar,
+.selected-techniques-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.selected-advantagens-list::-webkit-scrollbar-track,
+.selected-disadvantagens-list::-webkit-scrollbar-track,
+.selected-magics-list::-webkit-scrollbar-track,
+.selected-expansions-list::-webkit-scrollbar-track,
+.selected-limitations-list::-webkit-scrollbar-track,
+.selected-expertises-list::-webkit-scrollbar-track,
+.selected-techniques-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.selected-advantagens-list::-webkit-scrollbar-thumb,
+.selected-disadvantagens-list::-webkit-scrollbar-thumb,
+.selected-magics-list::-webkit-scrollbar-thumb,
+.selected-expansions-list::-webkit-scrollbar-thumb,
+.selected-limitations-list::-webkit-scrollbar-thumb,
+.selected-expertises-list::-webkit-scrollbar-thumb,
+.selected-techniques-list::-webkit-scrollbar-thumb {
+    background-color: #6b4f1d;
+    border-radius: 4px;
+}
+
+.selected-advantagens-list::-webkit-scrollbar-thumb:hover,
+.selected-disadvantagens-list::-webkit-scrollbar-thumb:hover,
+.selected-magics-list::-webkit-scrollbar-thumb:hover,
+.selected-expansions-list::-webkit-scrollbar-thumb:hover,
+.selected-limitations-list::-webkit-scrollbar-thumb:hover,
+.selected-expertises-list::-webkit-scrollbar:hover,
+.selected-techniques-list::-webkit-scrollbar:hover {
+    background-color: #d4af37;
+}
+
+.empty-list-message {
+    text-align: center;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #9c8a64;
+    padding: 16px 0;
+}
+
+.empty-list-message::marker {
+    content: "";
+}
+
+/* ─── ITENS DA LISTA ─── */
+
+/* Base para todos os itens */
+.selected-advantage-item,
+.selected-disadvantage-item,
+.selected-magic-item,
+.selected-expansion-item,
+.selected-limitation-item,
+.selected-expertise-item,
+.selected-technique-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    background: rgba(10, 8, 5, 0.45);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-left: 3px solid #d4af37;
+
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.selected-advantage-item:hover,
+.selected-disadvantage-item:hover,
+.selected-magic-item:hover,
+.selected-expansion-item:hover,
+.selected-limitation-item:hover,
+.selected-expertise-item:hover,
+.selected-technique-item:hover {
+    background: rgba(212, 175, 55, 0.08);
+    border-color: rgba(212, 175, 55, 0.35);
+}
+
+/* ─── INFO GRID ─── */
+
+/* Itens: pontos | nome | tipos | nivel | remover */
+.selected-advantage-info,
+.selected-disadvantage-info,
+.selected-expansion-info,
+.selected-limitation-info,
+.selected-expertise-info,
+.selected-technique-info {
+    display: grid;
+    grid-template-columns: 80px 1fr 350px 60px 40px;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 4px 0;
+}
+
+/* Itens magia: pontos | nome | tipo | tempo duração | tempo operação | nivel | remover */
+.selected-magic-info {
+    display: grid;
+    grid-template-columns: 80px 1fr 300px 300px 300px 300px 40px;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 4px 0;
+}
+
+/* ─── TEXTO DOS ITENS ─── */
+
+.selected-advantage-name,
+.selected-disadvantage-name,
+.selected-magic-name,
+.selected-expansion-name,
+.selected-limitation-name,
+.selected-expertise-name,
+.selected-technique-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e6d8b5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.selected-advantage-cost,
+.selected-disadvantage-cost,
+.selected-magic-cost,
+.selected-expansion-cost,
+.selected-limitation-cost,
+.selected-expertise-cost,
+.selected-technique-cost {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #d4af37;
+    white-space: nowrap;
+    text-align: center;
+    justify-self: center;
+}
+
+.selected-magic-duration,
+.selected-magic-operation {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e6d8b5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    justify-self: center;
+}
+
+.selected-advantage-level,
+.selected-disadvantage-level,
+.selected-magic-level,
+.selected-expansion-level,
+.selected-limitation-level,
+.selected-expertise-level,
+.selected-technique-level {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e6d8b5;
+    text-align: center;
+    justify-self: center;
+}
+
+/* ─── ÍCONES ─── */
+
+#icons {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4px;
+}
+
+/* ─── BOTÃO REMOVER ─── */
+
+.remove-advantage-btn,
+.remove-disadvantage-btn,
+.remove-magic-btn,
+.remove-expansion-btn,
+.remove-limitation-btn,
+.remove-expertise-btn,
+.remove-technique-btn {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c0392b;
+    border-radius: 50%;
+    padding: 4px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    justify-self: end;
+}
+
+.remove-advantage-btn:hover,
+.remove-disadvantage-btn:hover,
+.remove-magic-btn:hover,
+.remove-expansion-btn:hover,
+.remove-limitation-btn:hover,
+.remove-expertise-btn:hover,
+.remove-technique-btn:hover {
+    background-color: rgba(192, 57, 43, 0.15);
+    color: #ff6b5b;
+}
+
+/* ══════════════════════════════════════════════════════
+   ESTADOS NO MODAL — item já selecionado
+   ══════════════════════════════════════════════════════ */
+
+.item-advantage-modal.selected,
+.item-disadvantage-modal.selected,
+.item-magic-modal.selected,
+.item-expansion-modal.selected,
+.item-limitation-modal.selected,
+.item-expertise-modal.selected,
+.item-technuque-model.selected {
+    border: 1px solid #d4af37;
+    background: linear-gradient(135deg,
+            rgba(107, 79, 29, 0.18),
+            rgba(176, 138, 60, 0.12));
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+}
+
+.add-advantage.selected,
+.add-disadvantage.selected,
+.add-magic-selected,
+.add-expansion-selected,
+.add-limitaion-selected,
+.add-expertise-selected,
+.add-technique-selected {
+    background: linear-gradient(135deg,
+            rgba(107, 79, 29, 0.95),
+            rgba(176, 138, 60, 0.85));
+    color: #fff4cf;
+}
+
+@keyframes fadeFilters {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 900px) {
+    .filter-align {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Ajustes para telas menores */
+    .topics-information {
+        grid-template-columns: 60px 1fr 80px 40px 30px;
+        gap: 4px;
+        font-size: 0.75rem;
+    }
+    
+    .topics-information-magic {
+        grid-template-columns: 60px 1fr 80px 90px 90px 40px 30px;
+        gap: 4px;
+        font-size: 0.75rem;
+    }
+    
+    .selected-advantage-info,
+    .selected-disadvantage-info,
+    .selected-expansion-info,
+    .selected-limitation-info,
+    .selected-expertise-info,
+    .selected-technique-info {
+        grid-template-columns: 50px 1fr 60px 30px 25px;
+        gap: 4px;
+        font-size: 0.75rem;
+    }
+    
+    .selected-magic-info {
+        grid-template-columns: 50px 1fr 60px 70px 70px 30px 25px;
+        gap: 4px;
+        font-size: 0.75rem;
+    }
+}

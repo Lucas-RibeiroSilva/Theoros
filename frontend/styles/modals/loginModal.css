@@ -1,0 +1,292 @@
+/* ===== OVERLAY (NEVOA SOMBRIA) ===== */
+.modal-login-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1900;
+}
+
+/* ===== MODAL CARD (GRIMÓRIO / PERGAMINHO) ===== */
+.modal-login-card {
+  width: 400px;
+
+  background: linear-gradient(180deg, #1a120b, #2b1b0f);
+  color: #e6d8b5;
+
+  border-radius: 14px;
+  padding: 28px;
+
+  border: 2px solid #b08a3c;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(212, 175, 55, 0.1);
+
+  position: relative;
+
+  animation: popIn 0.25s ease-out;
+
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+.top-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#label-login {
+  justify-content: start;
+}
+
+#login-door, #login-feather {
+  font-size: 25px;
+  color: #c9b48a;
+}
+
+#title-login {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  color: #c9b48a;
+  font-weight: bold;
+}
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== BOTÃO FECHAR (RUNA / FERRO) ===== */
+.login-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 8px;
+
+  background: transparent;
+  border: transparent;
+  color: #d4af37;
+
+  cursor: pointer;
+  font-size: 25px;
+
+  transition: 0.25s;
+}
+
+.login-close-btn:hover {
+  background: #2b1b0f;
+  transform: scale(1.05);
+}
+
+/* ===== LOGO ===== */
+.auth-logo {
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 6px;
+
+  color: #d4af37;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.auth-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: #c9b48a;
+  margin-bottom: 18px;
+}
+
+/* ===== FORM ===== */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 12px;
+  color: #c9b48a;
+}
+
+/* ===== INPUTS (PERGAMINHO ESCURO) ===== */
+input {
+  padding: 12px 14px;
+  border-radius: 10px;
+
+  border: 1px solid #3a2a1a;
+  background: #141016;
+
+  color: #e6d8b5;
+  outline: none;
+
+  transition: 0.2s;
+
+}
+
+input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
+}
+
+/* ===== BOTÃO SUBMIT (MAGIA / OURO) ===== */
+button[type="submit"] {
+  padding: 12px;
+  border-radius: 10px;
+
+  border: 2px solid #d4af37;
+
+  background: linear-gradient(135deg, #6b4f1d, #b08a3c);
+  color: #1a120b;
+
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.password-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.show-password-btn{
+  background: none;
+  border: none;
+  color: #c9b48a;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* ===== SWITCH LOGIN/REGISTER ===== */
+.auth-switch {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #c9b48a;
+}
+
+.auth-switch button {
+  background: none;
+  border: none;
+
+  color: #d4af37;
+  cursor: pointer;
+
+  margin-left: 6px;
+  font-weight: 600;
+}
+
+.auth-switch button:hover {
+  text-decoration: underline;
+}
+
+/* ===== ERROR ===== */
+.error-msg {
+  color: #ff6b6b;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 1024px) {
+
+  .modal-login-card{
+    min-width: 30px;
+  }
+  
+  .modal-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .auth-logo {
+    font-size: 22px;
+  }
+}
+
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+
+  .modal-login-card{
+    min-width: 30px;
+  }
+  
+  .modal-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .auth-logo {
+    font-size: 22px;
+  }
+}
+
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 480px) {
+
+  .modal-login-card{
+    max-width: 220px;
+  }
+
+  .modal-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .auth-logo {
+    font-size: 22px;
+  }
+}

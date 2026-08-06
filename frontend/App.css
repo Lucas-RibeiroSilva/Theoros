@@ -1,0 +1,75 @@
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #e6d8b5;
+  background: url('/background3.png') no-repeat center center fixed;
+  background-size: cover;
+  cursor: url('/cursor/cursor_manopla_base2.webp') 0 0, auto !important;
+  
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.6);
+ 
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        180deg,
+        #6b4f1d,
+        #b08a3c
+    );
+    border-radius: 10px;
+    border: 1px solid #d4af37;
+}
+
+label{
+    cursor: url('/cursor/cursor_manopla_base2.webp') 0 0, auto !important;
+
+}
+
+/* Cursor de clique */
+a,
+label,
+button,
+select,
+option,
+[role="button"],
+.clickable {
+     cursor: url('/cursor/cursor_manopla_pointer2.webp') 0 0, auto !important;
+}
+
+input,
+textarea{
+     cursor: url('/cursor/cursor_pena2.webp') 0 0, auto !important;
+
+}
+
+main{
+  flex-wrap: wrap;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+  color: #e6d8b5;
+}
+
+
+@media (min-width:600px) {
+  main {
+    flex-wrap: nowrap;
+  }
+
+
+
+}
