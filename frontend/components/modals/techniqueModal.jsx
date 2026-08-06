@@ -171,6 +171,17 @@ export default function TechniqueModal({ onClose }) {
     }
   }
 
+  function openInfoModal(techniqueId) {
+    setSelectedTechniqueId(techniqueId);
+    setShowInfoModal(true);
+  }
+
+  function closeInfoModal() {
+    setShowInfoModal(false);
+    setSelectedTechniqueId(null);
+  }
+
+
   // ──────────────────────────────────────────────
   // Tela de Carregamento
   // ──────────────────────────────────────────────

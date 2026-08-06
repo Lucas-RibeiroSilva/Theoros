@@ -66,22 +66,22 @@ export default function InfoModal({ onClose, Type, Id }) {
 
                 <div className="modal-info-variable-cost">
                     <h3>Custo Variável:</h3>
-                    <p>{information?.variableCost || "Erro ao carregar"}</p>
+                    <p>{information?.variableCost === 0 || information?.variableCost === null ? "0" : information?.variableCost || "Erro ao carregar"}</p>
                 </div>
 
                 <div className="modal-info-max-level">
                     <h3>Max Level:</h3>
-                    <p>{information?.maxLevel || "Erro ao carregar"}</p>
+                    <p>{information?.maxLevel === null ? "0" : information?.maxLevel || "Erro ao carregar"}</p>
                 </div>
 
                 <div className="modal-info-formula">
                     <h3>Formula:</h3>
-                    <p>{information?.formula || "Erro ao carregar"}</p>
+                    <p>{information?.formula === null ? "Nenhuma" : information?.formula || "Erro ao carregar"}</p>
                 </div>
 
                 <div className="modal-info-formula-description">
                     <h3>Descrição da Fórmula</h3>
-                    <p>{information?.formulaDescription || "Erro ao carregar"}</p>
+                    <p>{information?.formulaDescription === null ? "Nenhuma" : information?.formulaDescription || "Erro ao carregar"}</p>
                 </div>
 
                 <div className="modal-info-effect">

@@ -49,7 +49,7 @@ export default function PointsPainel() {
                         value={tempPoints}
                         onChange={(e) => {
                             const value = Number(e.target.value);
-                            const limitedValue = Math.min(Math.max(value, 1), 100000);
+                            const limitedValue = Math.min(Math.max(value, 1), 800000);
                             setTempPoints(limitedValue);
                         }}
                         onBlur={savePoints}

@@ -179,7 +179,7 @@ CARDS — Fichas
 */
 
 export async function getCards() {
-  return request("/cards", {
+  return request("/cards/summary", {
     method: "GET",
     headers: getHeaders(true),
   });
@@ -193,7 +193,7 @@ export async function getCardById(id) {
 }
 
 export async function getUserCards(userId) {
-  return request(`/cards/user/${userId}`, {
+  return request(`/cards/user/${userId}/summary`, {
     method: "GET",
     headers: getHeaders(true),
   });
@@ -335,7 +335,7 @@ RATINGS — Avaliações
 */
 
 export async function getRatingsByCard(cardId) {
-  return request(`/ratings/${cardId}`, {
+  return request(`/ratings/${cardId}/summary`, {
     method: "GET",
     headers: getHeaders(),
   });
@@ -356,7 +356,7 @@ FAVORITES — Buscar as fichas favoritadas, favoritar ficha, remover ficha favor
 */
 
 export async function getFavoritesCards(userId) {
-  return request(`/favorites/${userId}`, {
+  return request(`/favorites/${userId}/summary`, {
     method: "GET",
     headers: getHeaders(true),
   });
