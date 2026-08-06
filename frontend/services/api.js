@@ -1,4 +1,4 @@
-const API_URL =  "http://localhost:3333";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3333";
 
 // Helper interno — monta os headers com token se existir
 function getHeaders(auth = false) {
