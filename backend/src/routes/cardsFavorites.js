@@ -41,31 +41,58 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authMiddleware } from "./auth.js";
+import { buildFavoriteCardSelect } from "../utils/optimizedQueries.js";
 
 const router = Router();
 
-// GET /favorites/:userId - Busca todos os favoritos de um usuário
-router.get("/:userId", authMiddleware, async (req, res) => {
+// GET /favorites/:userId/summary - Busca todos os favoritos de um usuário em formato leve
+router.get("/:userId/summary", authMiddleware, async (req, res) => {
   const { userId } = req.params;
 
-  // Verifica se o userId é válido
   if (!userId) {
     return res.status(400).json({ error: "ID de usuário inválido." });
   }
 
   try {
     const cardsFavorites = await prisma.cardsFavorites.findMany({
-      where: { 
-        userId: userId
+      where: {
+        userId,
       },
-      include: {
+      select: {
+        id: true,
+        cardId: true,
         card: {
-          include: {
-            race: true,      // Inclui a raça da ficha
-            user: true,      // Inclui o dono da ficha
-            // Adicione outros includes se necessário
-          }
-        }
+          select: buildFavoriteCardSelect(),
+        },
+      },
+    });
+
+    return res.json(cardsFavorites);
+  } catch (error) {
+    console.error("Erro ao buscar fichas favoritas em modo resumo:", error);
+    return res.status(500).json({ error: "Erro ao buscar fichas favoritas." });
+  }
+});
+
+// GET /favorites/:userId - Busca todos os favoritos de um usuário
+router.get("/:userId", authMiddleware, async (req, res) => {
+  const { userId } = req.params;
+
+  if (!userId) {
+    return res.status(400).json({ error: "ID de usuário inválido." });
+  }
+
+  try {
+    const cardsFavorites = await prisma.cardsFavorites.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+        cardId: true,
+        card: {
+          select: buildFavoriteCardSelect(),
+        },
       },
     });
 

@@ -28,11 +28,29 @@
   ➤ O resultado é retornado em formato JSON para consumo pelo frontend.
 */
 
+
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authMiddleware } from "./auth.js";
+import { buildRatingSummarySelect } from "../utils/optimizedQueries.js";
 
 const router = Router();
+
+router.get("/:cardId/summary", async (req, res) => {
+  const { cardId } = req.params;
+
+  try {
+    const ratings = await prisma.ratings.findMany({
+      where: { cardId },
+      select: buildRatingSummarySelect(),
+    });
+
+    return res.json(ratings);
+  } catch (error) {
+    console.error("Erro ao buscar avaliações em modo resumo:", error);
+    return res.status(500).json({ error: "Erro ao buscar avaliações." });
+  }
+});
 
 router.get("/:cardId", async (req, res) => {
   const { cardId } = req.params;
@@ -40,14 +58,7 @@ router.get("/:cardId", async (req, res) => {
   try {
     const ratings = await prisma.ratings.findMany({
       where: { cardId },
-      include: {
-        user: {
-          select: {
-            username: true,
-            image: true,
-          },
-        },
-      },
+      select: buildRatingSummarySelect(),
     });
 
     return res.json(ratings);

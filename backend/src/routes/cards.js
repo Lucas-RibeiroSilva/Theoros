@@ -40,6 +40,7 @@
 import { Router } from "express";
 import prisma from "../prisma.js";
 import { authMiddleware } from "./auth.js";
+import { buildCardSummarySelect } from "../utils/optimizedQueries.js";
 
 const router = Router();
 
@@ -60,6 +61,19 @@ const cardInclude = {
   magics: { include: { magic: true } },
   techniques: { include: { technique: true } },
 };
+
+router.get("/summary", async (req, res) => {
+  try {
+    const cards = await prisma.card.findMany({
+      select: buildCardSummarySelect(),
+    });
+
+    return res.json(cards);
+  } catch (error) {
+    console.error("Erro ao buscar fichas em modo resumo:", error);
+    return res.status(500).json({ error: "Erro ao buscar fichas." });
+  }
+});
 
 router.get("/", async (req, res) => {
   try {
@@ -92,6 +106,28 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/user/:userId/summary", authMiddleware, async (req, res) => {
+  const { userId } = req.params;
+
+  if (!userId) {
+    return res.status(400).json({ error: "ID de usuário inválido." });
+  }
+
+  try {
+    const cards = await prisma.card.findMany({
+      where: {
+        userId,
+      },
+      select: buildCardSummarySelect(),
+    });
+
+    return res.json(cards);
+  } catch (error) {
+    console.error("Erro ao buscar fichas do usuário em modo resumo:", error);
+    return res.status(500).json({ error: "Erro ao buscar fichas do usuário." });
+  }
+});
+
 router.get("/user/:userId", authMiddleware, async (req, res) => {
   const { userId } = req.params;
 
@@ -101,10 +137,10 @@ router.get("/user/:userId", authMiddleware, async (req, res) => {
 
   try {
     const cards = await prisma.card.findMany({
-      where: { 
-        userId: userId
+      where: {
+        userId,
       },
-      include: cardInclude
+      include: cardInclude,
     });
 
     return res.json(cards);
