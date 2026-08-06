@@ -50,6 +50,7 @@ const cardInclude = {
       id: true,
       username: true,
       email: true,
+      image: true,
     },
   },
 

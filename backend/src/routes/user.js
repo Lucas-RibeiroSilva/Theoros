@@ -35,6 +35,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        error: "Usuário não encontrado",
+      });
+    }
+
+    return res.json(user);
+  } catch (error) {
+    console.error("Erro ao buscar usuário logado:", error);
+    return res.status(500).json({ error: "Erro ao buscar usuário." });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
