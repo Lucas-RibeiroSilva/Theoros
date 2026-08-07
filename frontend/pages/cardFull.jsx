@@ -37,7 +37,6 @@ export default function CardFull({ handleLogout }) {
 
   const [card, setCard] = useState(null);
   const [commentarys, setCommentarys] = useState(null);
-  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -59,15 +58,6 @@ export default function CardFull({ handleLogout }) {
         const dataCommentarys = await getRatingsByCard(id);
 
         setCard(data);
-        setProfile(
-          data?.user
-            ? {
-                id: data.user.id,
-                username: data.user.username,
-                image: data.user.image,
-              }
-            : null
-        );
         setCommentarys(dataCommentarys);
       } catch (error) {
         console.error("Erro ao carregar ficha:", error);
@@ -177,14 +167,14 @@ export default function CardFull({ handleLogout }) {
       <div className="card-main">
         <img
           id="img-profile-card"
-          src={profile?.image}
+          src={data.user?.image}
           alt="avatar do perfil"
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/profile/${profile?.id}`);
+            navigate(`/profile/${data.user?.id}`);
           }}
         />
-        <h2 id="name-profile-card">Criador: {profile?.username}</h2>
+        <h2 id="name-profile-card">Criador: {data.user?.username}</h2>
         <h2 className="card-title">{card?.name}</h2>
 
         <div className="card-actions">
