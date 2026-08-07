@@ -183,6 +183,15 @@ export default function Profile({ handleLogout }) {
   window.location.reload();
 }
 
+  if (!userData) {
+  return (
+    <>
+      <Header handleLogout={handleLogout} />
+      <Loading />
+    </>
+  );
+  }
+
   return (
     <>
       <Header handleLogout={handleLogout} removeProfile={removeProfile} />
@@ -229,8 +238,7 @@ export default function Profile({ handleLogout }) {
               type="text"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
-              onKeyDown={(e) => {
-                onKeyDown={async (e) => {
+              onKeyDown={async (e) => {
   if (e.key === "Enter") {
     await updateUserName(userData.id, userName);
     setEditName(false);
@@ -263,7 +271,6 @@ export default function Profile({ handleLogout }) {
               maxLength={252}
               onChange={(e) => setUserDescription(e.target.value)}
               onKeyDown={async (e) => {
-  onKeyDown={async (e) => {
   if (e.key === "Enter") {
     await updateUserDescription(userData.id, userDescription);
     setEditDescription(false);
