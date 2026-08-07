@@ -4,7 +4,10 @@ import { useState, useEffect } from "react";
 import FilterAltTwoToneIcon from "@mui/icons-material/FilterAltTwoTone";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
+import { PiBrainDuotone } from "react-icons/pi";
+import { TbGhost2 } from "react-icons/tb";
 import { GiBiceps, GiAngelWings, GiCrossedSwords } from "react-icons/gi";
+import { RiSpeakLine } from "react-icons/ri";
 
 // Serve para aparecer uma mensagem de explicacao para quando passa o cursor em cima
 import Tooltip from '@mui/material/Tooltip';
