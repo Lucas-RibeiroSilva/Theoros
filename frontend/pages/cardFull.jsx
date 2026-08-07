@@ -167,14 +167,14 @@ export default function CardFull({ handleLogout }) {
       <div className="card-main">
         <img
           id="img-profile-card"
-          src={data.user?.image}
+          src={card.user?.image}
           alt="avatar do perfil"
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/profile/${data.user?.id}`);
+            navigate(`/profile/${card.user?.id}`);
           }}
         />
-        <h2 id="name-profile-card">Criador: {data.user?.username}</h2>
+        <h2 id="name-profile-card">Criador: {card.user?.username}</h2>
         <h2 className="card-title">{card?.name}</h2>
 
         <div className="card-actions">
