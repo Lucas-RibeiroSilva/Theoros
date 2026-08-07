@@ -120,7 +120,7 @@ export default function Profile({ handleLogout }) {
         setIsOwnProfile(targetUserId === loggedUserId);
 
         // Verifica se o usuário é adminstrador através do próprio perfil logado
-        const loggedUser = await getMyUserInfo();
+        const loggedUser = await getUserInfo(loggedUserId);
 
         if (loggedUser?.admin) {
           setIsAdmin(true);
