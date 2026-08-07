@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Traits" ALTER COLUMN "display" SET DATA TYPE TEXT,
+ALTER COLUMN "shortDescription" SET DATA TYPE TEXT;

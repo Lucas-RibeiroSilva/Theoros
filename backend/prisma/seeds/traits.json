@@ -3,16 +3,12 @@
     "id": "combat_reflexes",
     "isAdvantage": true,
     "name": "Reflexos de Combate",
-
     "baseCost": 15,
     "costIsVariable": true,
     "variableCost": 10,
-
     "display": "Reflexos de Combate",
-
     "isAllowedLevel": true,
     "maxLevel": 3,
-
     "shortDescription": "Você reage mais rapidamente que pessoas normais.",
     "fullDescription": "O cérebro do personagem está condicionado a reagir instintivamente a ameaças e perigos súbitos. Ele treinou extensivamente para lidar com emboscadas ou possui um talento natural para entrar no <strong>estado de alerta</strong> em frações de segundo, tornando quase impossível pegá-lo de surpresa em situações mortais.",
     "rules": [
@@ -28,13 +24,10 @@
         "name": "Resistência Psicológica",
         "description": "Concede +2 em testes de Pânico (Fright Checks), visto que o pânico do momento é convertido em ação reflexa de combate. Ele nunca congela numa situação de surpresa parcial."
       }
-      ],
-
+    ],
     "formula": "Cf = 15",
     "formulaDescription": "O custo final (Cf) é um valor fixo de 15 pontos.",
-
     "types": ["Physical", "Combat"],
-
     "requirements": [
       {
         "attribute": "DX",
@@ -43,14 +36,12 @@
         "display": "Destreza +2"
       }
     ],
-
     "restrictions": [
       {
         "restrictedId": "unconscious",
         "display": "Não pode ser usado enquanto estiver inconsciente"
       }
     ],
-
     "modifiers": [
       {
         "attribute": "DX",
@@ -59,7 +50,6 @@
         "display": "+1 Destreza"
       }
     ],
-
     "effects": [
       {
         "name": "Reflexos Rápidos",
@@ -68,83 +58,2296 @@
       }
     ]
   },
-
   {
-    "id": "acute_vision",
+    "id": "abafador_mana",
     "isAdvantage": true,
-    "name": "Visão Aguçada",
-
+    "name": "Abafador de Mana",
+    "baseCost": 10,
+    "costIsVariable": true,
+    "variableCost": 10,
+    "display": "Abafador de Mana",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Anula a energia mágica ao redor do personagem e de quem ele toca.",
+    "fullDescription": "O personagem emana uma <strong>zona de anulação arcana</strong> ao seu redor, suprimindo naturalmente o fluxo de mana no ambiente. Quanto maior o nível adquirido, mais intensa e abrangente é essa supressão, tornando difícil ou impossível a conjuração de magias nas proximidades.",
+    "rules": [
+      {
+        "name": "Anulação Passiva",
+        "description": "A habilidade opera de forma contínua, suprimindo o fluxo de mana no ambiente imediato ao redor do personagem e em alvos ou objetos que estejam em contato físico direto com ele."
+      }
+    ],
+    "formula": "Cf = 10 * N",
+    "formulaDescription": "O custo final (Cf) é calculado multiplicando o custo base de 10 pontos pelo nível (N) adquirido da vantagem.",
+    "types": ["Mental", "Supernatural"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Supressão de Mana",
+        "effectType": "mana_suppression",
+        "display": "Suprime o fluxo de mana no ambiente ao redor do personagem por nível"
+      }
+    ]
+  },
+  {
+    "id": "abascanto",
+    "isAdvantage": true,
+    "name": "Abascanto",
+    "baseCost": 2,
+    "costIsVariable": true,
+    "variableCost": 2,
+    "display": "Abascanto",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Concede resistência contra mágicas e elixires.",
+    "fullDescription": "O corpo e a mente do personagem desenvolveram uma <strong>resistência natural</strong> a influências arcanas, tornando-o mais difícil de ser afetado por feitiços hostis ou por poções e elixires de origem mística.",
+    "rules": [
+      {
+        "name": "Resistência Ativa",
+        "description": "O personagem recebe proteção e bônus aplicáveis para resistir a efeitos de magias, feitiços ou poções/elixires arcanos direcionados contra ele."
+      }
+    ],
+    "formula": "Cf = 2 * N",
+    "formulaDescription": "O custo final (Cf) é calculado multiplicando o custo base de 2 pontos pelo nível (N) adquirido da vantagem.",
+    "types": ["Mental", "Supernatural"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [
+      {
+        "attribute": "HT",
+        "operator": "ADD",
+        "value": 1,
+        "display": "+1 por nível em testes de resistência (HT) contra magias e elixires"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Resistência Mágica",
+        "effectType": "magic_resistance",
+        "display": "Bônus para resistir a efeitos de magias e elixires por nível"
+      }
+    ]
+  },
+  {
+    "id": "abencoado",
+    "isAdvantage": true,
+    "name": "Abençoado",
+    "baseCost": 10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Abençoado",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Recebe auxílio divino em feitos heroicos.",
+    "fullDescription": "Forças superiores observam o personagem com favor, intervindo sutilmente em seu benefício quando ele age em conformidade com <strong>preceitos elevados</strong> ou realiza atos de bravura genuína.",
+    "rules": [
+      {
+        "name": "Intervenção Favorável",
+        "description": "O personagem conta com a providência ou intervenção de forças superiores quando está agindo em conformidade com preceitos elevados ou realizando ações de bravura heroica."
+      }
+    ],
+    "formula": "Cf = F",
+    "formulaDescription": "O custo final (Cf) é um valor fixo determinado pelo nível ou intensidade da bênção a partir do custo base de 10 pontos.",
+    "types": ["Mental", "Supernatural"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Intervenção Divina",
+        "effectType": "divine_intervention",
+        "display": "Chance de auxílio sobrenatural em atos de bravura ou virtude"
+      }
+    ]
+  },
+  {
+    "id": "acessorios",
+    "isAdvantage": true,
+    "name": "Acessórios",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "display": "Acessórios",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Pequenos equipamentos úteis incorporados ao corpo.",
+    "fullDescription": "O personagem possui pequenas ferramentas ou utensílios <strong>integrados diretamente ao seu corpo</strong>, sejam de origem biológica ou mecânica, eliminando a necessidade de carregá-los separadamente.",
+    "rules": [
+      {
+        "name": "Integração Biológica ou Mecânica",
+        "description": "O personagem possui ferramentas ou utensílios mundanos acoplados diretamente à sua estrutura física, eliminando a necessidade de carregá-los externamente."
+      }
+    ],
+    "formula": "Cf = 1 * N",
+    "formulaDescription": "O custo final (Cf) é calculado multiplicando o valor fixo de 1 ponto pela quantidade (N) de utilitários ou ferramentas integradas.",
+    "types": ["Physical", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Ferramentas Integradas",
+        "effectType": "integrated_tools",
+        "display": "Concede um utensílio útil integrado ao corpo por nível"
+      }
+    ]
+  },
+  {
+    "id": "adaptabilidade_cultural",
+    "isAdvantage": true,
+    "name": "Adaptabilidade Cultural",
+    "baseCost": 10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Adaptabilidade Cultural",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "O personagem está familiarizado com uma grande variedade de culturas.",
+    "fullDescription": "Através de vivência, estudo ou talento inato, o personagem compreende instantaneamente <strong>hábitos, costumes e etiquetas sociais</strong> de diferentes civilizações, transitando entre elas sem causar estranhamento.",
+    "rules": [
+      {
+        "name": "Trânsito Social Fluido",
+        "description": "O personagem compreende e se adapta instantaneamente a diferentes hábitos, costumes e etiquetas sociais de variadas civilizações ou etnias sem sofrer penalidades de estranhamento cultural."
+      }
+    ],
+    "formula": "Cf = 10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 10 pontos.",
+    "types": ["Mental"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Fluência Cultural",
+        "effectType": "cultural_fluency",
+        "display": "Remove penalidades de estranhamento cultural em qualquer sociedade"
+      }
+    ]
+  },
+  {
+    "id": "adaptacao_terreno",
+    "isAdvantage": true,
+    "name": "Adaptação ao Terreno",
     "baseCost": 5,
     "costIsVariable": true,
     "variableCost": 5,
-
-    "display": "Visão Aguçada",
-
+    "display": "Adaptação ao Terreno",
     "isAllowedLevel": true,
-    "maxLevel": 4,
-
-    "shortDescription": "Seus olhos enxergam com mais nitidez que o normal.",
-    "fullDescription": "Seus olhos enxergam com mais nitidez que o normal.",
-
-    "formula": null,
-    "formulaDescription": null,
-
-    "types": ["Physical"],
-
+    "maxLevel": null,
+    "shortDescription": "Ignora penalidades em terrenos específicos.",
+    "fullDescription": "O corpo do personagem está adaptado a um tipo específico de terreno hostil, permitindo que ele se mova com <strong>total desenvoltura</strong> onde outros teriam dificuldade, como gelo, lama ou pântanos.",
+    "rules": [
+      {
+        "name": "Movimentação Desimpedida",
+        "description": "O portador consegue caminhar, correr e manobrar em superfícies tradicionalmente difíceis ou instáveis (como gelo, lama, pântano) sem sofrer redutores em seu deslocamento."
+      }
+    ],
+    "formula": "Cf = F",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de 5 pontos por tipo de terreno escolhido (ou 0 se fizer parte de um pacote nativo).",
+    "types": ["Physical", "Exotic"],
     "requirements": [],
-
     "restrictions": [],
-
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Imunidade a Terreno Difícil",
+        "effectType": "terrain_immunity",
+        "display": "Remove penalidades de deslocamento no tipo de terreno escolhido"
+      }
+    ]
+  },
+  {
+    "id": "aderencia",
+    "isAdvantage": true,
+    "name": "Aderência",
+    "baseCost": 20,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Aderência",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Permite andar em paredes e tetos.",
+    "fullDescription": "Estruturas exóticas nas mãos e pés do personagem, ou uma força mística sutil, permitem que ele <strong>desafie a gravidade</strong>, prendendo-se e deslocando-se por superfícies verticais ou invertidas.",
+    "rules": [
+      {
+        "name": "Locomoção Vertical e Invertida",
+        "description": "O personagem consegue prender-se e deslocar-se por superfícies verticais ou tetos, desafiando a gravidade através de propriedades biológicas ou forças exóticas nas suas extremidades."
+      }
+    ],
+    "formula": "Cf = 20",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 20 pontos.",
+    "types": ["Physical", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Escalada em Superfícies Verticais",
+        "effectType": "wall_climbing",
+        "display": "Permite se mover em paredes e tetos sem testes de escalada"
+      }
+    ]
+  },
+  {
+    "id": "agente_cativante",
+    "isAdvantage": true,
+    "name": "Agente Cativante",
+    "baseCost": 15,
+    "costIsVariable": true,
+    "variableCost": 15,
+    "display": "Agente Cativante",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Talento social para perícias de influência.",
+    "fullDescription": "O personagem possui um <strong>carisma natural aprimorado</strong>, funcionando como um talento voltado para negociação, persuasão e todo tipo de interação social baseada em lábia e diplomacia.",
+    "rules": [
+      {
+        "name": "Aprimoramento Social",
+        "description": "Atua como um Talento voltado especificamente para interações, concedendo bônus nos testes e na reação de personagens ao utilizar perícias de convencimento, lábia ou diplomacia."
+      }
+    ],
+    "formula": "Cf = 15 * N",
+    "formulaDescription": "O custo final (Cf) é obtido multiplicando o valor base de 15 pontos pelo nível (N) adquirido.",
+    "types": ["Mental"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Bônus Social",
+        "effectType": "reaction_bonus",
+        "display": "+1 na reação de NPCs e em perícias de influência por nível"
+      }
+    ]
+  },
+  {
+    "id": "aliados",
+    "isAdvantage": true,
+    "name": "Aliados",
+    "baseCost": 0,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Aliados",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "PdMs leais que auxiliam o personagem.",
+    "fullDescription": "Um ou mais Personagens de Mestre <strong>totalmente leais</strong> ao jogador estão dispostos a ajudá-lo em missões, aparecendo em cena de acordo com uma frequência determinada.",
+    "rules": [
+      {
+        "name": "Invocação por Frequência",
+        "description": "Personagens Não-Jogadores sob o controle do Mestre, mas inteiramente leais ao jogador, entram em cena para ajudar em missões de acordo com a rolagem de frequência estipulada."
+      }
+    ],
+    "formula": "Cf = B * f",
+    "formulaDescription": "O custo final (Cf) é determinado multiplicando o custo base (B, calculado pelo nível de poder do aliado) pela frequência de aparição (f).",
+    "types": ["Social"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Auxílio de Aliado",
+        "effectType": "ally_summon",
+        "display": "Um PdM leal aparece para ajudar conforme a frequência definida"
+      }
+    ]
+  },
+  {
+    "id": "ambidestria",
+    "isAdvantage": true,
+    "name": "Ambidestria",
+    "baseCost": 5,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Ambidestria",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Remove penalidade da mão inábil.",
+    "fullDescription": "O sistema nervoso do personagem possui <strong>simetria motora total</strong>, permitindo que ele use qualquer uma das mãos com igual destreza, sem qualquer desvantagem prática.",
+    "rules": [
+      {
+        "name": "Simetria Motora",
+        "description": "O personagem consegue realizar tarefas de precisão, manejar ferramentas e empunhar armas com qualquer uma das mãos sem sofrer os redutores habituais de uso do membro secundário."
+      }
+    ],
+    "formula": "Cf = 5",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 5 pontos.",
+    "types": ["Physical"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Sem Penalidade de Mão Inábil",
+        "effectType": "off_hand_penalty_removal",
+        "display": "Remove a penalidade por usar a mão não-dominante"
+      }
+    ]
+  },
+  {
+    "id": "ampliador_mana",
+    "isAdvantage": true,
+    "name": "Ampliador de Mana",
+    "baseCost": 50,
+    "costIsVariable": true,
+    "variableCost": 50,
+    "display": "Ampliador de Mana",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Aumenta o nível de mana local.",
+    "fullDescription": "O personagem funciona como um <strong>catalisador místico ambulante</strong>, elevando naturalmente a densidade de energia mágica disponível na região onde se encontra.",
+    "rules": [
+      {
+        "name": "Elevação Ambiental",
+        "description": "O personagem funciona como um catalisador místico ambulante, elevando a densidade ou categoria da energia mágica (mana) na região ao seu redor."
+      }
+    ],
+    "formula": "Cf = 50 * N",
+    "formulaDescription": "O custo final (Cf) é calculado multiplicando o custo base de 50 pontos pelo nível (N) adquirido da vantagem.",
+    "types": ["Mental", "Supernatural"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Amplificação de Mana",
+        "effectType": "mana_amplification",
+        "display": "Eleva o nível de mana da região ao redor do personagem por nível"
+      }
+    ]
+  },
+  {
+    "id": "anfibio",
+    "isAdvantage": true,
+    "name": "Anfíbio",
+    "baseCost": 10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Anfíbio",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Permite agir normalmente sob a água.",
+    "fullDescription": "O corpo do personagem está fisiologicamente adaptado ao ambiente aquático, permitindo que ele se mova, lute e aja <strong>sem penalidades</strong> tanto na terra quanto embaixo d'água.",
+    "rules": [
+      {
+        "name": "Operação Subaquática",
+        "description": "O personagem move-se, luta e realiza ações físicas dentro de ambientes aquáticos sem as penalidades cinéticas ou restrições impostas a seres puramente terrestres."
+      }
+    ],
+    "formula": "Cf = 10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 10 pontos.",
+    "types": ["Physical", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Adaptação Aquática",
+        "effectType": "aquatic_adaptation",
+        "display": "Remove penalidades de ações realizadas em ambiente subaquático"
+      }
+    ]
+  },
+  {
+    "id": "antecedentes_incomuns",
+    "isAdvantage": true,
+    "name": "Antecedentes Incomuns",
+    "baseCost": 0,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Antecedentes Incomuns",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Justifica habilidades raras no cenário.",
+    "fullDescription": "O personagem possui uma <strong>linhagem, acesso ou segredo</strong> estritamente restrito ou único dentro do universo da campanha, exigindo um custo regulatório em pontos para ser justificado mecanicamente.",
+    "rules": [
+      {
+        "name": "Taxa de Exclusividade",
+        "description": "Serve como um custo regulatório de pontuação para permitir que o personagem possua linhagens, acessos, segredos ou poderes que são estritamente restritos ou únicos no universo da campanha."
+      }
+    ],
+    "formula": "Cf = F",
+    "formulaDescription": "O custo final (Cf) é um valor fixo determinado pelo Mestre com base na raridade da característica no cenário.",
+    "types": ["Mental"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": []
+  },
+  {
+    "id": "apagado",
+    "isAdvantage": true,
+    "name": "Apagado",
+    "baseCost": 10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Apagado",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Não possui registros oficiais.",
+    "fullDescription": "O personagem simplesmente <strong>não existe</strong> para o sistema: nenhum banco de dados governamental, cartório ou arquivo institucional possui qualquer registro sobre ele, tornando investigações formais quase impossíveis.",
+    "rules": [
+      {
+        "name": "Inexistência Burocrática",
+        "description": "O personagem não consta em bancos de dados governamentais, cartórios, registros criminais ou arquivos institucionais, tornando pesquisas e investigações formais sobre o seu passado extremamente difíceis."
+      }
+    ],
+    "formula": "Cf = 10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 10 pontos.",
+    "types": ["Social"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Ausência de Registros",
+        "effectType": "no_records",
+        "display": "Dificulta investigações e buscas por registros oficiais do personagem"
+      }
+    ]
+  },
+  {
+    "id": "aparencia",
+    "isAdvantage": true,
+    "name": "Aparência",
+    "baseCost": 0,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Aparência",
+    "isAllowedLevel": true,
+    "maxLevel": 0,
+    "shortDescription": "Atratividade física que afeta reações sociais.",
+    "fullDescription": "A beleza física do personagem vai de simplesmente atraente até patamares <strong>sobre-humanos</strong>, influenciando diretamente a forma como as pessoas reagem a ele.",
+    "rules": [
+      {
+        "name": "Modificador de Reação",
+        "description": "A beleza física marcante do personagem concede bônus automáticos em testes de Reação de NPCs e em testes de perícias de influência baseadas em apelo visual."
+      }
+    ],
+    "formula": "Cf = F",
+    "formulaDescription": "O custo final (Cf) baseia-se no nível de atratividade selecionado (do nível atraente até patamares sobre-humanos).",
+    "types": ["Physical"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Bônus de Atratividade",
+        "effectType": "reaction_bonus",
+        "display": "Bônus na reação de NPCs, variável conforme o nível de atratividade"
+      }
+    ]
+  },
+  {
+    "id": "apetrechos",
+    "isAdvantage": true,
+    "name": "Apetrechos",
+    "baseCost": 5,
+    "costIsVariable": true,
+    "variableCost": 5,
+    "display": "Apetrechos",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Permite sacar itens úteis inesperadamente.",
+    "fullDescription": "Por sorte, preparação implícita ou algum truque sutil, o personagem <strong>sempre tem consigo</strong> um pequeno item mundano de utilidade exatamente quando mais precisa dele.",
+    "rules": [
+      {
+        "name": "Conveniência de Equipamento",
+        "description": "Através de sorte, preparação implícita ou portais de bolso, o personagem misteriosamente sempre tem consigo um item de utilidade mundana menor exatamente quando mais precisa dele."
+      }
+    ],
+    "formula": "Cf = 5 * N",
+    "formulaDescription": "O custo final (Cf) é obtido multiplicando o valor base de 5 pontos pela quantidade (N) de itens que o personagem consegue manifestar/sacar.",
+    "types": ["Mental", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Item Conveniente",
+        "effectType": "item_conjuring",
+        "display": "Permite sacar um item mundano útil por nível"
+      }
+    ]
+  },
+  {
+    "id": "aptidao_magica",
+    "isAdvantage": true,
+    "name": "Aptidão Mágica",
+    "baseCost": 5,
+    "costIsVariable": true,
+    "variableCost": 10,
+    "display": "Aptidão Mágica",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Facilita aprendizado de magias.",
+    "fullDescription": "O personagem possui <strong>sensibilidade arcana</strong> natural, sendo capaz de perceber e conjurar magias. Essa vantagem é um pré-requisito essencial para a maioria dos feitiços do jogo.",
+    "rules": [
+      {
+        "name": "Sensibilidade Arcana",
+        "description": "Concede a habilidade de perceber e conjurar mágicas, funcionando como pré-requisito obrigatório para a maioria dos feitiços e garantindo bônus no aprendizado e no NH das mágicas."
+      }
+    ],
+    "formula": "Cf = 5 + (10 * N)",
+    "formulaDescription": "O custo do nível 0 (ou inicial) é de 5 pontos, e cada nível subsequente (N) adiciona 10 pontos ao custo final.",
+    "types": ["Mental", "Supernatural"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [
+      {
+        "attribute": "IQ",
+        "operator": "ADD",
+        "value": 1,
+        "display": "+1 por nível no NH de perícias de magia (aplicado apenas para conjuração)"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Sensibilidade Arcana",
+        "effectType": "spellcasting_bonus",
+        "display": "Pré-requisito e bônus de aprendizado para perícias mágicas"
+      }
+    ]
+  },
+  {
+    "id": "arrebatador",
+    "isAdvantage": true,
+    "name": "Arrebatador",
+    "baseCost": 80,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Arrebatador",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Puxa pequenos itens de mundos alternativos.",
+    "fullDescription": "O personagem consegue estender sua vontade através do <strong>tecido da realidade</strong>, extraindo pequenos objetos e ferramentas úteis diretamente de planos paralelos ou dimensões alternativas.",
+    "rules": [
+      {
+        "name": "Manifestação Interdimensional",
+        "description": "O personagem consegue estender a mão através do tecido da realidade para extrair pequenos objetos e ferramentas úteis diretamente de planos paralelos ou dimensões alternativas."
+      }
+    ],
+    "formula": "Cf = 80",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 80 pontos.",
+    "types": ["Mental", "Supernatural"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Manifestação Interdimensional",
+        "effectType": "interdimensional_snatch",
+        "display": "Extrai pequenos objetos de dimensões alternativas"
+      }
+    ]
+  },
+  {
+    "id": "arremedo",
+    "isAdvantage": true,
+    "name": "Arremedo",
+    "baseCost": 10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Arremedo",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Imita sons e vozes.",
+    "fullDescription": "O controle vocal do personagem é tão refinado que ele consegue <strong>replicar com fidelidade</strong> ruídos mecânicos, sons de animais ou a voz exata de outras pessoas.",
+    "rules": [
+      {
+        "name": "Mimetismo Vocal",
+        "description": "O personagem possui um controle das pregas vocais ou da projeção sonora capaz de replicar com fidelidade barulhos mecânicos, ruídos de animais ou a voz exata de outros indivíduos."
+      }
+    ],
+    "formula": "Cf = 10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 10 pontos.",
+    "types": ["Mental", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Mimetismo Vocal",
+        "effectType": "vocal_mimicry",
+        "display": "Replica sons, ruídos mecânicos e vozes com fidelidade"
+      }
+    ]
+  },
+  {
+    "id": "artifice",
+    "isAdvantage": true,
+    "name": "Artífice",
+    "baseCost": 10,
+    "costIsVariable": true,
+    "variableCost": 10,
+    "display": "Artífice",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Talento para perícias técnicas.",
+    "fullDescription": "O personagem possui uma <strong>afinidade natural</strong> com mecanismos, engenharia e reparos, atuando como um talento que aprimora todas as perícias técnicas relacionadas.",
+    "rules": [
+      {
+        "name": "Bônus Técnico",
+        "description": "Como um Talento focado em habilidades manuais e de engenharia, concede um bônus de +1 por nível em testes de perícias mecânicas, eletrônicas e de reparos em geral."
+      }
+    ],
+    "formula": "Cf = 10 * N",
+    "formulaDescription": "O custo final (Cf) é calculado multiplicando o custo base de 10 pontos pelo nível (N) adquirido do talento.",
+    "types": ["Mental"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Bônus em Perícias Técnicas",
+        "effectType": "skill_bonus",
+        "display": "+1 por nível em perícias mecânicas, eletrônicas e de reparos"
+      }
+    ]
+  },
+  {
+    "id": "artista_talentoso",
+    "isAdvantage": true,
+    "name": "Artista Talentoso",
+    "baseCost": 5,
+    "costIsVariable": true,
+    "variableCost": 5,
+    "display": "Artista Talentoso",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Talento artístico e manual.",
+    "fullDescription": "O personagem possui um <strong>dom natural para a criação</strong>, aprimorando seu desempenho em perícias ligadas à expressão artística ou a trabalhos manuais criativos.",
+    "rules": [
+      {
+        "name": "Bônus Artístico",
+        "description": "Concede um bônus permanente por nível na realização de testes e no aprendizado de perícias diretamente ligadas à expressão artística ou trabalhos manuais criativos."
+      }
+    ],
+    "formula": "Cf = 5 * N",
+    "formulaDescription": "O custo final (Cf) é calculado multiplicando o custo base de 5 pontos pelo nível (N) adquirido do talento.",
+    "types": ["Mental"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Bônus em Perícias Artísticas",
+        "effectType": "skill_bonus",
+        "display": "+1 por nível em perícias artísticas e manuais criativas"
+      }
+    ]
+  },
+  {
+    "id": "ataque_adicional",
+    "isAdvantage": true,
+    "name": "Ataque Adicional",
+    "baseCost": 25,
+    "costIsVariable": true,
+    "variableCost": 25,
+    "display": "Ataque Adicional",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Permite ataques extras por turno.",
+    "fullDescription": "O corpo do personagem é capaz de realizar <strong>ações ofensivas simultâneas</strong>, permitindo desferir golpes adicionais no mesmo turno sem sofrer as penalidades habituais de ações múltiplas.",
+    "rules": [
+      {
+        "name": "Ofensiva Múltipla",
+        "description": "Concede a habilidade de realizar ações ofensivas adicionais ou desferir golpes a mais durante o mesmo turno de combate sem sofrer as penalidades habituais de ações múltiplas."
+      }
+    ],
+    "formula": "Cf = 25 * N",
+    "formulaDescription": "O custo final (Cf) é obtido multiplicando o valor de 25 pontos pela quantidade de ataques extras (N) comprados.",
+    "types": ["Physical", "Exotic", "Combat"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Ataque Extra",
+        "effectType": "extra_attack",
+        "display": "+1 ataque adicional por nível, sem penalidade de ação múltipla"
+      }
+    ]
+  },
+  {
+    "id": "ataque_constritivo",
+    "isAdvantage": true,
+    "name": "Ataque Constritivo",
+    "baseCost": 15,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Ataque Constritivo",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Esmaga o alvo enquanto o agarra.",
+    "fullDescription": "Após prender um oponente, o personagem consegue aplicar uma <strong>pressão esmagadora contínua</strong>, infligindo dano ou sufocamento a cada turno em que mantém o agarre.",
+    "rules": [
+      {
+        "name": "Asfixia por Agarre",
+        "description": "Após conseguir prender ou agarrar fisicamente um oponente, o personagem consegue aplicar uma pressão esmagadora contínua para infligir danos ou sufocamento a cada turno."
+      }
+    ],
+    "formula": "Cf = 15",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 15 pontos.",
+    "types": ["Physical", "Exotic", "Combat"],
+    "requirements": [],
+    "restrictions": [
+      {
+        "restrictedId": "nao_agarrando_alvo",
+        "display": "Não pode ser usado sem antes agarrar/prender o alvo"
+      }
+    ],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Esmagamento Contínuo",
+        "effectType": "constriction_damage",
+        "display": "Aplica dano de esmagamento a cada turno enquanto mantém o agarre"
+      }
+    ]
+  },
+  {
+    "id": "ataque_inato",
+    "isAdvantage": true,
+    "name": "Ataque Inato",
+    "baseCost": 0,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Ataque Inato",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Arma natural como raio ou sopro.",
+    "fullDescription": "O personagem consegue projetar <strong>descargas de energia, projéteis biológicos ou lufadas elementais</strong> diretamente de sua estrutura biológica ou mística contra alvos à distância.",
+    "rules": [
+      {
+        "name": "Manifestação Ofensiva",
+        "description": "Permite ao personagem projetar descargas de energia, projéteis biológicos ou lufadas elementais diretamente de sua estrutura biológica ou mística contra alvos à distância."
+      }
+    ],
+    "formula": "Cf = B * N",
+    "formulaDescription": "O custo final (Cf) depende do valor do tipo de dano base (B) multiplicado pela quantidade de dados ou níveis (N) adquiridos.",
+    "types": ["Physical", "Exotic", "Combat"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Ataque à Distância",
+        "effectType": "ranged_innate_attack",
+        "display": "Projeta dano à distância usando uma arma natural"
+      }
+    ]
+  },
+  {
+    "id": "atirador",
+    "isAdvantage": true,
+    "name": "Atirador",
+    "baseCost": 25,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Atirador",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Usa Precisão sem Apontar.",
+    "fullDescription": "A coordenação do personagem com armas de disparo é tão elevada que ele aplica <strong>instintivamente</strong> o bônus de Precisão da arma ao atacar, sem precisar gastar turnos apontando.",
+    "rules": [
+      {
+        "name": "Mira Instintiva",
+        "description": "O personagem possui uma coordenação e precisão tão elevadas com armas de projétil ou de disparo que consegue aplicar o bônus de Precisão (Prec) da arma imediatamente ao atacar, sem a necessidade de gastar turnos na manobra Apontar."
+      }
+    ],
+    "formula": "Cf = 25",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 25 pontos.",
+    "types": ["Mental", "Combat"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Mira Instintiva",
+        "effectType": "instant_aim",
+        "display": "Aplica o bônus de Precisão da arma sem gastar turno para apontar"
+      }
+    ]
+  },
+  {
+    "id": "atribulacao",
+    "isAdvantage": true,
+    "name": "Atribulação",
+    "baseCost": 10,
+    "costIsVariable": true,
+    "variableCost": 10,
+    "display": "Atribulação",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Impõe condições negativas ao alvo.",
+    "fullDescription": "O personagem consegue canalizar um efeito que força a vítima a realizar um teste de resistência, sob pena de sofrer <strong>redutores ou estados prejudiciais</strong> físicos ou mentais.",
+    "rules": [
+      {
+        "name": "Indução de Estados",
+        "description": "Permite disparar ou canalizar um efeito que força a vítima a realizar um teste de resistência para evitar sofrer redutores, penalidades ou estados prejudiciais físicos ou mentais."
+      }
+    ],
+    "formula": "Cf = 10 * N",
+    "formulaDescription": "O custo final (Cf) calcula-se multiplicando o valor base de 10 pontos pelo nível (N) de intensidade da aflição.",
+    "types": ["Physical", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Indução de Estado Negativo",
+        "effectType": "affliction",
+        "display": "Força o alvo a um teste de resistência ou sofrer um estado prejudicial"
+      }
+    ]
+  },
+  {
+    "id": "audicao_aguzada",
+    "isAdvantage": true,
+    "name": "Audição Aguçada",
+    "baseCost": 2,
+    "costIsVariable": true,
+    "variableCost": 2,
+    "display": "Audição Aguçada",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Bônus em testes auditivos.",
+    "fullDescription": "Os ouvidos do personagem são muito mais sensíveis que o normal, concedendo uma <strong>percepção auditiva aprimorada</strong> em qualquer situação que dependa da audição.",
+    "rules": [
+      {
+        "name": "Sensibilidade Acústica",
+        "description": "Garante um bônus permanente de +1 por nível em qualquer teste de Percepção (Per) ou testes de sentidos que dependam estritamente da capacidade de ouvir do personagem."
+      }
+    ],
+    "formula": "Cf = 2 * N",
+    "formulaDescription": "O custo final (Cf) é calculado multiplicando o custo base de 2 pontos pelo nível (N) de aprimoramento sensorial.",
+    "types": ["Physical"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [
+      {
+        "attribute": "PER",
+        "operator": "ADD",
+        "value": 1,
+        "display": "+1 em Percepção (testes auditivos) por nível"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Bônus de Percepção Auditiva",
+        "effectType": "perception_bonus",
+        "display": "+1 por nível em testes de Percepção baseados em audição"
+      }
+    ]
+  },
+  {
+    "id": "audicao_discriminatoria",
+    "isAdvantage": true,
+    "name": "Audição Discriminatória",
+    "baseCost": 15,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Audição Discriminatória",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Distingue sons específicos com precisão.",
+    "fullDescription": "O personagem consegue filtrar ruídos de fundo e focar em sons isolados, reconhecendo <strong>vozes individuais em meio a multidões</strong>, passos específicos ou até batimentos cardíacos.",
+    "rules": [
+      {
+        "name": "Isolamento Acústico",
+        "description": "O personagem consegue filtrar barulhos de fundo e focar em ruídos isolados, permitindo reconhecer vozes individuais em multidões, passos específicos ou batimentos cardíacos."
+      }
+    ],
+    "formula": "Cf = 15",
+    "formulaDescription": "O custo final (Cf) é um valor fixo e imutável de 15 pontos.",
+    "types": ["Physical", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Discriminação Sonora",
+        "effectType": "sound_discrimination",
+        "display": "Reconhece vozes, passos ou sons específicos com precisão"
+      }
+    ]
+  },
+  {
+    "id": "audicao_parabolica",
+    "isAdvantage": true,
+    "name": "Audição Parabólica",
+    "baseCost": 4,
+    "costIsVariable": true,
+    "variableCost": 4,
+    "display": "Audição Parabólica",
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Amplia alcance da audição.",
+    "fullDescription": "Funcionando como uma <strong>lente acústica mental</strong>, essa vantagem permite ao personagem ouvir sons de baixa intensidade emitidos a distâncias extremamente longas, como se estivessem bem próximos.",
+    "rules": [
+      {
+        "name": "Foco à Distância",
+        "description": "Funciona como uma lente acústica mental, permitindo ao personagem ouvir sons de baixa intensidade emitidos a distâncias extremamente longas como se estivessem ocorrendo bem ao seu lado."
+      }
+    ],
+    "formula": "Cf = 4 * N",
+    "formulaDescription": "O custo final (Cf) calcula-se multiplicando o custo base de 4 pontos pelo nível (N) de alcance ampliado adquirido.",
+    "types": ["Physical", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Audição de Longo Alcance",
+        "effectType": "extended_hearing_range",
+        "display": "Amplia a distância na qual sons de baixa intensidade podem ser percebidos"
+      }
+    ]
+  },
+  {
+    "id": "audicao_subsonica",
+    "isAdvantage": true,
+    "name": "Audição Subsônica",
+    "baseCost": 5,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Audição Subsônica",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Escuta frequências muito baixas.",
+    "fullDescription": "O personagem consegue detectar perfeitamente <strong>vibrações e infrassons</strong> extremamente baixos, frequências que passam totalmente despercebidas pelo ouvido humano padrão.",
+    "rules": [
+      {
+        "name": "Percepção de Infra-sons",
+        "description": "O personagem consegue detectar perfeitamente vibrações e frequências acústicas extremamente baixas (infra-sons) que passam totalmente despercebidas pelo ouvido humano padrão."
+      }
+    ],
+    "formula": "Cf = F",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de 5 pontos (ou 0 se fizer parte nativa de um modelo racial gratuito).",
+    "types": ["Physical", "Exotic"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Detecção de Infrassom",
+        "effectType": "infrasound_detection",
+        "display": "Detecta vibrações e frequências abaixo do limiar auditivo humano"
+      }
+    ]
+  },
+  {
+    "id": "acima_do_peso",
+    "name": "Acima do Peso",
+    "baseCost": -1,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Acima do Peso",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Você pesa bem mais que a média para sua Força.",
+    "fullDescription": "O personagem pesa cerca de <strong>130% da média</strong> esperada para sua Força (ST). O peso extra atrapalha em situações que exigem discrição, mas ajuda na flutuação e em resistir a ser derrubado.",
+    "rules": [
+      {
+        "name": "Peso Elevado",
+        "description": "O personagem pesa cerca de 130% da média para sua ST."
+      },
+      {
+        "name": "Penalidade Social/Furtiva",
+        "description": "Sofre -1 em Disfarce, ou em Perseguição se estiver seguindo alguém em meio à multidão."
+      },
+      {
+        "name": "Bônus de Natação",
+        "description": "Recebe +1 nos testes de Natação."
+      },
+      {
+        "name": "Resistência a Queda",
+        "description": "Recebe +1 na ST para resistir a ser derrubado."
+      }
+    ],
+    "formula": "Cf = -1",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
+    "types": ["Physical"],
+    "modifiers": [
+      {
+        "attribute": "ST",
+        "operator": "ADD",
+        "value": 1,
+        "display": "+1 na ST para resistir a ser derrubado, devido ao peso extra"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Penalidade de Disfarce/Perseguição",
+        "effectType": "skill_penalty",
+        "display": "-1 em Disfarce ou Perseguição em meio à multidão"
+      },
+      {
+        "name": "Bônus de Natação",
+        "effectType": "skill_bonus",
+        "display": "+1 em testes de Natação"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": []
+  },
+  {
+    "id": "acomodado",
+    "name": "Acomodado",
+    "baseCost": -1,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Acomodado",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Versão branda de Indiferente; ignora problemas que não o afetam diretamente.",
+    "fullDescription": "Uma versão mais <strong>branda</strong> da desvantagem Indiferente. O personagem tende a não se importar com problemas alheios, a menos que estes o afetem diretamente.",
+    "rules": [
+      {
+        "name": "Indiferença Seletiva",
+        "description": "O personagem tende a ignorar problemas que não o afetam diretamente."
+      },
+      {
+        "name": "Peculiaridade",
+        "description": "É uma versão mais suave da desvantagem Indiferente."
+      }
+    ],
+    "formula": "Cf = -1",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Indiferença Branda",
+        "effectType": "apathy_mild",
+        "display": "Tende a ignorar problemas que não o afetam diretamente"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "alcoolismo",
+    "name": "Alcoolismo",
+    "baseCost": -10,
+    "costIsVariable": true,
+    "variableCost": -5,
+    "display": "Alcoolismo",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "O personagem é viciado em álcool.",
+    "fullDescription": "O personagem é um <strong>viciado em álcool</strong>, considerado um Vício. É barato, incapacitante e normalmente legal, mas também traiçoeiro, tornando-se ainda mais custoso caso seja ilegal.",
+    "rules": [
+      {
+        "name": "Teste de Vontade",
+        "description": "Sempre que estiver frente a frente com o álcool, precisa de sucesso em um teste de Vontade para resistir."
+      },
+      {
+        "name": "Bebedeira",
+        "description": "Fracasso resulta em um porre de 2d horas, seguido de ressaca."
+      },
+      {
+        "name": "Instabilidade de Humor",
+        "description": "Durante a bebedeira, o personagem oscila entre cordialidade e hostilidade, podendo atacar inimigos, falar demais ou cometer erros."
+      },
+      {
+        "name": "Regeneração",
+        "description": "Após se recuperar do vício, ainda precisa de teste de Vontade+4 na presença de álcool; três porres em uma semana trazem o vício de volta."
+      },
+      {
+        "name": "Deterioração Física",
+        "description": "A cada ano, deve fazer um teste de HT+2; fracasso causa perda de 1 ponto em um atributo básico aleatório."
+      }
+    ],
+    "formula": "Cf = -15 (barato, incapacitante e legal) ou -20 (traiçoeiro/ilegal)",
+    "formulaDescription": "O custo básico é -10, com modificadores: +0 para ilegal, +5 para legal; +0 para barato, -5 para caro, -15 para muito caro; -10 para incapacitante, -5 para altamente viciante, -10 para totalmente viciante.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Teste de Vício",
+        "effectType": "addiction_control",
+        "display": "Teste de Vontade ao entrar em contato com álcool; fracasso resulta em bebedeira de 2d horas"
+      },
+      {
+        "name": "Deterioração por Vício",
+        "effectType": "attribute_drain_risk",
+        "display": "Teste anual de HT+2; fracasso causa perda de 1 ponto em atributo aleatório"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "altruismo",
+    "name": "Altruísmo",
+    "baseCost": -5,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Altruísmo",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "O personagem se sacrifica por outras pessoas.",
+    "fullDescription": "O personagem é <strong>altruísta</strong> — sacrifica-se por outros e pouco se importa com fama ou riqueza pessoal. Precisa de sucesso em um teste de autocontrole para colocar suas próprias necessidades à frente das dos outros.",
+    "rules": [
+      {
+        "name": "Prioridade Alheia",
+        "description": "O personagem coloca as necessidades dos outros à frente das suas."
+      },
+      {
+        "name": "Teste de Autocontrole",
+        "description": "Deve fazer um teste de autocontrole para priorizar a si mesmo."
+      },
+      {
+        "name": "Nível de Autocontrole",
+        "description": "O asterisco (*) indica que a desvantagem oferece chance de resistência, com número de autocontrole a ser escolhido."
+      }
+    ],
+    "formula": "Cf = -5 × multiplicador de autocontrole",
+    "formulaDescription": "O custo base é -5 pontos (para autocontrole 12), modificado pelo nível de autocontrole: ×2 para CR 6, ×1,5 para CR 9, ×0,5 para CR 15.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Autossacrifício",
+        "effectType": "self_sacrifice",
+        "display": "Prioriza as necessidades alheias; requer teste de autocontrole para colocar-se em primeiro lugar"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "amigavel",
+    "name": "Amigável",
+    "baseCost": -5,
+    "costIsVariable": true,
+    "variableCost": -5,
+    "display": "Amigável",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "O personagem se dá bem com outras pessoas e busca companhia.",
+    "fullDescription": "O personagem se dá bem com outras pessoas e está sempre em busca de companhia. Existem dois níveis: <strong>Amigável</strong> (-5 pontos) e <strong>Gregário</strong> (-10 pontos), este último mais intenso.",
+    "rules": [
+      {
+        "name": "Amigável",
+        "description": "+2 na reação das pessoas; quando sozinho, -1 em perícias baseadas em IQ."
+      },
+      {
+        "name": "Gregário",
+        "description": "+4 na reação das pessoas; quando sozinho, -2 em perícias baseadas em IQ (-1 se em grupo de até 4 pessoas)."
+      }
+    ],
+    "formula": "Cf = -5 (Amigável) ou -10 (Gregário)",
+    "formulaDescription": "O custo é fixo por nível escolhido.",
+    "types": ["Mental"],
+    "modifiers": [
+      {
+        "attribute": "IQ",
+        "operator": "SUB",
+        "value": 1,
+        "display": "-1 em perícias baseadas em IQ quando está sozinho (Gregário: -2, ou -1 em grupo de até 4 pessoas)"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Bônus Social",
+        "effectType": "reaction_bonus",
+        "display": "+2 na reação das pessoas (Gregário: +4)"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": []
+  },
+  {
+    "id": "amnesia",
+    "name": "Amnésia",
+    "baseCost": -10,
+    "costIsVariable": true,
+    "variableCost": -15,
+    "display": "Amnésia",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "O personagem perdeu a memória.",
+    "fullDescription": "O personagem <strong>perdeu a memória</strong> e não se lembra de nada relacionado à sua vida anterior, nem mesmo do próprio nome. Existem dois níveis: Amnésia Parcial (-10) e Amnésia Total (-25).",
+    "rules": [
+      {
+        "name": "Amnésia Parcial",
+        "description": "O jogador vê a planilha do personagem; o Mestre pode reservar até -30 pontos em desvantagens secretas. O personagem não sabe a origem de suas perícias e pode ter inimigos ou amigos desconhecidos."
+      },
+      {
+        "name": "Amnésia Total",
+        "description": "O jogador só define características físicas visíveis; o Mestre controla a planilha e faz testes em segredo. Testes baseados em IQ sofrem -2."
+      },
+      {
+        "name": "Recompra",
+        "description": "Só é possível recomprar a Amnésia se houver um motivo narrativo para a recuperação da memória."
+      }
+    ],
+    "formula": "Cf = -10 (Amnésia Parcial) ou -25 (Amnésia Total)",
+    "formulaDescription": "O custo é fixo por tipo escolhido.",
+    "types": ["Mental"],
+    "modifiers": [
+      {
+        "attribute": "IQ",
+        "operator": "SUB",
+        "value": 2,
+        "display": "-2 em testes de perícias baseadas em IQ (apenas na Amnésia Total)"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Perda de Memória",
+        "effectType": "memory_loss",
+        "display": "Não recorda de nada relacionado à vida anterior ao ocorrido"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": []
+  },
+  {
+    "id": "antecedentes_mundanos",
+    "name": "Antecedentes Mundanos",
+    "baseCost": -10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Antecedentes Mundanos",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "O personagem não tem experiência com o sobrenatural.",
+    "fullDescription": "O personagem não tem <strong>nenhuma experiência com o sobrenatural</strong> e coisas estranhas, possuindo apenas perícias e equipamentos mundanos no início do jogo. Só está disponível em cenários com elementos sobrenaturais ou bizarros.",
+    "rules": [
+      {
+        "name": "Restrição de Perícias",
+        "description": "Não pode escolher mágicas, perícias cinematográficas, Conhecimento Oculto ou Ocultismo."
+      },
+      {
+        "name": "Vantagens Latentes",
+        "description": "Pode ter vantagens sobrenaturais, mas não pode utilizá-las nem sabe que as possui, exceto por sonhos estranhos ocasionais."
+      },
+      {
+        "name": "Recompra",
+        "description": "Deve ser recomprada para que o personagem possa utilizar suas vantagens sobrenaturais ou aprender perícias relacionadas."
+      },
+      {
+        "name": "Disponibilidade",
+        "description": "Só está disponível em cenários com elementos sobrenaturais ou bizarros."
+      }
+    ],
+    "formula": "Cf = -10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -10 pontos.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Restrição Sobrenatural",
+        "effectType": "supernatural_lockout",
+        "display": "Não pode aprender magias, perícias cinematográficas ou usar vantagens sobrenaturais que possua"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "antipatico",
+    "name": "Antipático",
+    "baseCost": -1,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Antipático",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Prefere ficar sozinho e realizar ações individuais.",
+    "fullDescription": "Uma versão menos intensa de Solitário. O personagem gosta de <strong>ficar sozinho</strong> e sempre prefere realizar ações individuais.",
+    "formula": "Cf = -1",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
+    "types": ["Mental"],
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": [],
+    "effects": [
+      {
+        "name": "Preferência por Solidão",
+        "effectType": "solitary_mild",
+        "display": "Prefere realizar ações individuais e gosta de ficar sozinho"
+      }
+    ],
+    "rules": [
+      {
+        "name": "Preferência Solitária",
+        "description": "O personagem prefere ações individuais e gosta de ficar sozinho."
+      }
+    ],
+    "isAdvantage": false
+  },
+  {
+    "id": "aparencia_fisica",
+    "name": "Aparência",
+    "baseCost": -4,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Aparência",
+    "isAllowedLevel": true,
+    "maxLevel": 10,
+    "shortDescription": "Nível de atratividade física, do Horrendo ao Lindo, que afeta reações sociais.",
+    "fullDescription": "A aparência é expressa em níveis que vão de <strong>Horrendo</strong> (-24 pontos) a <strong>Lindo</strong> (+20 pontos). A maioria das pessoas tem aparência Comum (0 pontos). Aparência abaixo da média concede pontos de personagem (desvantagem); acima da média custa pontos (vantagem). Os modificadores de reação só afetam quem pode enxergar o personagem, e normalmente apenas membros da mesma raça (ou de uma raça que considere a dele atraente).",
+    "rules": [
+      {
+        "name": "Horrendo",
+        "description": "Indescritivelmente monstruoso ou repugnante; não pode interagir com humanos comuns. -6 na reação. -24 pontos."
+      },
+      {
+        "name": "Monstruoso",
+        "description": "Horrível e obviamente anormal; visto como monstro. -5 na reação. -20 pontos."
+      },
+      {
+        "name": "Hediondo",
+        "description": "Alguma característica repugnante marcante, como doença de pele grave. -4 na reação. -16 pontos."
+      },
+      {
+        "name": "Feio",
+        "description": "Como o anterior, mas menos grave. -2 na reação. -8 pontos."
+      },
+      {
+        "name": "Sem Atrativos",
+        "description": "Algo antipático, mas difícil de apontar com precisão. -1 na reação. -4 pontos."
+      },
+      {
+        "name": "Comum",
+        "description": "Sem modificador de reação; passa despercebido na multidão. 0 pontos."
+      },
+      {
+        "name": "Atraente",
+        "description": "Boa aparência, sem chegar a concursos de beleza. +1 na reação. 4 pontos."
+      },
+      {
+        "name": "Elegante",
+        "description": "Poderia participar de concursos de beleza. +4 na reação de quem se atrai pelo seu sexo, +2 para os demais. 12 pontos."
+      },
+      {
+        "name": "Muito Elegante",
+        "description": "Poderia vencer concursos de beleza com regularidade. +6/+2 na reação, com penalidade adicional de quem já tinha motivo para não gostar do personagem. 16 pontos."
+      },
+      {
+        "name": "Lindo",
+        "description": "O 'espécime ideal'. +8/+2 na reação, com os mesmos inconvenientes da aparência Muito Elegante. 20 pontos."
+      },
+      {
+        "name": "Opções Especiais",
+        "description": "Andrógeno: converte o bônus dependente de sexo em um bônus fixo. Impressionante: presença física excepcional sem conotação sexual."
+      }
+    ],
+    "formula": "Cf = Horrendo (-24), Monstruoso (-20), Hediondo (-16), Feio (-8), Sem Atrativos (-4), Comum (0), Atraente (4), Elegante (12), Muito Elegante (16), Lindo (20)",
+    "formulaDescription": "O custo é fixo por nível de aparência selecionado; valores negativos indicam desvantagem e valores positivos, vantagem. Ampliação Universal: +25%. Limitação Aparência Adquirida: -50%.",
+    "types": ["Physical"],
+    "effects": [
+      {
+        "name": "Modificador de Reação por Aparência",
+        "effectType": "reaction_modifier",
+        "display": "Aplica um bônus ou penalidade de reação conforme o nível de aparência escolhido, de -6 (Horrendo) a +8 (Lindo)"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "apetite_incontrolavel",
+    "name": "Apetite Incontrolável",
+    "baseCost": -15,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Apetite Incontrolável",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Precisa se alimentar de algo obtido de seres inteligentes.",
+    "fullDescription": "O personagem precisa de algum <strong>alimento</strong> que deve tirar de outros seres inteligentes — à força ou pela astúcia — e tem dificuldade para controlar seu apetite. O objeto da necessidade (sangue, força vital, sexo etc.) deve ser especificado pelo jogador.",
+    "rules": [
+      {
+        "name": "Necessidade Específica",
+        "description": "Precisa de um alimento específico obtido de seres inteligentes."
+      },
+      {
+        "name": "Teste de Autocontrole",
+        "description": "Sempre que tiver oportunidade de satisfazer o apetite, deve fazer um teste de autocontrole; sofre -2 se estiver faminto."
+      }
+    ],
+    "formula": "Cf = -15 × multiplicador de autocontrole",
+    "formulaDescription": "O custo base é -15 pontos (para autocontrole 12), modificado pelo nível de autocontrole: ×2 para CR 6, ×1,5 para CR 9, ×0,5 para CR 15.",
+    "types": ["Mental", "Supernatural"],
+    "effects": [
+      {
+        "name": "Fome Incontrolável",
+        "effectType": "hunger_drive",
+        "display": "Precisa se alimentar de seres inteligentes; -2 no teste de autocontrole se estiver faminto"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "assexuado",
+    "name": "Assexuado",
+    "baseCost": -1,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Assexuado",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Não possui órgãos sexuais típicos ou é genuinamente assexuado.",
+    "fullDescription": "O personagem não tem os órgãos sexuais típicos de sua raça, gênero e faixa etária, ou é genuinamente <strong>assexuado</strong>. Em compensação, é imune à sedução e nunca terá um filho por acidente.",
+    "rules": [
+      {
+        "name": "Ausência de Sexualidade",
+        "description": "Não possui órgãos sexuais típicos, ou é genuinamente assexuado."
+      },
+      {
+        "name": "Imunidade à Sedução",
+        "description": "É imune a tentativas de sedução."
+      },
+      {
+        "name": "Infertilidade Segura",
+        "description": "Nunca terá um filho por acidente."
+      },
+      {
+        "name": "Consequências Sociais",
+        "description": "Pode causar Estigma Social ou Feições Estranhas em alguns cenários."
+      }
+    ],
+    "formula": "Cf = -1",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
+    "types": ["Physical", "Exotic"],
+    "effects": [
+      {
+        "name": "Imunidade à Sedução",
+        "effectType": "seduction_immunity",
+        "display": "Imune a sedução e nunca terá filhos por acidente"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "assustar_animais",
+    "name": "Assustar Animais",
+    "baseCost": -10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Assustar Animais",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Animais reagem com medo e agressividade na presença do personagem.",
+    "fullDescription": "Os animais ficam <strong>assustados e agressivos</strong> na presença do personagem: cavalos não o deixam montar, cachorros fogem ou atacam, e seu cheiro basta para apavorar a maioria das criaturas.",
+    "rules": [
+      {
+        "name": "Pavor Animal",
+        "description": "Sofre -4 em todos os testes de reação feitos por animais."
+      },
+      {
+        "name": "Reação de Testemunhas",
+        "description": "O teste de reação de quem presencia a reação do animal, e de pessoas com Empatia com Animais, sofre -1."
+      },
+      {
+        "name": "Decisão de Guardas",
+        "description": "Guardas ou policiais com cães decidem como lidar com o personagem com base na reação do animal."
+      },
+      {
+        "name": "Ligação com Sobrenatural",
+        "description": "Se a desvantagem vier de licantropia, vampirismo ou algo similar, observadores ganham +1 em testes para descobrir o segredo."
+      }
+    ],
+    "formula": "Cf = -10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -10 pontos.",
+    "types": ["Mental", "Supernatural"],
+    "effects": [
+      {
+        "name": "Pavor Animal",
+        "effectType": "animal_fear",
+        "display": "-4 na reação de animais; -1 na reação de quem testemunha a reação do animal"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "ataque_infeccioso",
+    "name": "Ataque Infeccioso",
+    "baseCost": -5,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Ataque Infeccioso",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Transmite uma condição sobrenatural infecciosa a quem sobrevive a um ataque.",
+    "fullDescription": "O personagem possui uma <strong>condição sobrenatural infecciosa</strong>, funcionando como a vantagem Dominação, mas sem controlar as pessoas infectadas — que ficam livres para usar seus novos poderes, inclusive contra ele.",
+    "rules": [
+      {
+        "name": "Infecção Sem Controle",
+        "description": "Não controla as pessoas que foram infectadas e não pode tê-las como Aliados."
+      },
+      {
+        "name": "Inimigos Mais Fortes",
+        "description": "Sobreviventes de um encontro violento com o personagem ganham poderes sobrenaturais como um 'dom' e podem buscar vingança."
+      },
+      {
+        "name": "Custo do Modelo Racial",
+        "description": "O Mestre deve exigir que os infectados paguem pontos pelo modelo racial sobrenatural obtido."
+      }
+    ],
+    "formula": "Cf = -5",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -5 pontos.",
+    "types": ["Physical", "Supernatural"],
+    "effects": [
+      {
+        "name": "Infecção Sobrenatural",
+        "effectType": "infectious_condition",
+        "display": "Transforma vítimas em seres com poderes sobrenaturais que o personagem não controla"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "atavismo_por_estresse",
+    "name": "Atavismo por Estresse",
+    "baseCost": -10,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Atavismo por Estresse",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Regride a um comportamento animal quando amedrontado, cansado ou ferido.",
+    "fullDescription": "O personagem <strong>regride temporariamente</strong> a um comportamento animalesco quando está amedrontado, nervoso, cansado ou ferido, agindo por impulso e instinto até se recuperar.",
+    "rules": [
+      {
+        "name": "Gatilho de Estresse",
+        "description": "Deve fazer um teste de autocontrole em situações de medo, cansaço ou ferimento; fracasso causa regressão."
+      },
+      {
+        "name": "Recuperação",
+        "description": "Ao fim da tensão, testa autocontrole a cada minuto; amigos consolando dão +2, Empatia com Animais/Empatia dá +2 adicional."
+      },
+      {
+        "name": "Desmaio",
+        "description": "Se desmaiar antes de se recuperar, volta ao normal automaticamente ao acordar."
+      },
+      {
+        "name": "Suave",
+        "description": "Dificuldade para falar (requer teste de IQ); não opera máquinas complexas; ataques ensandecidos com -4 para atingir. -10 pontos."
+      },
+      {
+        "name": "Moderada",
+        "description": "Problemas da Suave, mais dificuldade para compreender ordens (teste de IQ) e teste de autocontrole extra se atacado/desafiado. -15 pontos."
+      },
+      {
+        "name": "Grave",
+        "description": "Incapaz de falar, compreender outros ou usar ferramentas (exceto como clavas); age sempre por instinto. -20 pontos."
+      }
+    ],
+    "formula": "Cf = valor base (Suave -10, Moderada -15, Grave -20) × multiplicador de autocontrole",
+    "formulaDescription": "O custo base depende da gravidade, modificado pelo nível de autocontrole: ×2 para CR 6, ×1,5 para CR 9, ×0,5 para CR 15.",
+    "types": ["Mental", "Exotic"],
+    "effects": [
+      {
+        "name": "Regressão Animal",
+        "effectType": "stress_regression",
+        "display": "Regride a um comportamento animalesco sob medo, cansaço ou ferimento"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "atento",
+    "name": "Atento",
+    "baseCost": -1,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Atento",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Foca em uma tarefa até terminá-la, ignorando interrupções.",
+    "fullDescription": "O personagem tem o hábito de se <strong>focar em uma mesma tarefa</strong> até concluí-la, o que ajuda em trabalhos longos, mas o torna alheio a interrupções importantes.",
+    "rules": [
+      {
+        "name": "Foco em Tarefas Longas",
+        "description": "Recebe +1 quando está trabalhando em uma tarefa longa."
+      },
+      {
+        "name": "Desatenção a Interrupções",
+        "description": "Sofre -3 para perceber qualquer interrupção importante."
+      }
+    ],
+    "formula": "Cf = -1",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Foco Obsessivo",
+        "effectType": "task_focus",
+        "display": "+1 em tarefas longas; -3 para perceber interrupções importantes"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "atrapalhado",
+    "name": "Atrapalhado",
+    "baseCost": -5,
+    "costIsVariable": true,
+    "variableCost": -5,
+    "display": "Atrapalhado",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Coordenação motora incomumente ruim.",
+    "fullDescription": "O personagem tem uma <strong>coordenação motora incomumente ruim</strong>, sofrendo penalidade em testes baseados em DX para trabalhos delicados e para Sacar Rápido.",
+    "rules": [
+      {
+        "name": "Penalidade de DX",
+        "description": "Sofre -3 (por -5 pontos) ou -6 (por -10 pontos) em testes baseados em DX para trabalhos delicados e Sacar Rápido."
+      },
+      {
+        "name": "Exceções",
+        "description": "Não se aplica a tarefas baseadas em IQ, tarefas em grande escala baseadas em DX, ou jogadas de combate (exceto Sacar Rápido)."
+      },
+      {
+        "name": "Penalidade Social",
+        "description": "O Mestre pode aplicar -1 adicional por nível em testes de Influência ou reação em locais onde boas maneiras importam."
+      }
+    ],
+    "formula": "Cf = -5 (penalidade -3) ou -10 (penalidade -6)",
+    "formulaDescription": "O custo é fixo por nível de penalidade escolhido.",
+    "types": ["Physical"],
+    "modifiers": [
+      {
+        "attribute": "DX",
+        "operator": "SUB",
+        "value": 3,
+        "display": "-3 (ou -6 no nível mais grave) em testes de DX para trabalhos delicados e Sacar Rápido"
+      }
+    ],
+    "restrictions": [
+      {
+        "restrictedId": "destreza_manual_elevada",
+        "display": "Mutuamente excludente com Destreza Manual Elevada"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "effects": []
+  },
+  {
+    "id": "autodestruicao",
+    "name": "Autodestruição",
+    "baseCost": -10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Autodestruição",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Órgãos e sistema imunológico começam a falhar ao envelhecer.",
+    "fullDescription": "Assim que o personagem começa a envelhecer (aos 50 anos, no caso de humanos normais), seus órgãos e sistema imunológico passam a <strong>falhar rapidamente</strong>, exigindo testes de envelhecimento diários.",
+    "rules": [
+      {
+        "name": "Envelhecimento Acelerado",
+        "description": "A partir do primeiro limiar de envelhecimento, faz testes de envelhecimento todos os dias com -3 na HT."
+      },
+      {
+        "name": "Exclusão Mútua",
+        "description": "Não pode ser adquirida junto com Doente Terminal."
+      }
+    ],
+    "formula": "Cf = -10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -10 pontos.",
+    "types": ["Physical", "Exotic"],
+    "modifiers": [
+      {
+        "attribute": "HT",
+        "operator": "SUB",
+        "value": 3,
+        "display": "-3 na HT em testes de envelhecimento diários"
+      }
+    ],
+    "restrictions": [
+      {
+        "restrictedId": "doente_terminal",
+        "display": "Não pode ser adquirida junto com Doente Terminal"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Envelhecimento Acelerado",
+        "effectType": "accelerated_aging",
+        "display": "Testes de envelhecimento diários a partir dos 50 anos"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": []
+  },
+  {
+    "id": "avareza",
+    "name": "Avareza",
+    "baseCost": -10,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Avareza",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Sempre preocupado em conservar suas riquezas.",
+    "fullDescription": "O personagem está sempre preocupado em <strong>conservar suas riquezas</strong> e busca o melhor acordo possível, precisando de um teste de autocontrole sempre que tiver que gastar dinheiro.",
+    "rules": [
+      {
+        "name": "Teste ao Gastar",
+        "description": "Deve fazer um teste de autocontrole sempre que tiver que gastar dinheiro."
+      },
+      {
+        "name": "Despesas Grandes",
+        "description": "Se a despesa for grande, o teste sofre -5 ou mais, a critério do Mestre."
+      },
+      {
+        "name": "Fracasso",
+        "description": "Recusa a gastar o dinheiro ou, se não houver escapatória, regateia e reclama interminavelmente."
+      }
+    ],
+    "formula": "Cf = -10 × multiplicador de autocontrole",
+    "formulaDescription": "O custo base é -10 pontos (para autocontrole 12), modificado pelo nível de autocontrole: ×2 para CR 6, ×1,5 para CR 9, ×0,5 para CR 15.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Apego ao Dinheiro",
+        "effectType": "greed_control",
+        "display": "Teste de autocontrole ao gastar dinheiro; penalidade de -5 ou mais em despesas grandes"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "aversao",
+    "name": "Aversão",
+    "baseCost": -10,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Aversão",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Sente aversão sobrenatural a um item ou substância específica.",
+    "fullDescription": "O personagem sente uma <strong>aversão sobrenatural</strong> a um determinado item ou substância, sendo obrigado a manter distância dela e a se afastar imediatamente caso seja forçado a se aproximar.",
+    "rules": [
+      {
+        "name": "Distância Obrigatória",
+        "description": "Não pode ficar a menos de um metro (ou do raio definido) da substância."
+      },
+      {
+        "name": "Fuga Compulsória",
+        "description": "Se forçado a entrar no raio, deve se afastar pelo caminho mais direto; se não conseguir, fica indefeso."
+      },
+      {
+        "name": "Detecção Instintiva",
+        "description": "Sente de imediato a presença da substância ao entrar no raio proibido, sabendo a direção mas não a localização exata."
+      }
+    ],
+    "formula": "Cf = (valor base do alcance) × multiplicador de raridade",
+    "formulaDescription": "O valor base é -10 pontos para 1 metro, -1 ponto por metro adicional até -20 para 11 metros, multiplicado pela raridade da substância: Rara (×1/2), Ocasional (×1), Comum (×2), Muito Comum (×3). Ampliação 'Não Pode ser Preso': -50%.",
+    "types": ["Mental", "Supernatural"],
+    "effects": [
+      {
+        "name": "Repulsa Sobrenatural",
+        "effectType": "aversion_zone",
+        "display": "Deve se afastar imediatamente de uma substância específica dentro de um raio determinado"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "aversoes",
+    "name": "Aversões",
+    "baseCost": -1,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Aversões",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Evita um item ou situação específica sempre que possível.",
+    "fullDescription": "O personagem pode escolher qualquer item da lista de Fobias como uma mera <strong>aversão</strong>, evitando-o sempre que possível, embora isso não seja tão prejudicial quanto uma fobia.",
+    "rules": [
+      {
+        "name": "Evitação Simples",
+        "description": "Evita o objeto ou situação sempre que possível, sem causar verificações de pânico."
+      },
+      {
+        "name": "Livre Escolha",
+        "description": "Não precisa vir necessariamente da lista de fobias; pode ser qualquer coisa."
+      }
+    ],
+    "formula": "Cf = -1",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Aversão Simples",
+        "effectType": "mild_aversion",
+        "display": "Evita um item ou situação específica sempre que possível, sem efeitos mecânicos graves"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "azar",
+    "name": "Azar",
+    "baseCost": -10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Azar",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Tudo dá errado para o personagem, normalmente na pior hora.",
+    "fullDescription": "O personagem é um <strong>azarado</strong>. O Mestre deve, arbitrária e maliciosamente, fazer alguma coisa sair errada para ele uma vez a cada sessão de jogo.",
+    "rules": [
+      {
+        "name": "Infortúnio Garantido",
+        "description": "Uma vez por sessão, o Mestre faz algo dar errado para o personagem (fracasso vital, aparecimento de inimigo, etc.)."
+      },
+      {
+        "name": "Limite de Gravidade",
+        "description": "O Mestre não pode matar o personagem diretamente por causa do azar."
+      },
+      {
+        "name": "Tema Recorrente",
+        "description": "O jogador pode especificar um tema recorrente para seu Azar."
+      }
+    ],
+    "formula": "Cf = -10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -10 pontos.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Infortúnio Recorrente",
+        "effectType": "bad_luck",
+        "display": "O Mestre provoca algo ruim para o personagem uma vez por sessão"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "baixa_autoestima",
+    "name": "Baixa Autoestima",
+    "baseCost": -10,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Baixa Autoestima",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Subestima suas próprias habilidades em situações adversas.",
+    "fullDescription": "O personagem não tem autoconfiança e <strong>subestima suas habilidades</strong> a ponto de isso interferir em suas atividades, especialmente quando acredita não ter chance de sucesso.",
+    "rules": [
+      {
+        "name": "Penalidade Condicional",
+        "description": "Sofre -3 em testes de habilidade quando acredita não ter chance de sucesso ou quando outros esperam que ele fracasse."
+      },
+      {
+        "name": "Escopo Limitado",
+        "description": "A penalidade se aplica em situações adversas, não em tarefas rotineiras e familiares."
+      }
+    ],
+    "formula": "Cf = -10",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -10 pontos.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Insegurança",
+        "effectType": "self_doubt",
+        "display": "-3 em testes de habilidade quando acredita não ter chance de sucesso"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "barulhento",
+    "name": "Barulhento",
+    "baseCost": -2,
+    "costIsVariable": true,
+    "variableCost": 2,
+    "display": "Barulhento",
+    "isAllowedLevel": true,
+    "maxLevel": 5,
+    "shortDescription": "Emite sons constantemente, mesmo parado.",
+    "fullDescription": "O personagem <strong>faz muito barulho</strong>, emitindo sons constantemente mesmo quando está parado — exceto em coma ou desligado, no caso de máquinas.",
+    "rules": [
+      {
+        "name": "Facilidade de Detecção",
+        "description": "Cada nível concede +2 nos testes de Sentidos de quem tenta ouvir o personagem."
+      },
+      {
+        "name": "Penalidade de Furtividade",
+        "description": "Cada nível impõe -2 nos testes de Furtividade do personagem."
+      },
+      {
+        "name": "Impacto Social",
+        "description": "Em circunstâncias apropriadas (ex.: uma ópera), cada nível pode impor -1 nos testes de reação."
+      },
+      {
+        "name": "Limite de Níveis",
+        "description": "Não é permitido adquirir mais que cinco níveis sem autorização do Mestre."
+      }
+    ],
+    "formula": "Cf = -2 × nível (máximo 5 níveis)",
+    "formulaDescription": "O custo é de -2 pontos por nível, até o máximo de -10 pontos (5 níveis).",
+    "types": ["Physical"],
     "modifiers": [
       {
         "attribute": "PER",
         "operator": "ADD",
         "value": 2,
-        "display": "+2 Percepção (visão)"
+        "display": "+2 por nível nos testes de Sentidos de quem tenta ouvir o personagem"
       }
     ],
-    "effects": []
-  },
-
-  {
-    "id": "blind",
+    "effects": [
+      {
+        "name": "Ruído Constante",
+        "effectType": "noise_penalty",
+        "display": "-2 por nível nos testes de Furtividade do personagem; possível -1 por nível em testes de reação em ambientes formais"
+      }
+    ],
     "isAdvantage": false,
-    "name": "Cego",
-
+    "requirements": [],
+    "restrictions": []
+  },
+  {
+    "id": "bestial",
+    "name": "Bestial",
+    "baseCost": -10,
+    "costIsVariable": true,
+    "variableCost": -5,
+    "display": "Bestial",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Pensa e reage como um animal selvagem.",
+    "fullDescription": "O personagem <strong>pensa e reage como um animal selvagem</strong>, sem noção de moral civilizada ou de propriedade, lutando ou fugindo de quem o ameaça.",
+    "rules": [
+      {
+        "name": "Mentalidade Animal",
+        "description": "Não conhece padrões de moral civilizada nem o conceito de propriedade; luta ou foge de ameaças."
+      },
+      {
+        "name": "Restrição de Perícias",
+        "description": "Não pode aprender perícias que dependam de noções civilizadas de arte ou interação social."
+      },
+      {
+        "name": "Comportamento Não Hostil",
+        "description": "Ignora quem o deixa em paz e pode demonstrar afeição por quem o trata com carinho."
+      },
+      {
+        "name": "Gravidade Extra",
+        "description": "Se as atitudes forem extremamente repugnantes para humanos, o Mestre pode elevar o custo para -15."
+      }
+    ],
+    "formula": "Cf = -10 (padrão) ou -15 (comportamento extremamente repugnante)",
+    "formulaDescription": "O custo é -10 pontos para comportamento animal padrão, ou -15 se as atitudes forem extremamente repugnantes para os humanos.",
+    "types": ["Mental", "Exotic"],
+    "effects": [
+      {
+        "name": "Mentalidade Animal",
+        "effectType": "animal_mind",
+        "display": "Pensa e reage como um animal selvagem; não pode aprender perícias civilizadas de arte ou interação social"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "bioquimica_incomum",
+    "name": "Bioquímica Incomum",
+    "baseCost": -5,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Bioquímica Incomum",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Drogas humanas têm efeito imprevisível em seu organismo.",
+    "fullDescription": "O personagem consegue se alimentar normalmente de comida humana, mas sua composição bioquímica é <strong>suficientemente diferente</strong> para que drogas feitas para humanos não surtam o efeito esperado.",
+    "rules": [
+      {
+        "name": "Efeito Imprevisível",
+        "description": "Ao consumir droga humana, jogue 1d: 1-3 efeito normal; 4-5 efeito normal + efeito prejudicial; 6 nenhum efeito."
+      },
+      {
+        "name": "Drogas Específicas",
+        "description": "Drogas feitas para sua bioquímica agem normalmente, mas custam 10 vezes mais."
+      }
+    ],
+    "formula": "Cf = -5",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -5 pontos.",
+    "types": ["Physical", "Exotic"],
+    "effects": [
+      {
+        "name": "Reação Imprevisível a Drogas",
+        "effectType": "drug_unpredictability",
+        "display": "Drogas humanas têm efeito aleatório (1d): normal, normal + efeito colateral, ou nenhum efeito"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "briguento",
+    "name": "Briguento",
+    "baseCost": -10,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Briguento",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Gosta de intimidar as pessoas sempre que pode.",
+    "fullDescription": "O personagem gosta de <strong>intimidar as pessoas</strong> sempre que pode fazê-lo impunemente, seja por agressão física, hostilidade intelectual ou frieza social.",
+    "rules": [
+      {
+        "name": "Teste de Autocontrole",
+        "description": "Deve fazer um teste de autocontrole para não realizar uma bravata grosseira quando sabe que não deve."
+      },
+      {
+        "name": "Impopularidade",
+        "description": "Sofre -2 nos testes de reação, já que ninguém gosta de um fanfarrão."
+      }
+    ],
+    "formula": "Cf = -10 × multiplicador de autocontrole",
+    "formulaDescription": "O custo base é -10 pontos (para autocontrole 12), modificado pelo nível de autocontrole: ×2 para CR 6, ×1,5 para CR 9, ×0,5 para CR 15.",
+    "types": ["Mental"],
+    "effects": [
+      {
+        "name": "Provocação Compulsiva",
+        "effectType": "bully_control",
+        "display": "Teste de autocontrole para não provocar ou intimidar; -2 na reação por parecer um fanfarrão"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "caracteristicas_distintas",
+    "name": "Características Distintas",
+    "baseCost": -1,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Características Distintas",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Uma marca física que torna o personagem facilmente identificável.",
+    "fullDescription": "O personagem tem uma <strong>característica física marcante</strong> — como cabelo azul brilhante — que o torna diferente das outras pessoas, facilitando sua identificação.",
+    "rules": [
+      {
+        "name": "Penalidade de Disfarce",
+        "description": "Sofre -1 nas perícias Disfarce e Sombra (Furtividade)."
+      },
+      {
+        "name": "Facilidade de Identificação",
+        "description": "Concede +1 nas tentativas de identificá-lo ou persegui-lo."
+      }
+    ],
+    "formula": "Cf = -1",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
+    "types": ["Physical"],
+    "effects": [
+      {
+        "name": "Marca Física Distinta",
+        "effectType": "distinctive_mark",
+        "display": "-1 em Disfarce e Furtividade; +1 para outros identificarem ou perseguirem o personagem"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "caracteristicas_sobrenaturais",
+    "name": "Características Sobrenaturais",
+    "baseCost": -5,
+    "costIsVariable": true,
+    "variableCost": 0,
+    "display": "Características Sobrenaturais",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Traços perturbadores que revelam natureza sobrenatural sob exame atento.",
+    "fullDescription": "O personagem tem <strong>características perturbadoras</strong> que o qualificam como um demônio, vampiro ou outro ser sobrenatural. Consegue se passar por um mortal comum, mas um exame mais detalhado revela algo estranho.",
+    "rules": [
+      {
+        "name": "Palidez",
+        "description": "Pele pálida e olhos fundos. -2 na reação de quem o vê sem maquiagem; +2 nos testes para descobrir o segredo. -10 pontos (-5 se puder adquirir rubor temporariamente)."
+      },
+      {
+        "name": "Sem Calor Corporal",
+        "description": "Frio ao toque. -1 na reação de quem toca nele; +1 nos testes para descobrir o segredo. -5 pontos (-1 se puder aquecer a pele temporariamente)."
+      },
+      {
+        "name": "Sem Reflexo",
+        "description": "Não aparece em espelhos, água parada ou câmeras. -2 na reação de quem percebe; +2 nos testes para descobrir o segredo. -10 pontos."
+      },
+      {
+        "name": "Sem Sombra",
+        "description": "Não produz sombra alguma. -2 na reação de quem percebe; +2 nos testes para descobrir o segredo. -10 pontos."
+      }
+    ],
+    "formula": "Cf = conforme o tipo: Palidez (-10), Sem Calor Corporal (-5), Sem Reflexo (-10), Sem Sombra (-10)",
+    "formulaDescription": "O custo varia de acordo com a característica sobrenatural específica escolhida.",
+    "types": ["Physical", "Supernatural"],
+    "effects": [
+      {
+        "name": "Traço Sobrenatural Oculto",
+        "effectType": "supernatural_tell",
+        "display": "Concede penalidade de reação quando percebido e bônus para quem tenta identificar sua verdadeira natureza"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "castrado",
+    "name": "Castrado",
+    "baseCost": -1,
+    "costIsVariable": false,
+    "variableCost": 0,
+    "display": "Castrado",
+    "isAllowedLevel": false,
+    "maxLevel": null,
+    "shortDescription": "Não possui os órgãos sexuais típicos de sua raça, gênero e idade.",
+    "fullDescription": "O personagem não tem os órgãos sexuais típicos de sua raça, gênero e faixa etária. Em compensação, é <strong>imune à sedução</strong> e nunca terá um filho por acidente.",
+    "rules": [
+      {
+        "name": "Ausência de Órgãos",
+        "description": "Não possui os órgãos sexuais típicos de sua raça, gênero e faixa etária."
+      },
+      {
+        "name": "Imunidade à Sedução",
+        "description": "É imune a tentativas de sedução."
+      },
+      {
+        "name": "Infertilidade Segura",
+        "description": "Nunca terá um filho por acidente."
+      },
+      {
+        "name": "Consequências Sociais",
+        "description": "Pode causar Estigma Social ou Feições Estranhas em alguns cenários."
+      }
+    ],
+    "formula": "Cf = -1",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
+    "types": ["Physical", "Exotic"],
+    "effects": [
+      {
+        "name": "Imunidade à Sedução",
+        "effectType": "seduction_immunity",
+        "display": "Imune a sedução e nunca terá filhos por acidente"
+      }
+    ],
+    "isAdvantage": false,
+    "requirements": [],
+    "restrictions": [],
+    "modifiers": []
+  },
+  {
+    "id": "cegueira",
+    "name": "Cegueira",
     "baseCost": -50,
     "costIsVariable": false,
     "variableCost": 0,
-
-    "display": "Cego",
-
+    "display": "Cegueira",
     "isAllowedLevel": false,
     "maxLevel": null,
-
-    "shortDescription": "Você não pode enxergar.",
-    "fullDescription": "Você não pode enxergar. Todos os testes que dependam de visão falham automaticamente.",
-
-    "formula": null,
-    "formulaDescription": null,
-
-    "types": ["Physical"],
-
-    "requirements": [],
-
-    "restrictions": [
+    "shortDescription": "O personagem não enxerga.",
+    "fullDescription": "O personagem <strong>não enxerga</strong>. Precisa caminhar mais devagar em terreno desconhecido ou ser guiado por um companheiro ou animal. Muitas ações são impossíveis para um cego.",
+    "rules": [
       {
-        "restrictedId": "acute_vision",
-        "display": "Incompatível com Visão Aguçada"
+        "name": "Penalidade de Combate",
+        "description": "Todas as perícias de combate sofrem -6."
+      },
+      {
+        "name": "Limitação de Ataques",
+        "description": "Não consegue mirar em um ponto específico do corpo do oponente em combate corpo a corpo, nem disparar armas à distância (exceto aleatoriamente ou contra alvo audível bem próximo)."
+      },
+      {
+        "name": "Cegueira Súbita",
+        "description": "Quem perde a visão subitamente sofre -10, como se estivesse no escuro; caso contrário, não há penalidade adicional por atuar no escuro."
+      },
+      {
+        "name": "Visão Sobre-Humana",
+        "description": "Não pode comprar visão sobre-humana; se enxergar em espectro diferente, usa a versão de 0 ponto de Infravisão ou Ultravisão, não Cegueira + a versão de 10 pontos dessas vantagens."
+      },
+      {
+        "name": "Sentidos Compatíveis",
+        "description": "Sentido de Monitoramento e Sentido de Vibração podem ser adquiridos normalmente junto com Cegueira."
       }
     ],
-
-    "modifiers": [],
-
+    "formula": "Cf = -50",
+    "formulaDescription": "O custo final (Cf) é um valor fixo de -50 pontos.",
+    "types": ["Physical"],
+    "modifiers": [
+      {
+        "attribute": "DX",
+        "operator": "SUB",
+        "value": 6,
+        "display": "-6 em todas as perícias de combate"
+      }
+    ],
+    "restrictions": [
+      {
+        "restrictedId": "visao_sobre_humana",
+        "display": "Não pode adquirir vantagens de visão sobre-humana, exceto as versões de 0 ponto de Infravisão ou Ultravisão"
+      }
+    ],
     "effects": [
       {
         "name": "Cegueira Total",
         "effectType": "vision_disabled",
-        "display": "Não pode usar habilidades que exijam visão"
+        "display": "Não pode enxergar; não mira pontos específicos e não usa armas à distância, exceto contra alvos muito próximos e audíveis"
       }
-    ]
+    ],
+    "isAdvantage": false,
+    "requirements": []
   }
 ]

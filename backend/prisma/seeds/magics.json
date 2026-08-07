@@ -1,31 +1,353 @@
 [
   {
-    "id": "fireball",
-    "name": "Bola de Fogo",
-    "display": "Bola de Fogo",
-
+    "id": "acelerar",
+    "name": "Acelerar",
+    "display": "Acelerar",
     "attributeModify": "IQ",
-
-    "timeDuration": "Instantâneo",
-    "timeOperating": "1 segundo",
-
+    "timeDuration": "10 segundos",
+    "timeOperating": "3 segundos",
     "baseCost": 5,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Aumenta muito a velocidade do alvo.",
+    "fullDescription": "Aumenta muito a velocidade do alvo. Na verdade, ele adquire um nível de Padrão de Tempo Alterado pela duração da mágica. No final da mágica, o alvo perde 5 PF (a menos que o operador seja o próprio alvo). Não pode ser mantida.",
+    "formula": "Cf = 5 - redução por NH",
+    "formulaDescription": "Custo base 5 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Displacement"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "IQ",
+        "operator": "GTE",
+        "value": 12,
+        "display": "Inteligência 12+"
+      },
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Padrão de Tempo Alterado",
+        "effectType": "altered_time_rate",
+        "display": "Concede Padrão de Tempo Alterado 1"
+      }
+    ]
+  },
+  {
+    "id": "analisar_magica",
+    "name": "Analisar Mágica",
+    "display": "Analisar Mágica",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 hora",
+    "baseCost": 8,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Identifica todas as mágicas afetando o alvo.",
+    "fullDescription": "Informa ao operador exatamente quais mágicas estão afetando o alvo. Se houver mais que uma, a análise identifica a que precisou de menos energia e diz ao operador que existem outras. Analisar Mágica pode ser feita novamente para identificar a próxima mágica e assim por diante. Quando confrontado com uma mágica que nunca ouviu falar, o operador só recebe informações limitadas.",
+    "formula": "Cf = 8 - redução por NH",
+    "formulaDescription": "Custo base 8 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Recognition"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Identificação Mágica",
+        "effectType": "magic_identification",
+        "display": "Identifica mágicas ativas no alvo"
+      }
+    ]
+  },
+  {
+    "id": "andar_no_ar",
+    "name": "Andar no Ar",
+    "display": "Andar no Ar",
+    "attributeModify": "IQ",
+    "timeDuration": "1 minuto",
+    "timeOperating": "1 segundo",
+    "baseCost": 3,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Concede a vantagem Caminhar no Ar.",
+    "fullDescription": "Concede temporariamente ao alvo a vantagem Caminhar no Ar. Se o alvo cair por alguma razão (ex.: ferimento), a mágica cessa. Se ela for refeita imediatamente, o alvo cairá apenas durante 1 segundo (aproximadamente 5 m) e 'aterrissará' no ar (sofrendo 1d ponto de dano) — a menos que alcance o chão antes. Pode ser mantida.",
+    "formula": "Cf = 3 (ou 2 para manter) - redução por NH",
+    "formulaDescription": "Custo inicial 3 PF, manutenção 2 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Air"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Caminhar no Ar",
+        "effectType": "walk_on_air",
+        "display": "Concede Caminhar no Ar"
+      }
+    ]
+  },
+  {
+    "id": "anular_magica",
+    "name": "Anular Mágica",
+    "display": "Anular Mágica",
+    "attributeModify": "IQ",
+    "timeDuration": "Permanente",
+    "timeOperating": "1 segundo por PF",
+    "baseCost": 3,
+    "costIsVariable": true,
+    "variableCost": 3,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Anula outras mágicas dentro de uma área.",
+    "fullDescription": "Anula outras mágicas dentro de uma área. Não afeta objetos encantados. Cada mágica resiste à anulação separadamente. O operador precisa conhecer a(s) mágica(s) que está sendo anulada. Para anular uma mágica específica sem afetar outras, utilize Contramágica.",
+    "formula": "Cf = 3 × raio - redução por NH",
+    "formulaDescription": "Custo base 3 PF por metro de raio (mínimo 3). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Metamagic"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Anulação Mágica",
+        "effectType": "magic_dispel",
+        "display": "Anula mágicas em área"
+      }
+    ]
+  },
+  {
+    "id": "aporte",
+    "name": "Aporte",
+    "display": "Aporte",
+    "attributeModify": "IQ",
+    "timeDuration": "1 minuto",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Move objetos sem tocá-los (levitação).",
+    "fullDescription": "Move objetos sem tocá-los (levitação com Deslocamento 1). Alvos vivos podem resistir com Vontade. Custo: 1 PF (0,5kg), 2 PF (5kg), 3 PF (25kg), 4 PF (100kg), +4 PF por 50kg. Pode ser mantida.",
+    "formula": "Cf = conforme peso - redução por NH",
+    "formulaDescription": "1 PF (0,5kg), 2 PF (5kg), 3 PF (25kg), 4 PF (100kg), +4 PF por 50kg. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Displacement"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Levitação",
+        "effectType": "telekinesis",
+        "display": "Move objetos sem tocá-los"
+      }
+    ]
+  },
+  {
+    "id": "apressar",
+    "name": "Apressar",
+    "display": "Apressar",
+    "attributeModify": "IQ",
+    "timeDuration": "1 minuto",
+    "timeOperating": "2 segundos",
+    "baseCost": 2,
     "costIsVariable": true,
     "variableCost": 2,
-
+    "isAllowedLevel": true,
+    "maxLevel": 3,
+    "shortDescription": "Aumenta Deslocamento e Esquiva do alvo.",
+    "fullDescription": "Aumenta Deslocamento e Esquiva do alvo em até 3 pontos. Custo: 2 PF por ponto (máx +3). Manutenção: 1 PF por ponto.",
+    "formula": "Cf = 2 × pontos - redução por NH",
+    "formulaDescription": "2 PF por ponto (máx +3). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Displacement"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Aumento de Velocidade",
+        "effectType": "speed_boost",
+        "display": "+Deslocamento e +Esquiva"
+      }
+    ]
+  },
+  {
+    "id": "arma_congelante",
+    "name": "Arma Congelante",
+    "display": "Arma Congelante",
+    "attributeModify": "IQ",
+    "timeDuration": "1 minuto",
+    "timeOperating": "3 segundos",
+    "baseCost": 3,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Arma fica gélida, ataques causam +2 de dano.",
+    "fullDescription": "Arma fica gélida. Ataques causam +2 de dano (se superar RD). Vulnerabilidade ao gelo/frio multiplica o bônus. Pode ser mantida.",
+    "formula": "Cf = 3 (ou 1 para manter) - redução por NH",
+    "formulaDescription": "Custo inicial 3 PF, manutenção 1 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Water"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Dano de Gelo",
+        "effectType": "cold_damage",
+        "display": "+2 de dano em ataques com a arma"
+      }
+    ]
+  },
+  {
+    "id": "armadura",
+    "name": "Armadura",
+    "display": "Armadura",
+    "attributeModify": "IQ",
+    "timeDuration": "1 minuto",
+    "timeOperating": "1 segundo",
+    "baseCost": 2,
+    "costIsVariable": true,
+    "variableCost": 2,
     "isAllowedLevel": true,
     "maxLevel": 5,
-
-    "shortDescription": "Lança uma esfera de fogo que explode ao atingir o alvo.",
-    "fullDescription": "Lança uma esfera de fogo que explode ao atingir o alvo, causando dano em área.",
-
-    "formula": "2d6 + nivel",
-    "formulaDescription": "Dano base de 2d6 acrescido do nível da magia",
-
+    "shortDescription": "Aumenta a RD de um alvo vivo.",
+    "fullDescription": "Aumenta a RD de um alvo vivo. A RD é considerada armadura e se soma à RD existente. Custo: 2 PF por ponto de RD (máx 5). Manutenção: metade do custo.",
+    "formula": "Cf = 2 × RD - redução por NH",
+    "formulaDescription": "2 PF por ponto de RD (máx 5). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["ProtectionandWarning"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 2,
+        "display": "Aptidão Mágica 2"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Armadura Mágica",
+        "effectType": "magic_armor",
+        "display": "Concede RD extra"
+      }
+    ]
+  },
+  {
+    "id": "atear_fogo",
+    "name": "Atear Fogo",
+    "display": "Atear Fogo",
+    "attributeModify": "IQ",
+    "timeDuration": "1 segundo",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Cria ponto de calor para acender objetos inflamáveis.",
+    "fullDescription": "Cria ponto de calor para acender objetos inflamáveis. Não afeta seres vivos. Custo: 1 PF (fósforo), 2 PF (tocha), 3 PF (maçarico), 4 PF (magnésio).",
+    "formula": "Cf = 1 a 4 - redução por NH",
+    "formulaDescription": "1 PF (fósforo), 2 PF (tocha), 3 PF (maçarico), 4 PF (magnésio). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
     "types": ["Fire"],
-
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Criação de Fogo",
+        "effectType": "fire_creation",
+        "display": "Cria ponto de calor"
+      }
+    ]
+  },
+  {
+    "id": "atrofiar_membro",
+    "name": "Atrofiar Membro",
+    "display": "Atrofiar Membro",
+    "attributeModify": "IQ",
+    "timeDuration": "Permanente",
+    "timeOperating": "1 segundo",
+    "baseCost": 5,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Toque no membro alvo para atrofiá-lo.",
+    "fullDescription": "Toque no membro alvo (armadura não protege). Teste de resistência no momento do contato. Sucesso: membro atrofiado (incapacitado) + 1d de dano.",
+    "formula": "Cf = 5 - redução por NH",
+    "formulaDescription": "Custo base 5 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["BodyControl"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 2,
+        "display": "Aptidão Mágica 2"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Atrofia de Membro",
+        "effectType": "limb_atrophy",
+        "display": "Incapacita o membro alvo"
+      }
+    ]
+  },
+  {
+    "id": "aura_magica",
+    "name": "Aura",
+    "display": "Aura",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 segundo",
+    "baseCost": 3,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Revela a aura do alvo.",
+    "fullDescription": "Revela a aura do alvo (personalidade, se é mago, nível de poder, possessão, emoções fortes). Sucesso decisivo: detecta características mágicas secretas. Seres vivos têm aura; objetos inanimados, ilusões e seres criados não.",
+    "formula": "Cf = 3 - redução por NH",
+    "formulaDescription": "Custo base 3 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Recognition"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Revelação de Aura",
+        "effectType": "aura_revelation",
+        "display": "Revela a aura do alvo"
+      }
+    ]
+  },
+  {
+    "id": "bola_fogo",
+    "name": "Bola de Fogo",
+    "display": "Bola de Fogo",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 a 3 segundos",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Lança uma esfera de fogo que explode ao atingir o alvo.",
+    "fullDescription": "Projétil de fogo: 1/2D 25, Max 50, Prec 1. Causa 1d de dano por PF. Incendeia materiais inflamáveis. Custo: 1 PF por dado de dano (máx Aptidão Mágica × 3).",
+    "formula": "2d6 + nível",
+    "formulaDescription": "Dano base de 2d6 acrescido do nível da magia",
+    "types": ["Fire"],
     "classes": ["Mago", "Feiticeiro"],
-
     "requirements": [
       {
         "attribute": "IQ",
@@ -34,7 +356,6 @@
         "display": "Inteligência +2"
       }
     ],
-
     "effects": [
       {
         "name": "Dano de Fogo em Área",
@@ -43,34 +364,810 @@
       }
     ]
   },
-
+  {
+    "id": "bola_fogo_explosiva",
+    "name": "Bola de Fogo Explosiva",
+    "display": "Bola de Fogo Explosiva",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 a 3 segundos",
+    "baseCost": 2,
+    "costIsVariable": true,
+    "variableCost": 2,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Bola de fogo que explode em área.",
+    "fullDescription": "Bola de fogo explosiva: 1/2D 25, Max 50, Prec 1. Alvo e tudo a até 1m sofrem dano total. Distância maior: dano dividido por 3 × distância. Custo: 2 PF por dado (máx Aptidão Mágica × 2 × 3).",
+    "formula": "Cf = 2 × dados (máx AM × 2 × 3)",
+    "formulaDescription": "2 PF por dado de dano (máx Aptidão Mágica × 2 × 3).",
+    "types": ["Fire"],
+    "classes": ["Mago", "Feiticeiro"],
+    "requirements": [
+      {
+        "attribute": "IQ",
+        "operator": "GTE",
+        "value": 2,
+        "display": "Inteligência +2"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Explosão de Fogo",
+        "effectType": "fire_explosion",
+        "display": "Causa dano de fogo em área com explosão"
+      }
+    ]
+  },
+  {
+    "id": "calor",
+    "name": "Calor",
+    "display": "Calor",
+    "attributeModify": "IQ",
+    "timeDuration": "1 minuto",
+    "timeOperating": "1 minuto",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Aumenta a temperatura de um objeto ou área.",
+    "fullDescription": "Aumenta temperatura em 10°C por minuto. Máximo: 1.500°C. Custo: 1 PF (punho), 2 PF (0,75m³), +2 PF por 0,75m³. Pode dobrar/triplicar a taxa pelo dobro/triplo do custo.",
+    "formula": "Cf = conforme tamanho - redução por NH",
+    "formulaDescription": "1 PF (punho), 2 PF (0,75m³), +2 PF por 0,75m³. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Fire"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Aumento de Temperatura",
+        "effectType": "heat_rise",
+        "display": "Aumenta temperatura de objetos/área"
+      }
+    ]
+  },
+  {
+    "id": "carne_pedra",
+    "name": "Carne para Pedra",
+    "display": "Carne para Pedra",
+    "attributeModify": "IQ",
+    "timeDuration": "Permanente",
+    "timeOperating": "2 segundos",
+    "baseCost": 10,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Transforma ser vivo e equipamento em pedra.",
+    "fullDescription": "Transforma ser vivo e equipamento em pedra. Deve afetar o alvo inteiro.",
+    "formula": "Cf = 10 - redução por NH",
+    "formulaDescription": "Custo base 10 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Earth"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Petrificação",
+        "effectType": "petrification",
+        "display": "Transforma alvo em pedra"
+      }
+    ]
+  },
+  {
+    "id": "chave_mestra",
+    "name": "Chave Mestra",
+    "display": "Chave Mestra",
+    "attributeModify": "IQ",
+    "timeDuration": "Fechadura permanece aberta",
+    "timeOperating": "10 segundos",
+    "baseCost": 3,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Abre fechaduras por magia.",
+    "fullDescription": "Abre fechaduras por magia. Tranca Mágica tem teste de resistência. Modificadores de Arrombamento se aplicam.",
+    "formula": "Cf = 3 - redução por NH",
+    "formulaDescription": "Custo base 3 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Displacement"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 2,
+        "display": "Aptidão Mágica 2"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Abertura Mágica",
+        "effectType": "magic_lockpick",
+        "display": "Abre fechaduras magicamente"
+      }
+    ]
+  },
+  {
+    "id": "coceira",
+    "name": "Coceira",
+    "display": "Coceira",
+    "attributeModify": "IQ",
+    "timeDuration": "Até alvo se coçar por 1 turno",
+    "timeOperating": "1 segundo",
+    "baseCost": 2,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Alvo coça desesperadamente, penalidade em DX.",
+    "fullDescription": "Alvo coça desesperadamente. Penalidade de -2 em DX até passar um turno se coçando. Afeta apenas um indivíduo por vez.",
+    "formula": "Cf = 2 - redução por NH",
+    "formulaDescription": "Custo base 2 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["BodyControl"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Coceira",
+        "effectType": "itch",
+        "display": "Penalidade de -2 em DX"
+      }
+    ]
+  },
+  {
+    "id": "comando",
+    "name": "Comando",
+    "display": "Comando",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 segundo",
+    "baseCost": 2,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Comando de uma ou duas palavras que deve ser obedecido.",
+    "fullDescription": "Comando de uma ou duas palavras. Alvo deve obedecer imediatamente ou no próximo turno.",
+    "formula": "Cf = 2 - redução por NH",
+    "formulaDescription": "Custo base 2 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["MindControl"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 2,
+        "display": "Aptidão Mágica 2"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Comando",
+        "effectType": "command",
+        "display": "Alvo obedece comando de uma palavra"
+      }
+    ]
+  },
+  {
+    "id": "conceder_energia",
+    "name": "Conceder Energia",
+    "display": "Conceder Energia",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Devolve PF perdidos ao alvo.",
+    "fullDescription": "Devolve PF perdidos ao alvo, custando 1 PF do operador por PF restaurado. Não pode elevar PF acima do máximo. Custo não é reduzido por NH elevado.",
+    "formula": "Cf = PF investido (sem redução por NH)",
+    "formulaDescription": "1 PF do operador por PF restaurado.",
+    "types": ["Healing"],
+    "classes": ["Clérigo", "Druida"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Restauração de Energia",
+        "effectType": "energy_restore",
+        "display": "Restaura PF perdidos"
+      }
+    ]
+  },
+  {
+    "id": "conceder_vitalidade",
+    "name": "Conceder Vitalidade",
+    "display": "Conceder Vitalidade",
+    "attributeModify": "IQ",
+    "timeDuration": "1 hora",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Restaura temporariamente PV perdidos.",
+    "fullDescription": "Restaura temporariamente os Pontos de Vida perdidos do alvo, a um custo de energia para o operador (1 PF do operador por PV do alvo). Não é capaz de elevar os PV do alvo a um valor maior que o máximo. PV restaurados somem depois de uma hora. Custo não é reduzido por NH elevado.",
+    "formula": "Cf = PF investido (sem redução por NH)",
+    "formulaDescription": "1 PF do operador por PV restaurado temporariamente.",
+    "types": ["Healing"],
+    "classes": ["Clérigo", "Druida"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Restauração Temporária de PV",
+        "effectType": "temporary_heal",
+        "display": "Restaura PV temporariamente por 1 hora"
+      }
+    ]
+  },
+  {
+    "id": "contramagica",
+    "name": "Contramágica",
+    "display": "Contramágica",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "5 segundos",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Anula qualquer mágica que esteja ativa.",
+    "fullDescription": "Esta mágica anula qualquer mágica que esteja ativa. Não cancela mágicas permanentes nem objetos encantados. O operador precisa conhecer a mágica alvo. Teste: menor NH entre Contramágica e a mágica alvo. Disputa Rápida contra a mágica alvo para anular.",
+    "formula": "Cf = (custo da mágica alvo ÷ 2) - redução por NH",
+    "formulaDescription": "Metade do custo da mágica alvo. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Metamagic"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Anulação",
+        "effectType": "counterspell",
+        "display": "Anula mágica ativa"
+      }
+    ]
+  },
+  {
+    "id": "convocacao_planar",
+    "name": "Convocação Planar",
+    "display": "Convocação Planar",
+    "attributeModify": "IQ",
+    "timeDuration": "Até completar a tarefa ou 1 hora",
+    "timeOperating": "5 minutos",
+    "baseCost": 20,
+    "costIsVariable": true,
+    "variableCost": 10,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Convoca uma criatura de outro plano de existência.",
+    "fullDescription": "Convoca uma criatura de outro plano de existência. O Mestre determina as tendências e habilidades desse ser. Cada plano exige uma mágica de Convocação Planar diferente. Tentativa de controle: Disputa Rápida Convocação Planar vs. Vontade da entidade (+4 se souber o nome verdadeiro). Sucesso: entidade obedece por 1 tarefa ou 1 hora.",
+    "formula": "Cf = (pontos da entidade ÷ 10) PF (mínimo 20) - redução por NH",
+    "formulaDescription": "1 PF por 10 pontos de personagem (mínimo 20). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Portal"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Convocação",
+        "effectType": "planar_summon",
+        "display": "Convoca criatura de outro plano"
+      }
+    ]
+  },
+  {
+    "id": "convocar_demonio",
+    "name": "Convocar Demônio",
+    "display": "Convocar Demônio",
+    "attributeModify": "IQ",
+    "timeDuration": "Até completar a tarefa ou 1 hora",
+    "timeOperating": "5 minutos",
+    "baseCost": 20,
+    "costIsVariable": true,
+    "variableCost": 10,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Versão de Convocação Planar para demônios.",
+    "fullDescription": "Esta é a versão de Convocação Planar para atrair demônios. Se o operador não conseguir controlar a criatura, o demônio sempre atacará! Se conseguir, o operador pode dar um comando ao ser abissal, que o executará ao pé da letra e fará de tudo para distorcer o espírito da ordem.",
+    "formula": "Cf = (pontos do demônio ÷ 10) PF (mínimo 20) - redução por NH",
+    "formulaDescription": "1 PF por 10 pontos de personagem (mínimo 20). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Necromancy"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Convocação Demoníaca",
+        "effectType": "demon_summon",
+        "display": "Convoca demônio"
+      }
+    ]
+  },
+  {
+    "id": "convocar_espiritos",
+    "name": "Convocar Espíritos",
+    "display": "Convocar Espíritos",
+    "attributeModify": "IQ",
+    "timeDuration": "1 minuto",
+    "timeOperating": "5 minutos",
+    "baseCost": 20,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Comunica-se com o espírito de alguém.",
+    "fullDescription": "Permite que o operador se comunique com o espírito de alguém. O alvo resiste com uma penalidade de -5 se era um amigo do operador. Sucesso: responde perguntas (1 por minuto). Fracasso: não pode tentar novamente por 1 ano. Falha crítica: espírito maligno mente.",
+    "formula": "Cf = 20 - redução por NH",
+    "formulaDescription": "Custo base 20 PF, manutenção 10 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Necromancy"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 2,
+        "display": "Aptidão Mágica 2"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Comunicação Espiritual",
+        "effectType": "spirit_communication",
+        "display": "Comunica-se com espíritos"
+      }
+    ]
+  },
+  {
+    "id": "criar_agua",
+    "name": "Criar Água",
+    "display": "Criar Água",
+    "attributeModify": "IQ",
+    "timeDuration": "Permanente",
+    "timeOperating": "1 segundo",
+    "baseCost": 2,
+    "costIsVariable": true,
+    "variableCost": 2,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Cria água pura a partir do nada.",
+    "fullDescription": "Permite ao operador criar água pura a partir do nada. Essa água pode aparecer em diversas formas: dentro de uma vasilha, como um globo suspenso no ar (que cai imediatamente) ou na forma de uma névoa de gotículas (4 litros podem apagar fogo num raio de 1m). A água não pode ser criada no interior de um inimigo.",
+    "formula": "Cf = 2 por 4 litros - redução por NH",
+    "formulaDescription": "2 PF por 4 litros. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Water"],
+    "classes": ["Mago", "Druida"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Criação de Água",
+        "effectType": "water_creation",
+        "display": "Cria água pura"
+      }
+    ]
+  },
+  {
+    "id": "criar_ar",
+    "name": "Criar Ar",
+    "display": "Criar Ar",
+    "attributeModify": "IQ",
+    "timeDuration": "5 segundos (brisas/bolhas); permanente (ar criado)",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Produz ar onde ele não existe.",
+    "fullDescription": "Produz ar onde ele não existe. Em área com ar: produz brisa de 5 segundos. No vácuo: cria ar respirável instantaneamente. Sob terra/pedra: preenche espaços vazios. Sob água: produz bolhas.",
+    "formula": "Cf = 1 × raio - redução por NH",
+    "formulaDescription": "1 PF por metro de raio. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Air"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Criação de Ar",
+        "effectType": "air_creation",
+        "display": "Cria ar respirável"
+      }
+    ]
+  },
+  {
+    "id": "criar_fogo",
+    "name": "Criar Fogo",
+    "display": "Criar Fogo",
+    "attributeModify": "IQ",
+    "timeDuration": "1 minuto (fogo mágico); permanente (incêndios causados)",
+    "timeOperating": "1 segundo",
+    "baseCost": 2,
+    "costIsVariable": true,
+    "variableCost": 2,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Incendeia a área de efeito sem combustível.",
+    "fullDescription": "Incendeia a área de efeito sem a necessidade de combustível. Esse fogo é real, e pode provocar a combustão de objetos inflamáveis que tocar. Esta mágica não pode ser lançada em rochas ou inimigos. Pode ser mantida (custo metade).",
+    "formula": "Cf = 2 × raio - redução por NH",
+    "formulaDescription": "2 PF por metro de raio. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Fire"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Criação de Fogo",
+        "effectType": "fire_creation_area",
+        "display": "Incendeia área"
+      }
+    ]
+  },
+  {
+    "id": "criar_terra",
+    "name": "Criar Terra",
+    "display": "Criar Terra",
+    "attributeModify": "IQ",
+    "timeDuration": "Permanente",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Cria terra sólida onde antes não havia nada.",
+    "fullDescription": "Permite ao operador criar terra sólida e boa onde antes não havia nada. Essa terra deve ser criada em contato com o chão (não flutuando no ar ou boiando no oceano). Custo: 2 PF por 0,75m³ (do nada) ou 1 PF por 0,75m³ (solidificar lama).",
+    "formula": "Cf = conforme tipo - redução por NH",
+    "formulaDescription": "2 PF por 0,75m³ (do nada) ou 1 PF por 0,75m³ (solidificar lama). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Earth"],
+    "classes": ["Mago", "Druida"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Criação de Terra",
+        "effectType": "earth_creation",
+        "display": "Cria terra sólida"
+      }
+    ]
+  },
+  {
+    "id": "cura_profunda",
+    "name": "Cura Profunda",
+    "display": "Cura Profunda",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": 4,
+    "shortDescription": "Cura até 8 PV ao alvo.",
+    "fullDescription": "Restaura até 8 PV ao alvo (recupera o dobro do PF investido). Esta mágica não elimina doenças ou envenenamento, mas cura o dano causado por eles. Penalidades por uso repetido separadas de Cura Superficial. Falha crítica: tratada como fracasso comum se Medicina 15+.",
+    "formula": "Cf = 1 a 4 - redução por NH",
+    "formulaDescription": "1 a 4 PF (recupera o dobro em PV). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Healing"],
+    "classes": ["Clérigo", "Druida"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Cura",
+        "effectType": "heal",
+        "display": "Restaura até 8 PV"
+      }
+    ]
+  },
+  {
+    "id": "cura_superficial",
+    "name": "Cura Superficial",
+    "display": "Cura Superficial",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": 3,
+    "shortDescription": "Cura até 3 PV ao alvo.",
+    "fullDescription": "Restaura até 3 PV ao alvo (1 PF = 1 PV). Não elimina doenças/envenenamento. Uso repetido no mesmo alvo no mesmo dia: penalidade de -3, -6, etc. Falha crítica: tratada como fracasso comum se Medicina 15+.",
+    "formula": "Cf = 1 a 3 - redução por NH",
+    "formulaDescription": "1 a 3 PF (recupera o mesmo em PV). NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Healing"],
+    "classes": ["Clérigo", "Druida"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Cura Superficial",
+        "effectType": "minor_heal",
+        "display": "Restaura até 3 PV"
+      }
+    ]
+  },
+  {
+    "id": "cura_superior",
+    "name": "Cura Superior",
+    "display": "Cura Superior",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 minuto",
+    "baseCost": 20,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Restaura todos os PV perdidos pelo alvo.",
+    "fullDescription": "Restaura todos os PV perdidos pelo alvo. Não elimina doença/envenenamento e nem regenera membros perdidos. Uma vez por dia por paciente. Falha crítica: tratada como fracasso comum se Medicina 15+.",
+    "formula": "Cf = 20 - redução por NH",
+    "formulaDescription": "Custo base 20 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Healing"],
+    "classes": ["Clérigo", "Druida"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 3,
+        "display": "Aptidão Mágica 3"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Cura Total",
+        "effectType": "full_heal",
+        "display": "Restaura todos os PV perdidos"
+      }
+    ]
+  },
+  {
+    "id": "despertar",
+    "name": "Despertar",
+    "display": "Despertar",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": true,
+    "variableCost": 1,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Remove atordoamento e desperta alvos.",
+    "fullDescription": "Devolve o alvo ao estado consciente e alerta. Anula atordoamento. Alvo com <1/3 PF: fica alerta por 1h, mas perde 1 PF. Não funciona com 0 PF ou menos. Teste de HT para despertar: bônus = margem de sucesso; penalidade de -3 (ferimento) ou -6 (drogado).",
+    "formula": "Cf = 1 × raio - redução por NH",
+    "formulaDescription": "1 PF por metro de raio. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Healing"],
+    "classes": ["Clérigo", "Druida"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Despertar",
+        "effectType": "wake",
+        "display": "Remove atordoamento/sono"
+      }
+    ]
+  },
+  {
+    "id": "desviar_energia",
+    "name": "Desviar Energia",
+    "display": "Desviar Energia",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Desvia ataques de energia (feixes, magias).",
+    "fullDescription": "Desvia um ataque de energia que esteja prestes a acertar o alvo, incluindo ataques com armas de feixe ou com Bola de Fogo ou Relâmpago. Conta como manobra Aparar. Modificadores de distância se aplicam se o operador não for o alvo. Ataques desviados podem atingir alvos atrás.",
+    "formula": "Cf = 1 - redução por NH",
+    "formulaDescription": "Custo base 1 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Fire"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Desvio de Energia",
+        "effectType": "energy_deflection",
+        "display": "Desvia ataques de energia"
+      }
+    ]
+  },
+  {
+    "id": "desviar_projetil",
+    "name": "Desviar Projétil",
+    "display": "Desviar Projétil",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "1 segundo",
+    "baseCost": 1,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Desvia projéteis e mágicas de projétil.",
+    "fullDescription": "Desvia um projétil que está prestes a atingir o alvo, incluindo qualquer mágica de projétil. Conta como manobra Aparar. Modificadores de distância se aplicam se o operador não for o alvo. Ataques desviados podem atingir alvos atrás.",
+    "formula": "Cf = 1 - redução por NH",
+    "formulaDescription": "Custo base 1 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Displacement"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Desvio de Projétil",
+        "effectType": "projectile_deflection",
+        "display": "Desvia projéteis"
+      }
+    ]
+  },
+  {
+    "id": "detecta_magia",
+    "name": "Detecção de Magia",
+    "display": "Detecção de Magia",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantânea",
+    "timeOperating": "5 segundos",
+    "baseCost": 2,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Detecta se objeto é encantado.",
+    "fullDescription": "Permite ao operador descobrir se um objeto é encantado. Um segundo sucesso também indica se a mágica é temporária ou permanente. Sucesso decisivo: identificação completa (como Analisar Mágica).",
+    "formula": "Cf = 2 - redução por NH",
+    "formulaDescription": "Custo base 2 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Recognition"],
+    "classes": ["Mago"],
+    "requirements": [
+      {
+        "attribute": "Aptidao_Magica",
+        "operator": "GTE",
+        "value": 1,
+        "display": "Aptidão Mágica 1"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Detecção Mágica",
+        "effectType": "magic_detection",
+        "display": "Detecta magia em objetos"
+      }
+    ]
+  },
+  {
+    "id": "dissipar_agua",
+    "name": "Dissipar Água",
+    "display": "Dissipar Água",
+    "attributeModify": "IQ",
+    "timeDuration": "Permanente",
+    "timeOperating": "1 segundo",
+    "baseCost": 3,
+    "costIsVariable": true,
+    "variableCost": 3,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Remove água de uma área.",
+    "fullDescription": "Provoca o desaparecimento de água (em qualquer forma), deixando para trás um vácuo e/ou grãos de impurezas secas. Pode secar objetos, salvar vítimas de afogamento. Não pode ser usada como ataque desidratante.",
+    "formula": "Cf = 3 × raio - redução por NH",
+    "formulaDescription": "3 PF por metro de raio. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Water"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Dissipação de Água",
+        "effectType": "water_dissipation",
+        "display": "Remove água da área"
+      }
+    ]
+  },
+  {
+    "id": "dor",
+    "name": "Dor",
+    "display": "Dor",
+    "attributeModify": "IQ",
+    "timeDuration": "1 segundo",
+    "timeOperating": "1 segundo",
+    "baseCost": 2,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Alvo sente dor agonizante.",
+    "fullDescription": "O alvo sente uma dor agonizante. Teste de Vontade para não gritar. Teste de DX para evitar desastre (se em situação difícil). Penalidade de -3 em DX e perícias DX no próximo turno. Pode interromper mágicas com gestos (teste de Vontade). Hipoalgia: +3; Hiperalgia: -4.",
+    "formula": "Cf = 2 - redução por NH",
+    "formulaDescription": "Custo base 2 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["BodyControl"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Dor",
+        "effectType": "pain",
+        "display": "Penalidade de -3 em DX"
+      }
+    ]
+  },
+  {
+    "id": "eliminar_odor",
+    "name": "Eliminar Odor",
+    "display": "Eliminar Odor",
+    "attributeModify": "IQ",
+    "timeDuration": "1 hora",
+    "timeOperating": "1 segundo",
+    "baseCost": 2,
+    "costIsVariable": false,
+    "variableCost": null,
+    "isAllowedLevel": true,
+    "maxLevel": null,
+    "shortDescription": "Remove o odor do alvo e seus pertences.",
+    "fullDescription": "Remove o odor do alvo e impossibilita que ele seja identificado pelo olfato. Todos os itens pertencentes ao alvo também são afetados. Não altera nenhuma outra propriedade. Pode ser mantida.",
+    "formula": "Cf = 2 - redução por NH",
+    "formulaDescription": "Custo base 2 PF, manutenção 2 PF. NH 15-19 → -1 PF; NH 20-24 → -2 PF.",
+    "types": ["Air"],
+    "classes": ["Mago"],
+    "requirements": [],
+    "effects": [
+      {
+        "name": "Eliminação de Odor",
+        "effectType": "odor_removal",
+        "display": "Remove odor do alvo"
+      }
+    ]
+  },
   {
     "id": "healing_touch",
     "name": "Toque Curativo",
     "display": "Toque Curativo",
-
     "attributeModify": "IQ",
-
     "timeDuration": "Instantâneo",
     "timeOperating": "2 segundos",
-
     "baseCost": 4,
     "costIsVariable": true,
     "variableCost": 1,
-
     "isAllowedLevel": true,
     "maxLevel": 5,
-
     "shortDescription": "Cura ferimentos de um alvo pelo toque.",
     "fullDescription": "Cura ferimentos de um alvo pelo toque. Cada nível aumenta a quantidade de vida restaurada.",
-
-    "formula": "1d6 + nivel",
+    "formula": "1d6 + nível",
     "formulaDescription": "Cura base de 1d6 acrescido do nível da magia",
-
     "types": ["Healing"],
-
     "classes": ["Clérigo", "Druida"],
-
     "requirements": [
       {
         "attribute": "IQ",
@@ -79,12 +1176,45 @@
         "display": "Inteligência +1"
       }
     ],
-
     "effects": [
       {
         "name": "Cura",
         "effectType": "heal",
         "display": "Restaura pontos de vida"
+      }
+    ]
+  },
+  {
+    "id": "fireball",
+    "name": "Bola de Fogo",
+    "display": "Bola de Fogo",
+    "attributeModify": "IQ",
+    "timeDuration": "Instantâneo",
+    "timeOperating": "1 segundo",
+    "baseCost": 5,
+    "costIsVariable": true,
+    "variableCost": 2,
+    "isAllowedLevel": true,
+    "maxLevel": 5,
+    "shortDescription": "Lança uma esfera de fogo que explode ao atingir o alvo.",
+    "fullDescription": "Lança uma esfera de fogo que explode ao atingir o alvo, causando dano em área.",
+    "formula": "2d6 + nível",
+    "formulaDescription": "Dano base de 2d6 acrescido do nível da magia",
+    "types": ["Fire"],
+    "classes": ["Mago", "Feiticeiro"],
+    "requirements": [
+      {
+        "attribute": "IQ",
+        "operator": "GTE",
+        "value": 2,
+        "display": "Inteligência +2"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Dano de Fogo em Área",
+        "effectType": "fire_damage",
+        "display": "Causa dano de fogo em área"
       }
     ]
   }

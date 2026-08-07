@@ -85,9 +85,7 @@ model Traits {
   name               String             @db.VarChar(100)
   types              TraitType[]
   requirements       TraitRequirement[]
-  // quem esse trait bloqueia
   restricts          TraitRestriction[] @relation("TraitRestricts")
-  // quem bloqueia esse trait (opcional, inverso)
   blockedBy          TraitRestriction[] @relation("TraitBlockedBy")
   modifiers          TraitModifier[]
   effects            TraitEffect[]
@@ -98,10 +96,10 @@ model Traits {
   display            String?            @db.VarChar(100)
   isAllowedLevel     Boolean
   maxLevel           Int?
-  shortDescription   String?            @db.VarChar(100)
-  fullDescription    String?
-  formula            String?            @db.VarChar(100)
-  formulaDescription String?
+  shortDescription   String?            @db.VarChar(255)
+  fullDescription    String?            @db.Text
+  formula            String?            @db.VarChar(255)
+  formulaDescription String?            @db.Text
   cards              CardTraits[]
 }
 
@@ -292,7 +290,7 @@ model TraitRequirement {
   attribute Attributes
   operator  ComparisonOperators
   value     Int
-  display   String?             @db.VarChar(100)
+  display   String?             @db.VarChar(255)
   trait     Traits              @relation(fields: [traitId], references: [id])
 
   @@index([traitId])
@@ -305,7 +303,7 @@ model TraitRestriction {
 
   traitId      String
   restrictedId String
-  display      String? @db.VarChar(100)
+  display      String? @db.VarChar(255)
 
   trait      Traits @relation("TraitRestricts", fields: [traitId], references: [id])
   restricted Traits @relation("TraitBlockedBy", fields: [restrictedId], references: [id])
@@ -323,7 +321,7 @@ model TraitModifier {
   attribute Attributes
   operator  MathOperators
   value     Int
-  display   String        @db.VarChar(100)
+  display   String        @db.VarChar(255)
   trait     Traits        @relation(fields: [traitId], references: [id])
 
   @@index([traitId])
@@ -335,7 +333,7 @@ model TraitEffect {
   id         Int    @id @default(autoincrement())
   traitId    String @db.VarChar(50)
   name       String @db.VarChar(100)
-  display    String @db.VarChar(100)
+  display    String @db.VarChar(255)
   effectType String @db.VarChar(50)
   trait      Traits @relation(fields: [traitId], references: [id])
 
@@ -347,7 +345,7 @@ model TraitRules {
   id          Int    @id @default(autoincrement())
   traitId     String @db.VarChar(50)
   name        String @db.VarChar(100)
-  description String @db.VarChar(255)
+  description String?
   trait       Traits @relation(fields: [traitId], references: [id])
 
   @@index([traitId])
@@ -619,6 +617,11 @@ enum Attributes {
   PV // Vida
   PER // Percepção
   PF // Fadiga
+  Voo // Para habilidades de voo, como asas ou propulsores, permitindo que o personagem se mova pelo ar.
+  Arco // Para habilidades relacionadas ao uso de arcos, permitindo que o personagem utilize arcos e flechas com maior eficácia.
+  Meditacao // Para habilidades de meditação, permitindo que o personagem se concentre e recupere energia ou habilidades especiais.
+  Hipnotismo // Para habilidades de hipnotismo, permitindo que o personagem influencie a mente de outros.
+  Aptidao_Magica // Para habilidades relacionadas à magia, permitindo que o personagem utilize magias com maior eficácia.
 }
 
 // ──────────────────── Operadores Fixos (servirá para os operator  Operators) ────────────────────
