@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import imgMenu from "/imgMenu.webp";
 
 import "../styles/components/header.css";
@@ -9,18 +9,26 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import DoorBackOutlinedIcon from "@mui/icons-material/DoorBackOutlined";
 import MeetingRoomOutlinedIcon from "@mui/icons-material/MeetingRoomOutlined";
 import D20Dice from './D20Dice';
+
+import {
+  getMyUserInfo,
+  getUserInfo
+} from "../services/api";
 // import StyleIcon from '@mui/icons-material/Style'; ICONE DE FICHAS
 
 import Tooltip from "@mui/material/Tooltip";
 
 export default function Header({ handleLogout, removeProfile }) {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [doorHover, setDoorHover] = useState(false);
-
+  const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const [showLoginMenu, setShowLoginMenu] = useState(false);
+
+  const { userId } = useParams();
+  const [userData, setUserData] = useState(null);
 
   const [hover, setHover] = useState(false);
 
@@ -40,6 +48,78 @@ export default function Header({ handleLogout, removeProfile }) {
 
   // Verifica se é visitante
   const isGuest = !localStorage.getItem("token") && localStorage.getItem("guest_token");
+
+  function getUserIdFromToken() {
+      const token = localStorage.getItem("token");
+  
+      if (!token) {
+        return null;
+      }
+  
+      try {
+        const parts = token.split(".");
+        if (parts.length !== 3) {
+          return null;
+        }
+  
+        const payload = JSON.parse(atob(parts[1]));
+        return payload.id;
+      } catch (error) {
+        console.error("Erro ao decodificar token:", error);
+        return null;
+      }
+    }
+  
+    // ──────────────────────────────────────────────
+    // Buscar informações do usuário
+    // ──────────────────────────────────────────────
+    useEffect(() => {
+      async function loadInfos() {
+        try {
+          setLoading(true);
+  
+          // Pega o ID do usuário logado
+          const loggedUserId = getUserIdFromToken();
+  
+          if (!loggedUserId) {
+            console.error("Usuário não autenticado");
+            setLoading(false);
+            navigate("/");
+            return;
+          }
+  
+          // Serve para saber qual id usar (loggedUserId = ID do próprio usuário | userId = ID do usuário que deseja ver o perfil)
+          const targetUserId = userId || loggedUserId;
+  
+          // Verifica se é o próprio perfil
+          setIsOwnProfile(targetUserId === loggedUserId);
+  
+          // Verifica se o usuário é adminstrador através do próprio perfil logado
+          const loggedUser = await getUserInfo(loggedUserId);
+  
+          if (loggedUser?.admin) {
+            setIsAdmin(true);
+          }
+  
+          // Busca os dados do usuário ou perfil alvo
+          const data = await getUserInfo(targetUserId);
+  
+          if (data?.error) {
+            console.error(data.error);
+            setLoading(false);
+            return;
+          }
+  
+          setUserData(data);
+          setLoading(false);
+        } catch (error) {
+          console.error("Erro:", error);
+          setLoading(false);
+        }
+      }
+  
+      loadInfos();
+    }, [userId]); // Recarrega quando o userId mudar
 
   useEffect(() => {
     return () => {
@@ -118,13 +198,20 @@ export default function Header({ handleLogout, removeProfile }) {
         <div className="header-left">
           {!removeProfile && (
             <button onClick={(e) => { e.preventDefault(); handleProfileClick(); }} className="profile-icon" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+              {isGuest ? (
               <Tooltip title="Perfil" arrow>
                 <AccountCircleOutlinedIcon className="default-profile-icon" />
               </Tooltip>
+              ) : (
+                <Tooltip title="Perfil" arrow>
+                <img src={userData?.image} alt="Logo" className="profile-image" />
+                </Tooltip>
+              )}
             </button>
           )}
 
           <div className={`profile-menu ${hover ? "hover" : ""}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+            
             <a onClick={() => handleLogout()} className="btn-logout-icon" onMouseEnter={() => setDoorHover(true)} onMouseLeave={() => setDoorHover(false)}>
               {doorHover ? (
                 <Tooltip title="Deslogar" arrow>
@@ -136,8 +223,11 @@ export default function Header({ handleLogout, removeProfile }) {
                 </Tooltip>
               )}
             </a>
+            
           </div>
         </div>
+
+        <iframe src="/player/player.html" title="Theoros Player" className="header-player-iframe" />
 
         <D20Dice />
 

@@ -41,7 +41,7 @@ export default function TechniqueSection({ onLoading }) {
   // Store — técnica já selecionadas pelo usuário
   // ──────────────────────────────────────────────
   const techniques = useCardStore((state) => state.techniques);
-  const removeTecnique = useCardStore((state) => state.removeTecnique);
+  const removeTechnique = useCardStore((state) => state.removeTechnique);
 
   // ──────────────────────────────────────────────
   // Buscar técnicas do cardStore ao carregar a pagina
@@ -237,7 +237,7 @@ export default function TechniqueSection({ onLoading }) {
 
                   <button
                     className="remove-technique-btn"
-                    onClick={() => removeTecnique(technique.id)}
+                    onClick={() => removeTechnique(technique.id)}
                     title="Remover Técnica"
                   >
                     <CloseIcon fontSize="small" />

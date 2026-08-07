@@ -31,3 +31,19 @@
     0 10px 20px rgba(0, 0, 0, 0.7),
     0 0 12px rgba(212, 175, 55, 0.25);
 }
+
+span{
+  font-size: 25px;
+}
+
+h2{
+  font-size: 50px;
+}
+.main-content{
+  font-size: 25px;
+  display: grid;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  grid-template-columns: (2, 2fr);
+}
