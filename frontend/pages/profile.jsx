@@ -181,7 +181,7 @@ export default function Profile({ handleLogout }) {
 
     imageBase64 = await getBase64(file);
 
-    updateUserImage(userData.id, imageBase64);
+    await updateUserImage(userData.id, imageBase64);
     window.location.reload();
   }
 
@@ -242,7 +242,7 @@ export default function Profile({ handleLogout }) {
               onChange={(e) => setUserName(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  updateUserName(userData.id, userName);
+                  await updateUserName(userData.id, userName);
                   setEditName(false);
                   window.location.reload(); // Atualiza a página para mostrar o novo nome
                 }
@@ -273,7 +273,7 @@ export default function Profile({ handleLogout }) {
               onChange={(e) => setUserDescription(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  updateUserDescription(userData.id, userDescription);
+                  await updateUserDescription(userData.id, userDescription);
                   setEditDescription(false);
                   window.location.reload(); // Atualiza a página para mostrar a nova descrição
                 }
