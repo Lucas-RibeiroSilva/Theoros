@@ -245,7 +245,6 @@ export default function Profile({ handleLogout }) {
     window.location.reload();
   }
 }}
-              }}
               autoFocus
             />
           ) : (
@@ -277,7 +276,6 @@ export default function Profile({ handleLogout }) {
     window.location.reload();
   }
 }}
-              }}
               autoFocus
             />
           ) : (
