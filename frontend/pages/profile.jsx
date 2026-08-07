@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate, Await } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import "../styles/pages/profile.css";
 import FavoritesSection from "../components/cards/profile/favoritesCards";
@@ -153,46 +153,35 @@ export default function Profile({ handleLogout }) {
     fileInputRef.current.click();
   }
 
-  async function imageChange(userId) {
-    const file = event.target.files[0];
-    let imageBase64 = null;
+  async function imageChange(e) {
+  const file = e.target.files[0];
 
-    const getBase64 = async (file) => {
-      return new Promise((resolve, reject) => {
-        if (!file) {
-          reject(new Error("Nenhuma imagem selecionada"));
-          return;
-        }
+  const getBase64 = async (file) => {
+    return new Promise((resolve, reject) => {
+      if (!file) {
+        reject(new Error("Nenhuma imagem selecionada"));
+        return;
+      }
 
-        // Verifica se é um File
-        if (!(file instanceof File) && !(file instanceof Blob)) {
-          reject(new Error("Arquivo inválido"));
-          return;
-        }
+      if (!(file instanceof File) && !(file instanceof Blob)) {
+        reject(new Error("Arquivo inválido"));
+        return;
+      }
 
-        const reader = new FileReader();
+      const reader = new FileReader();
 
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
 
-        reader.readAsDataURL(file);
-      });
-    };
+      reader.readAsDataURL(file);
+    });
+  };
 
-    imageBase64 = await getBase64(file);
+  const imageBase64 = await getBase64(file);
 
-    await updateUserImage(userData.id, imageBase64);
-    window.location.reload();
-  }
-
-  if (!userData) {
-    return (
-      <>
-        <Header handleLogout={handleLogout} />
-        <Loading />
-      </>
-    );
-  }
+  await updateUserImage(userData.id, imageBase64);
+  window.location.reload();
+}
 
   return (
     <>
@@ -241,11 +230,13 @@ export default function Profile({ handleLogout }) {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  await updateUserName(userData.id, userName);
-                  setEditName(false);
-                  window.location.reload(); // Atualiza a página para mostrar o novo nome
-                }
+                onKeyDown={async (e) => {
+  if (e.key === "Enter") {
+    await updateUserName(userData.id, userName);
+    setEditName(false);
+    window.location.reload();
+  }
+}}
               }}
               autoFocus
             />
@@ -271,12 +262,14 @@ export default function Profile({ handleLogout }) {
               value={userDescription}
               maxLength={252}
               onChange={(e) => setUserDescription(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  await updateUserDescription(userData.id, userDescription);
-                  setEditDescription(false);
-                  window.location.reload(); // Atualiza a página para mostrar a nova descrição
-                }
+              onKeyDown={async (e) => {
+  onKeyDown={async (e) => {
+  if (e.key === "Enter") {
+    await updateUserDescription(userData.id, userDescription);
+    setEditDescription(false);
+    window.location.reload();
+  }
+}}
               }}
               autoFocus
             />
