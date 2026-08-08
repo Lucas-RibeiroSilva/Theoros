@@ -192,6 +192,7 @@
 
 .card-title{
   grid-area: title;
+  margin: 0;
 }
 
 .sub-card-main-3{

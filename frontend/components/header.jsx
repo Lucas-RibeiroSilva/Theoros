@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import imgMenu from "/imgMenu.webp";
+import imgMenu from "/menuScroll.png";
 
 import "../styles/components/header.css";
 import LoginModal from "../components/modals/loginModal";
@@ -231,8 +231,7 @@ export default function Header({ handleLogout, removeProfile }) {
 
         <D20Dice />
 
-        <div className='header-right'>
-
+        
           {/* MENU */}
           <button type="button" onClick={chamarMenu} className="btn-menu" aria-expanded={menuOpen}>
             <img src={imgMenu} alt="Menu" className="menu-icon" />
@@ -252,7 +251,7 @@ export default function Header({ handleLogout, removeProfile }) {
               <a onClick={(e) => { e.preventDefault(); handleProfileClick(); }}>Perfil</a>
             </div>
           </div>
-        </div>
+        
       </header>
 
       {/* MODAL LOGIN */}
