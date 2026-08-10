@@ -435,7 +435,6 @@ header {
 
 	.menu-container {
 		width: min(92vw, 320px);
-		right: -160px;
 		top: calc(100% + 0.6rem);
 		padding: 0;
 		display: flex;
