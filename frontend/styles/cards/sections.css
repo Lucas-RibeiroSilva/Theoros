@@ -14,7 +14,7 @@
 
     padding: 24px;
 
-    border-radius: 14px;
+    
     min-height: 200px;
     background-size:cover;
     border: 3px solid transparent;
@@ -22,17 +22,12 @@
     background:linear-gradient(180deg, #352719 0%, #47352600 100%);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-    
-    
-    
-
     color: #e6d8b5;
 
     margin: 10px;
 
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
-
 .advantages-box:hover,
 .disadvantages-box:hover,
 .magic-box:hover,
@@ -50,6 +45,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.magic-box {
+    width: 65%;
+    min-width: 0;
+    margin-top: 26px;
 }
 
 /* =========================
@@ -267,7 +268,8 @@
 /* Cabeçalho: pontos | nome | tipos | nivel | remover */
 .topics-information {
     display: grid;
-    grid-template-columns: 80px 1fr 350px 60px 40px;
+    grid-template-columns: minmax(60px, 80px) minmax(120px, 1fr) minmax(80px, 320px)
+     minmax(60px, 80px) minmax(40px, 60px);
     align-items: center;
     padding: 8px 12px;
     font-weight: bold;
@@ -275,12 +277,15 @@
     color: #d4af37;
     border-bottom: 1px solid rgba(212, 175, 55, 0.15);
     gap: 8px;
+    width: 100%;
+    min-width: 0;
 }
 
 /* Cabeçalho: pontos | nome | tipo | tempo duração | tempo operação | nivel | remover */
 .topics-information-magic {
     display: grid;
-    grid-template-columns: 80px 1fr 460px 300px 300px 220px 40px;
+    grid-template-columns: minmax(60px, 80px) minmax(140px, 1fr) minmax(90px, 1fr) 
+    minmax(90px, 1fr) minmax(90px, 1fr) minmax(90px, 1fr) minmax(40px, 60px);
     align-items: center;
     padding: 8px 12px;
     font-weight: bold;
@@ -288,6 +293,8 @@
     color: #d4af37;
     border-bottom: 1px solid rgba(212, 175, 55, 0.15);
     gap: 8px;
+    width: 100%;
+    min-width: 0;
 }
 
 #topics-points {
@@ -335,7 +342,6 @@
     list-style: none;
     margin: 8px 0 0 0;
     padding: 0;
-
     max-height: 220px;
     overflow-y: auto;
 
@@ -445,7 +451,8 @@
 .selected-expertise-info,
 .selected-technique-info {
     display: grid;
-    grid-template-columns: 80px 1fr 350px 60px 40px;
+     grid-template-columns: minmax(60px, 80px) minmax(80px, 100px) minmax(80px, 470px)
+     minmax(20px, 35px) minmax(40px, 60px);
     align-items: center;
     gap: 8px;
     width: 100%;
@@ -455,10 +462,11 @@
 /* Itens magia: pontos | nome | tipo | tempo duração | tempo operação | nivel | remover */
 .selected-magic-info {
     display: grid;
-    grid-template-columns: 80px 1fr 300px 300px 300px 300px 40px;
+    grid-template-columns: minmax(60px, 80px) minmax(140px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(40px, 60px);
     align-items: center;
     gap: 8px;
     width: 100%;
+    min-width: 0;
     padding: 4px 0;
 }
 

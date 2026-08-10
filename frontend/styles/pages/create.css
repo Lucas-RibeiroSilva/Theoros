@@ -1,19 +1,6 @@
-html,
-body,
-#root {
-    margin: 0;
-    padding: 0;
-
-    width: 100%;
-    min-height: 100%;
-
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
 /* ===== ÁREA DOS BOTÕES ===== */
 .section-create-buttons {
-  width: 63vw;
+  max-width: 1300px;
 
   margin: 20px auto 0 auto;
 
@@ -43,7 +30,7 @@ body,
 /* ===== BOTÕES ===== */
 #button-create {
   padding: 12px 18px;
-
+  width: 200px;
   border-radius: 10px;
 
   border: 2px solid #8b6a2f;
@@ -52,7 +39,8 @@ body,
       linear-gradient(
           135deg,
           #6b4f1d,
-          #b08a3c
+          #b08a3c,
+          #FFE983
       );
 
   color: #000000;

@@ -1,11 +1,17 @@
 .lists {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
     justify-content: center;
     gap: 24px;
     margin-top: 16px;
 }
 
+.lists > div {
+    flex: 1 1 380px;
+    min-width: 220px;
+    max-width: 40%;
+}
 
 /* ===== RESPONSIVO - Até 1024px ===== */
 @media (max-width: 1024px) {
@@ -13,6 +19,12 @@
     display: grid;
     grid-template-columns: 1fr;
     margin-top: 16px;
+    
+}
+
+    .lists > div {
+    min-width: none;
+    max-width: none;
 }
 }
 

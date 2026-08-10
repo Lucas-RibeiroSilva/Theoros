@@ -1,7 +1,6 @@
-/* ===== GRID PRINCIPAL ===== */
 .section-create-grid {
     display: grid;
-    grid-template-columns: 460px 1fr;
+    grid-template-columns: 595px 1fr;
     grid-template-rows: auto auto;
     grid-template-areas:
         "info stats"
@@ -33,6 +32,7 @@
     text-align: center;
     max-width: 100px;
     max-height: 50px;
+    padding: 0.5rem 0rem;
 }
 
 
@@ -89,6 +89,11 @@ textarea {
     font-family: "Georgia", "Times New Roman", serif;
 
     box-sizing: border-box;
+}
+
+
+input{
+    width: 50%;
 }
 
 /* ===== TEXTAREA ===== */

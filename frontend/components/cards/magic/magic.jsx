@@ -176,12 +176,13 @@ export default function MagicSection({ onLoading }) {
 
   return (
     <>
-      {/* MÁGIA */}
+      {/* MAGIA */}
+      
       <div className="magic-box">
 
         {/* Titulo junto com botão "+" para abrir o modal de mágias */}
         <div className="box-header">
-          <label>Buscar Mágia:</label>
+          <label>Buscar Magia:</label>
 
           <Tooltip title="Adicionar Mágias" arrow>
             <AddIcon className="add-magic" onClick={openMagicModal} />
@@ -192,7 +193,7 @@ export default function MagicSection({ onLoading }) {
         <div className="input-magic">
           <input
             type="text"
-            placeholder="Digite o nome da mágia"
+            placeholder="Digite o nome da magia"
             value={filterMagic}
             onChange={(e) => setFilterMagic(e.target.value)}
           />
@@ -326,6 +327,7 @@ export default function MagicSection({ onLoading }) {
           )}
         </ul>
       </div>
+     
 
       {/* Modal para adicionar mágia */}
       {showMagicModal && (

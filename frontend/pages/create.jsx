@@ -108,7 +108,7 @@ export default function Create({ handleLogout }) {
           onClick={() => setActiveSection("magic")}
           id="button-create"
         >
-          Mágia
+          Magia
         </button>
         <SaveCard id="save-popup" onOpenLoginModal={openLoginModal} />
       </div>
