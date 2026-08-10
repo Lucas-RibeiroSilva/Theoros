@@ -32,15 +32,22 @@
     0 0 12px rgba(212, 175, 55, 0.25);
 }
 
-span{
-  font-size: 25px;
+#welcome-message {
+  font-size: 20px;
 }
 
-h2{
-  font-size: 50px;
+#title-home{
+  font-size: 30px;
 }
+
+#description-home{
+  font-size: 18px;
+}
+
+
 .main-content{
-  font-size: 25px;
+  margin-top: 30px;
+  font-size: 16px;
   display: grid;
   flex-direction: row;
   align-items: flex-start;

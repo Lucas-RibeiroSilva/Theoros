@@ -436,7 +436,7 @@ fontSize: "13px",
 }}
 >
     
-<img src="/logo.png" style={{ marginTop:"100px" ,width: "200px", height: "auto" }}/></div>
+<img src="/logo.png" style={{ marginLeft: "320px", marginTop:"100px" ,width: "180px", height: "auto" }}/></div>
 );
 }
 

@@ -145,24 +145,15 @@
 }
 
 /* ===== INPUTS (PERGAMINHO ESCURO) ===== */
-input {
-  padding: 12px 14px;
-  border-radius: 10px;
-
-  border: 1px solid #3a2a1a;
-  background: #141016;
-
-  color: #e6d8b5;
-  outline: none;
-
-  transition: 0.2s;
-
+#input-login-email,
+#input-login-password,
+#input-register-username,
+#input-register-email,
+#input-register-password,
+#input-confirm-register-password {
+  width: 100%;
 }
 
-input:focus {
-  border-color: #d4af37;
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
-}
 
 /* ===== BOTÃO SUBMIT (MAGIA / OURO) ===== */
 button[type="submit"] {

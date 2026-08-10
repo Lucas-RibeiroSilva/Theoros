@@ -2,20 +2,25 @@ import { useState, useEffect } from "react";
 
 import { getAdvantageById, getDisadvantageById, getLimitationById, getExpansionById, getExpertiseById, getTechniqueById, getMagicById } from "../../services/api";
 
+import Loading from "../loading";
 import "../../styles/modals/infoModal.css";
 
 export default function InfoModal({ onClose, Type, Id }) {
     const [information, setInformation] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function load() {
             try {
+                setLoading(true);
                 await verifeType(Type, Id);
             }
             catch (error) {
                 console.error(error);
+                setLoading(false);
                 return;
             } finally {
+                setLoading(false);
             }
         }
         load();
@@ -49,6 +54,13 @@ export default function InfoModal({ onClose, Type, Id }) {
         }
     }
 
+
+     if (loading) {
+        return (
+          <Loading />
+        );
+      }
+    
 
     return (
         <div className="overlay-info-modal" onClick={onClose}>

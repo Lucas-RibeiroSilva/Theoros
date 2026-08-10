@@ -73,13 +73,13 @@ export default function RatingModal({ onClose, cardId }) {
         try {
             await rateCard(cardId, rating, comment)
 
-            onClose();
-
         } catch (error) {
             console.error('Erro ao enviar avaliação:', error);
             alert('Erro ao enviar avaliação. Tente novamente.');
         } finally {
             setIsSubmitting(false);
+            onClose();
+            window.location.reload();
         }
     }
 

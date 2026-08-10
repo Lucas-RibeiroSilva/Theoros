@@ -18,23 +18,19 @@ import {
 
 import Tooltip from "@mui/material/Tooltip";
 
-export default function Header({ handleLogout, removeProfile }) {
+export default function Header({ handleLogout, removeProfile, onLoginSuccess }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [doorHover, setDoorHover] = useState(false);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-
   const [showLoginMenu, setShowLoginMenu] = useState(false);
-
-  const { userId } = useParams();
   const [userData, setUserData] = useState(null);
-
   const [hover, setHover] = useState(false);
-
   const [haveProfile, setHaveProfile] = useState(false);
   const [isClosingAlert, setIsClosingAlert] = useState(false);
-  const timeoutRef = useRef(null); // Guarda o ID do setTimeout
+  const [noImageProfile, setNoImageProfile] = useState(true);
+  const timeoutRef = useRef(null);
 
   const openLoginModal = () => {
     setShowLoginModal(true);
@@ -47,79 +43,68 @@ export default function Header({ handleLogout, removeProfile }) {
   const navigate = useNavigate();
 
   // Verifica se é visitante
-  const isGuest = !localStorage.getItem("token") && localStorage.getItem("guest_token");
+  const [isGuest, setIsGuest] = useState(
+    !localStorage.getItem("token")
+  );
+
+  const updateInfoUser = async () => {
+    try {
+      const id = getUserIdFromToken();
+
+      if (!id) {
+        setIsGuest(true);
+        setUserData(null);
+        setNoImageProfile(true);
+        return;
+      }
+
+      setIsGuest(false);
+      setNoImageProfile(false);
+
+      const data = await getUserInfo(id);
+
+      if (data?.error) {
+        console.error(data.error);
+        return;
+      }
+
+      setUserData(data);
+    } catch (error) {
+      console.error("Erro ao atualizar usuário:", error);
+    }
+  };
 
   function getUserIdFromToken() {
-      const token = localStorage.getItem("token");
-  
-      if (!token) {
-        return null;
-      }
-  
-      try {
-        const parts = token.split(".");
-        if (parts.length !== 3) {
-          return null;
-        }
-  
-        const payload = JSON.parse(atob(parts[1]));
-        return payload.id;
-      } catch (error) {
-        console.error("Erro ao decodificar token:", error);
-        return null;
-      }
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return null;
     }
-  
-    // ──────────────────────────────────────────────
-    // Buscar informações do usuário
-    // ──────────────────────────────────────────────
-    useEffect(() => {
-      async function loadInfos() {
-        try {
-          setLoading(true);
-  
-          // Pega o ID do usuário logado
-          const loggedUserId = getUserIdFromToken();
-  
-          if (!loggedUserId) {
-            console.error("Usuário não autenticado");
-            setLoading(false);
-            navigate("/");
-            return;
-          }
-  
-          // Serve para saber qual id usar (loggedUserId = ID do próprio usuário | userId = ID do usuário que deseja ver o perfil)
-          const targetUserId = userId || loggedUserId;
-  
-          // Verifica se é o próprio perfil
-          setIsOwnProfile(targetUserId === loggedUserId);
-  
-          // Verifica se o usuário é adminstrador através do próprio perfil logado
-          const loggedUser = await getUserInfo(loggedUserId);
-  
-          if (loggedUser?.admin) {
-            setIsAdmin(true);
-          }
-  
-          // Busca os dados do usuário ou perfil alvo
-          const data = await getUserInfo(targetUserId);
-  
-          if (data?.error) {
-            console.error(data.error);
-            setLoading(false);
-            return;
-          }
-  
-          setUserData(data);
-          setLoading(false);
-        } catch (error) {
-          console.error("Erro:", error);
-          setLoading(false);
-        }
+
+    try {
+      const parts = token.split(".");
+      if (parts.length !== 3) {
+        return null;
       }
-  
-      loadInfos();
-    }, [userId]); // Recarrega quando o userId mudar
+
+      const payload = JSON.parse(atob(parts[1]));
+      return payload.id;
+    } catch (error) {
+      console.error("Erro ao decodificar token:", error);
+      return null;
+    }
+  }
+
+  // ──────────────────────────────────────────────
+  // Buscar informações do usuário
+  // ──────────────────────────────────────────────
+  useEffect(() => {
+    async function reloadUser() {
+      updateInfoUser();
+    }
+
+    reloadUser();
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -198,20 +183,20 @@ export default function Header({ handleLogout, removeProfile }) {
         <div className="header-left">
           {!removeProfile && (
             <button onClick={(e) => { e.preventDefault(); handleProfileClick(); }} className="profile-icon" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-              {isGuest ? (
-              <Tooltip title="Perfil" arrow>
-                <AccountCircleOutlinedIcon className="default-profile-icon" />
-              </Tooltip>
+              {(isGuest || noImageProfile === null) ? (
+                <Tooltip title="Perfil" arrow>
+                  <AccountCircleOutlinedIcon className="default-profile-icon" />
+                </Tooltip>
               ) : (
                 <Tooltip title="Perfil" arrow>
-                <img src={userData?.image} alt="Logo" className="profile-image" />
+                  <img src={userData?.image} alt="Logo" className="profile-image" />
                 </Tooltip>
               )}
             </button>
           )}
 
           <div className={`profile-menu ${hover ? "hover" : ""}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-            
+
             <a onClick={() => handleLogout()} className="btn-logout-icon" onMouseEnter={() => setDoorHover(true)} onMouseLeave={() => setDoorHover(false)}>
               {doorHover ? (
                 <Tooltip title="Deslogar" arrow>
@@ -223,39 +208,37 @@ export default function Header({ handleLogout, removeProfile }) {
                 </Tooltip>
               )}
             </a>
-            
+
           </div>
         </div>
 
-        <iframe src="/player/player.html" title="Theoros Player" className="header-player-iframe" />
-
         <D20Dice />
 
-        
-          {/* MENU */}
-          <button type="button" onClick={chamarMenu} className="btn-menu" aria-expanded={menuOpen}>
-            <img src={imgMenu} alt="Menu" className="menu-icon" />
 
-            <span className="hamburger" aria-hidden="true">
-              ☰
-            </span>
-          </button>
+        {/* MENU */}
+        <button type="button" onClick={chamarMenu} className="btn-menu" aria-expanded={menuOpen}>
+          <img src={imgMenu} alt="Menu" className="menu-icon" />
+
+          <span className="hamburger" aria-hidden="true">
+            ☰
+          </span>
+        </button>
 
 
-          <div className={`menu-container ${menuOpen ? "menuOpen" : ""}`}>
+        <div className={`menu-container ${menuOpen ? "menuOpen" : ""}`}>
 
-            <div className="opcoes-menu">
-              <a onClick={(e) => { e.preventDefault(); navigate("/"); }}>Home</a>
-              <a onClick={(e) => { e.preventDefault(); navigate("/create"); }}>Criar</a>
-              <a onClick={(e) => { e.preventDefault(); navigate("/searchCards"); }}>Fichas</a>
-              <a onClick={(e) => { e.preventDefault(); handleProfileClick(); }}>Perfil</a>
-            </div>
+          <div className="opcoes-menu">
+            <a onClick={(e) => { e.preventDefault(); navigate("/"); }}>Home</a>
+            <a onClick={(e) => { e.preventDefault(); navigate("/create"); }}>Criar</a>
+            <a onClick={(e) => { e.preventDefault(); navigate("/searchCards"); }}>Fichas</a>
+            <a onClick={(e) => { e.preventDefault(); handleProfileClick(); }}>Perfil</a>
           </div>
-        
+        </div>
+
       </header>
 
       {/* MODAL LOGIN */}
-      {showLoginModal && <LoginModal onClose={closeLoginModal} />}
+      {showLoginModal && <LoginModal onClose={closeLoginModal} onLoginSuccess={updateInfoUser} />}
 
       {haveProfile && (
         <div className={`popup-alert-profile-overlay  ${isClosingAlert ? "closing" : ""}`} onClick={closeAlert} >

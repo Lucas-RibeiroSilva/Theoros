@@ -11,6 +11,7 @@ import "./App.css";
 
 import SessionManager from "./components/sessionManager";
 import ExpiredModal from "./components/modals/expiredModal";
+import GlobalPlayer from "./components/globalPlayer";
 import { useCardStore } from './components/stores/cardStore';
 
 export default function App() {
@@ -49,6 +50,8 @@ export default function App() {
       {/* MODAL GLOBAL */}
 
       {showExpiredModal && <ExpiredModal onClose={closeExpiredModal} />}
+
+       <GlobalPlayer />
 
       <Routes>
         <Route path="/" element={<Home handleLogout={handleLogout} />} />

@@ -50,7 +50,6 @@
 
   transition: border-color 0.25s ease;
 
-  animation: slideUp 0.3s ease-out;
 }
 
 .modal-info:hover {
@@ -207,16 +206,6 @@
   100% { opacity: 1; }
 }
 
-@keyframes slideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.96);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
 
 /* =========================
    RESPONSIVO - 1024px

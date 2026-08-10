@@ -93,7 +93,11 @@ textarea {
 
 
 input{
-    width: 50%;
+    width: 100%;
+}
+
+#select-alignment-card {
+    padding: 0px 14px;
 }
 
 /* ===== TEXTAREA ===== */
@@ -146,6 +150,8 @@ textarea:focus {
     overflow: hidden;
 
     transition: all 0.25s ease;
+
+    margin-left: 70px;
 }
 
 #personagem-imagem:hover {
@@ -167,6 +173,8 @@ textarea:focus {
     cursor: pointer;
 
     z-index: 5;
+
+    
 }
 
 /* ===== TEXTO DA IMAGEM ===== */

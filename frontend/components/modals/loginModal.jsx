@@ -49,7 +49,7 @@ function validatePassword(password, confirmPassword) {
 }
 
 
-export default function LoginModal({ onClose }) {
+export default function LoginModal({ onClose, onLoginSuccess  }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -98,9 +98,10 @@ export default function LoginModal({ onClose }) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.username);
 
-      onClose?.();
     } finally {
-      setLoading(false);
+       setLoading(false);
+      onLoginSuccess();
+      onClose?.();
     }
   }
 
@@ -141,9 +142,11 @@ export default function LoginModal({ onClose }) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.username);
 
-      onClose?.();
+      
     } finally {
       setLoading(false);
+      onLoginSuccess();
+      onClose?.();
     }
   }
 
@@ -173,7 +176,7 @@ export default function LoginModal({ onClose }) {
                 E-mail
               </label>
               <input
-                id="login-email"
+                id="input-login-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value.toLowerCase())}
@@ -185,7 +188,7 @@ export default function LoginModal({ onClose }) {
                 Senha
               </label>
               <input
-                id="login-password"
+                id="input-login-password"
                 type="password"
                 value={password}
                 onChange={(e) => {
@@ -219,7 +222,7 @@ export default function LoginModal({ onClose }) {
                 Nome
               </label>
               <input
-                id="register-username"
+                id="input-register-username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -231,7 +234,7 @@ export default function LoginModal({ onClose }) {
                 E-mail
               </label>
               <input
-                id="register-email"
+                id="input-register-email"
                 type="email"
                 value={registerEmail}
                 onChange={(e) => setRegisterEmail(e.target.value.toLowerCase())}
@@ -245,7 +248,7 @@ export default function LoginModal({ onClose }) {
 
               <div className="password-input-wrapper">
                 <input
-                  id="register-password"
+                  id="input-register-password"
                   type={viewPassword ? "text" : "password"}
                   value={registerPassword}
                   onChange={(e) => {
@@ -275,7 +278,7 @@ export default function LoginModal({ onClose }) {
               </label>
               <div className="password-input-wrapper">
                 <input
-                  id="confirm-register-password"
+                  id="input-confirm-register-password"
                   type={viewConfirmPassword ? "text" : "password"}
                   value={confirmeRegisterPassword}
                   onChange={(e) => {

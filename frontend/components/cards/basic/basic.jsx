@@ -321,7 +321,7 @@ export default function BasicSection({ onLoading, }) {
             <label id="name">Nome:</label>
             <input
               type="text"
-              id="name"
+              id="input-name-card"
               placeholder="Digite o nome"
               autoComplete="off"
               value={name}
@@ -347,7 +347,7 @@ export default function BasicSection({ onLoading, }) {
             <label id="altura">Altura:</label>
             <input
               type="number"
-              id="altura"
+              id="input-height-card"
               placeholder="Digite a altura (centímetros)"
               value={height}
               maxLength={6}
@@ -361,7 +361,7 @@ export default function BasicSection({ onLoading, }) {
             <label id="age">Idade:</label>
             <input
               type="number"
-              id="age"
+              id="input-age-card"
               placeholder="Digite a idade"
               value={age}
               maxLength={6}
@@ -480,7 +480,7 @@ export default function BasicSection({ onLoading, }) {
           <div className="form-history">
             <label id="alinhamento">Alinhamento:</label>
             <select
-              id="alinhamento"
+              id="select-alignment-card"
               value={alignment}
               onChange={(e) => setAlignment(e.target.value)}
             >
