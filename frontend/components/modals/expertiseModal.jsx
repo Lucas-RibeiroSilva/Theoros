@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getExpertises } from "../../services/api";
-import { useCardStore } from "../stores/cardStore";
+import { useCardStore } from "../../stores/cardStore";
 
 import Tooltip from '@mui/material/Tooltip';
 

@@ -12,7 +12,7 @@ import "./App.css";
 import SessionManager from "./components/sessionManager";
 import ExpiredModal from "./components/modals/expiredModal";
 import GlobalPlayer from "./components/globalPlayer";
-import { useCardStore } from './components/stores/cardStore';
+import { useCardStore } from "./stores/cardStore";
 
 export default function App() {
   const navigate = useNavigate();

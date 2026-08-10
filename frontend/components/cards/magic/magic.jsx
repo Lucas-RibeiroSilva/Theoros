@@ -20,7 +20,7 @@ import Tooltip from '@mui/material/Tooltip';
 import "../../../styles/cards/sections.css";
 
 // Controller
-import { useCardStore } from "../../stores/cardStore";
+import { useCardStore } from "../../../stores/cardStore";
 
 export default function MagicSection({ onLoading }) {
   // Serve para quando ele clicar no icone de filtro mostrar os botões de filtragem

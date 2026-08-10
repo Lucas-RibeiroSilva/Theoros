@@ -8,7 +8,7 @@
   margin: 2rem 2.5rem 2rem 2.5rem;
   letter-spacing: 1px;
   text-align: center;
-  font-family: 'Arial', sans-serif;
+  font-family: "Cinzel",'Arial', sans-serif;
 }
 
 .search-top {
@@ -37,7 +37,7 @@
   border-radius: 12px;
   font-size: 1rem;
   color: #e6d8b5;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
   transition: all 0.3s ease;
 }
 
@@ -141,9 +141,10 @@
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
   text-decoration: none;
-  font-family: 'Arial', sans-serif;
+  font-family: "Cinzel",'Arial', sans-serif;
   list-style: none;
   padding: 0;
+  cursor: url('/cursor/cursor_manopla_pointer2.webp') 0 0, auto;
 }
 
 .featured-card:hover {
@@ -294,6 +295,7 @@
   margin-right: 15px;
   transition: transform 0.3s ease-in-out;
   position: relative;
+  cursor: url('/cursor/cursor_manopla_pointer2.webp') 0 0, auto;
 }
 
 .selected-search-item:hover {
@@ -336,7 +338,7 @@
   color: #bdbaba;
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
   margin: 0 0 6px 0;
-  font-family: 'Arial', sans-serif;
+  font-family: "Cinzel",'Arial', sans-serif;
   padding-top: 10px;
   
 }

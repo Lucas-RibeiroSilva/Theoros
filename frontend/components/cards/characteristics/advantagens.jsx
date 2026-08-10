@@ -16,7 +16,7 @@ import Tooltip from '@mui/material/Tooltip';
 import AdvantageModal from "../../modals/advantagensModal";
 
 // Puxar e enviar os dados para o controller
-import { useCardStore } from "../../stores/cardStore";
+import { useCardStore } from "../../../stores/cardStore";
 
 // CSS
 import "../../../styles/cards/sections.css"

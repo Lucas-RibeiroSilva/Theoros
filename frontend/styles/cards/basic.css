@@ -1,6 +1,6 @@
 .section-create-grid {
     display: grid;
-    grid-template-columns: 595px 1fr;
+    grid-template-columns: 570px 1fr;
     grid-template-rows: auto auto;
     grid-template-areas:
         "info stats"
@@ -86,7 +86,7 @@ textarea {
 
     transition: all 0.25s ease;
 
-    font-family: "Georgia", "Times New Roman", serif;
+    font-family: "Cinzel","Georgia", "Times New Roman", serif;
 
     box-sizing: border-box;
 }
@@ -151,7 +151,8 @@ textarea:focus {
 
     transition: all 0.25s ease;
 
-    margin-left: 70px;
+   margin-left: 35px;
+   margin-right: 35px;
 }
 
 #personagem-imagem:hover {

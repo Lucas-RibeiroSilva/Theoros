@@ -18,7 +18,7 @@ import DisadvantageModal from "../../modals/disadvantageModal";
 // CSS
 import "../../../styles/cards/sections.css"
 // Controller
-import { useCardStore } from "../../stores/cardStore";
+import { useCardStore } from "../../../stores/cardStore";
 
 export default function DisadvantageSection({ onLoading }) {
   // Serve para quando ele clicar no icone de filtro mostrar os botões de filtragem

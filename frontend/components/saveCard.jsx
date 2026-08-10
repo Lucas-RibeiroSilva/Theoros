@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import "../styles/components/saveCard.css";
-import { useCardStore } from "./stores/cardStore";
+import { useCardStore } from "../stores/cardStore";
 import { updateCard, createCard } from "../services/api";
-import { FaDownload } from "react-icons/fa";
+import { MdFileDownload } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
+
+import { useDownloadPDF } from "../services/pdfGenerator";
 
 
 export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
@@ -14,6 +16,7 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
   const state = useCardStore();
   const [editable, setEditable] = useState(isEdit)
   const [isSaving, setIsSaving] = useState(false);
+  const { handleDownload } = useDownloadPDF();
 
   // Limpa o timeout ao desmontar o componente
   useEffect(() => {
@@ -207,6 +210,12 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
       <div id="save-popup">
         <div className="save-box">
           <button className="save-button" onClick={saveCard} disabled={isSaving}><IoIosSave id="icon-save-card" /></button>
+        </div>
+
+        <div className="download-box">
+          <button onClick={handleDownload} className="download-button">
+            <MdFileDownload id="icon-download-card"/>
+          </button>
         </div>
       </div>
 

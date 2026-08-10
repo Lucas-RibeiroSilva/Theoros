@@ -66,7 +66,7 @@
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
   white-space: nowrap;
 }
 
@@ -81,7 +81,7 @@
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
   white-space: nowrap;
   margin-left: 10px;
 }
@@ -682,7 +682,7 @@
   margin: 0;
   text-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
   letter-spacing: 0.5px;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
   word-break: break-word;
   margin-bottom: 10px;
 }
@@ -698,7 +698,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-height: 44px;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
 }
 
 /* ===== Avaliação do comentário ===== */
@@ -764,7 +764,7 @@
 
   animation: modalFade 0.3s ease;
 
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
 
   position: relative;
   opacity: 1;

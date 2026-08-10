@@ -5,7 +5,7 @@ import {
     getSpendingBreakdown,
     getTotalSpent,
     getRemainingPoints,
-} from "../stores/cardStore";
+} from "../../stores/cardStore";
 
 import "../../styles/popups/pointsPainel.css";
 import { FiEdit2 } from "react-icons/fi";

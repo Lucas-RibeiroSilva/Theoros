@@ -177,13 +177,13 @@ export default function Header({ handleLogout, removeProfile, onLoginSuccess }) 
 
   return (
     <>
-      <header className="header">
+      <header className="home-header">
 
         {/* PERFIL */}
         <div className="header-left">
           {!removeProfile && (
             <button onClick={(e) => { e.preventDefault(); handleProfileClick(); }} className="profile-icon" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-              {(isGuest || noImageProfile === null) ? (
+              {(isGuest || noImageProfile === true || !userData?.image) ? (
                 <Tooltip title="Perfil" arrow>
                   <AccountCircleOutlinedIcon className="default-profile-icon" />
                 </Tooltip>
@@ -212,9 +212,9 @@ export default function Header({ handleLogout, removeProfile, onLoginSuccess }) 
           </div>
         </div>
 
-        <D20Dice />
-
-
+          <D20Dice />
+          
+        <div className="header-right">
         {/* MENU */}
         <button type="button" onClick={chamarMenu} className="btn-menu" aria-expanded={menuOpen}>
           <img src={imgMenu} alt="Menu" className="menu-icon" />
@@ -234,9 +234,9 @@ export default function Header({ handleLogout, removeProfile, onLoginSuccess }) 
             <a onClick={(e) => { e.preventDefault(); handleProfileClick(); }}>Perfil</a>
           </div>
         </div>
-
+        </div>
       </header>
-
+    
       {/* MODAL LOGIN */}
       {showLoginModal && <LoginModal onClose={closeLoginModal} onLoginSuccess={updateInfoUser} />}
 
@@ -246,6 +246,7 @@ export default function Header({ handleLogout, removeProfile, onLoginSuccess }) 
             <p>Voce precisa Logar ou Registar para acessar a aba de Perfil !</p>
           </div>
         </div>
+        
       )}
     </>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import RaceModal from "../../modals/raceModal";
-import { useCardStore } from "../../stores/cardStore";
+import { useCardStore } from "../../../stores/cardStore";
 import "../../../styles/sections/sectionsCreate.css";
 import "../../../styles/cards/basic.css";
 import Cropper from "react-easy-crop";

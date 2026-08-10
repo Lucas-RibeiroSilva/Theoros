@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { createGuestSession } from "../services/api";
-import { useCardStore } from "../components/stores/cardStore";
+import { useCardStore } from "../stores/cardStore";
 
 export default function SessionManager({ children, handleLogout }) {
   useEffect(() => {

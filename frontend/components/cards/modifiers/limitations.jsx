@@ -19,7 +19,7 @@ import LimitationsModal from "../../modals/limitationsModal"
 import "../../../styles/cards/sections.css"
 
 // Puxar e enviar os dados para o controller
-import { useCardStore } from "../../stores/cardStore";
+import { useCardStore } from "../../../stores/cardStore";
 
 export default function LimitationsSection({ onLoading }) {
   // Serve para quando ele clicar no icone de filtro mostrar os botões de filtragem

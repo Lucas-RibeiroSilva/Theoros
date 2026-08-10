@@ -2,7 +2,7 @@ html, body, #root {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
   color: #e6d8b5;
   background: url('/background3.png') no-repeat center center fixed;
   background-size: cover;

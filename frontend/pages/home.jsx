@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import React from "react";
 import "../styles/pages/home.css";
 
 
@@ -36,7 +36,7 @@ export default function Home({ handleLogout }) {
           Uma biblioteca extensa e detalhada de cada sistema
         </h2>
         <h2>
-          ● Um banco completo, pronto para atender todas as necessidades dos mestres e jogadores. <br />
+          ● Um banco completo, pronto para atender todas as necessidades dos mestres e jogadores <br />
           ● Sistemas com constante atualização, garantindo a melhor experiência <br />
           ● Suporte e auxílio para todos os perfís de jogadores
           </h2>

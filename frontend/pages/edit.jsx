@@ -15,7 +15,7 @@ import PointsPainel from "../components/popups/pointsPainel";
 import SaveCard from "../components/saveCard";
 
 import { getCardById } from "../services/api";
-import { useCardStore } from "../components/stores/cardStore";
+import { useCardStore } from "../stores/cardStore";
 
 export default function EditCard({ handleLogout }) {
   const { cardId } = useParams();

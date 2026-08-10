@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
   background-color: #0b0f14;
   color: #e6d8b5;
 }
@@ -272,7 +272,7 @@ body {
   border: 2px solid #b08a3c;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.15);
   animation: modalFade 0.3s ease;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: "Cinzel","Georgia", "Times New Roman", serif;
   /* Remova qualquer margin ou transform que atrapalhe a centralização */
   margin: 0;
 

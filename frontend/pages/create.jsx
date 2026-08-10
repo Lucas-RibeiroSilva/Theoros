@@ -13,14 +13,73 @@ import MagicSection from "../components/cards/magic/magic";
 import PointsPainel from "../components/popups/pointsPainel";
 import SaveCard from "../components/saveCard";
 
-import { useCardStore } from "../components/stores/cardStore";
+import { useCardStore } from "../stores/cardStore";
+
+import { getUserInfo } from "../services/api";
 
 export default function Create({ handleLogout }) {
+  const [userData, setUserData] = useState(null);
+  const [noImageProfile, setNoImageProfile] = useState(false);
+  
   /*
   ──────────────────────────────
   MODAL LOGIN
   ──────────────────────────────
   */
+
+
+  // Verifica se é visitante
+  const [isGuest, setIsGuest] = useState(
+    !localStorage.getItem("token")
+  );
+
+  const updateInfoUser = async () => {
+    try {
+      const id = getUserIdFromToken();
+
+      if (!id) {
+        setIsGuest(true);
+        setUserData(null);
+        setNoImageProfile(true);
+        return;
+      }
+
+      setIsGuest(false);
+      setNoImageProfile(false);
+
+      const data = await getUserInfo(id);
+
+      if (data?.error) {
+        console.error(data.error);
+        return;
+      }
+
+      setUserData(data);
+    } catch (error) {
+      console.error("Erro ao atualizar usuário:", error);
+    }
+  };
+
+  function getUserIdFromToken() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const parts = token.split(".");
+      if (parts.length !== 3) {
+        return null;
+      }
+
+      const payload = JSON.parse(atob(parts[1]));
+      return payload.id;
+    } catch (error) {
+      console.error("Erro ao decodificar token:", error);
+      return null;
+    }
+  }
 
   const resetCard = useCardStore((state) => state.resetCard);
 
@@ -61,7 +120,7 @@ export default function Create({ handleLogout }) {
   return (
     <>
       {/* LOGIN MODAL */}
-      {showLoginModal && <LoginModal onClose={closeLoginModal} />}
+      {showLoginModal && <LoginModal onClose={closeLoginModal} onLoginSuccess={updateInfoUser} />}
 
       {/* HEADER */}
       <Header handleLogout={handleLogout} />
@@ -110,7 +169,7 @@ export default function Create({ handleLogout }) {
         >
           Magia
         </button>
-        <SaveCard id="save-popup" onOpenLoginModal={openLoginModal} />
+        <SaveCard id="save-popup" onOpenLoginModal={openLoginModal} onLoginSuccess={updateInfoUser} />
       </div>
 
       {/* SEÇÕES */}

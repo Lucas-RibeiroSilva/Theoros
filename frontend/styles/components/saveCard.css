@@ -1,9 +1,13 @@
-.save-box {
+#save-popup{
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-
+  
   min-width: 8px;
 
   padding: 10px 16px;
@@ -14,13 +18,13 @@
   user-select: none;
 }
 
-.save-box:hover {
+.save-box:hover,
+.download-box:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .save-button{
-  background: #073d17;
   background: linear-gradient(90deg,rgba(7, 61, 23, 1) 0%, rgba(0, 110, 46, 1) 100%);
   border-radius: 10px;
   border: 2px solid #02662f;
@@ -34,7 +38,26 @@
   cursor: not-allowed;
 }
 
+
+.download-button{
+  background: linear-gradient(90deg,rgb(14, 76, 112) 0%, rgb(1, 136, 160) 100%);
+  border-radius: 10px;
+  border: 2px solid #146797;
+}
+
+.download-button:disabled {
+  background: #2a2e2c;
+  border: 2px solid #404442;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
 #icon-save-card {
+  font-size: 35px;
+  color: #ececec;
+}
+
+#icon-download-card {
   font-size: 35px;
   color: #ececec;
 }
@@ -80,7 +103,7 @@
 
   animation: modalFade 0.3s ease;
 
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family:"Cinzel","Georgia", "Times New Roman", serif;
 
   position: relative;
   opacity: 1;
