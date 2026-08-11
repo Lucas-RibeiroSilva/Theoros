@@ -6,7 +6,7 @@ import { GiClosedDoors } from "react-icons/gi";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 
 // Constantes para validação
-const allowedDomains = ["@gmail.com", "@hotmail.com", "@outlook.com"];
+const allowedDomains = ["gmail.com", "hotmail.com", "outlook.com"];
 const minPasswordLength = 6;
 
 // Função para validar o e-mail
@@ -14,7 +14,7 @@ function validateEmail(email) {
   const emailLower = email.trim().toLowerCase();
 
   // Valida formato básico
-  const emailRegex = /^[^\s@]+@([^\s@]+\.[^\s@]+)$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(emailLower)) {
     return false;
@@ -27,7 +27,7 @@ function validateEmail(email) {
 // Função para validar a senha
 function validatePassword(password, confirmPassword) {
   if (password.length < minPasswordLength) {
-    return "A senha deve ter pelo menos 8 caracteres.";
+    return "A senha deve ter pelo menos 6 caracteres.";
   }
 
   if (!/[a-z]/.test(password)) {
@@ -45,11 +45,11 @@ function validatePassword(password, confirmPassword) {
   if (password !== confirmPassword) {
     return "As senhas devem ser iguais.";
   }
-  return null;
+  return;
 }
 
 
-export default function LoginModal({ onClose, onLoginSuccess  }) {
+export default function LoginModal({ onClose, onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -79,7 +79,7 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
     }
 
     // Validação do e-mail
-    if (validateEmail(email)) {
+    if (!validateEmail(email)) {
       setError("E-mail inválido, ele deve ser do Gmail, Hotmail ou Outlook");
       return;
     }
@@ -98,10 +98,11 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.username);
 
-    } finally {
-       setLoading(false);
       onLoginSuccess();
       onClose?.();
+
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -114,13 +115,18 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
       return;
     }
 
-    if (validateEmail(registerEmail)) {
+    if (!validateEmail(registerEmail)) {
       setError("E-mail inválido, ele deve ser do Gmail, Hotmail ou Outlook");
       return;
     }
 
-    if (validatePassword(registerPassword, confirmeRegisterPassword)) {
-      setError(validatePassword(registerPassword));
+    const passwordError = validatePassword(
+      registerPassword,
+      confirmeRegisterPassword
+    );
+
+    if (passwordError) {
+      setError(passwordError);
       return;
     }
 
@@ -142,11 +148,13 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.username);
 
-      
-    } finally {
-      setLoading(false);
       onLoginSuccess();
       onClose?.();
+
+
+    } finally {
+      setLoading(false);
+
     }
   }
 
@@ -172,7 +180,7 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
             </div>
 
             <div className="input-group">
-              <label htmlFor="login-email" id="label-login">
+              <label id="label-login">
                 E-mail
               </label>
               <input
@@ -184,7 +192,7 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
             </div>
 
             <div className="input-group">
-              <label htmlFor="login-password" id="label-login">
+              <label id="label-login">
                 Senha
               </label>
               <input
@@ -218,7 +226,7 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
             </div>
 
             <div className="input-group">
-              <label htmlFor="register-username" id="label-login">
+              <label id="label-login">
                 Nome
               </label>
               <input
@@ -230,7 +238,7 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
             </div>
 
             <div className="input-group">
-              <label htmlFor="register-email" id="label-login">
+              <label id="label-login">
                 E-mail
               </label>
               <input
@@ -242,7 +250,7 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
             </div>
 
             <div className="input-group">
-              <label htmlFor="register-password" id="label-login">
+              <label id="label-login">
                 Senha
               </label>
 
@@ -273,7 +281,7 @@ export default function LoginModal({ onClose, onLoginSuccess  }) {
             </div>
 
             <div className="input-group">
-              <label htmlFor="confirm-register-password" id="label-login">
+              <label id="label-login">
                 Confirmar senha
               </label>
               <div className="password-input-wrapper">
