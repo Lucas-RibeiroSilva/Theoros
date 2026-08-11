@@ -30,7 +30,7 @@
 
 #search-input {
   flex: 1;
-  min-width: 250px;
+  min-width: 50px;
   padding: 0.8rem 1.5rem;
   background: rgba(0, 0, 0, 0.4);
   border: 2px solid #3a2e1e;
@@ -370,6 +370,7 @@
   font-style: italic;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -489,13 +490,12 @@
 }
 
 
-@media (max-width: 720px) {
+@media (width <= 1024px) {
   .featured-card{
     display: flex;
     max-width: 270px;
     max-height: 170px;
     font-size: 10px;
-
   }
 
   .featured-card-history{
@@ -527,6 +527,17 @@
     align-self: center;
     justify-content: center;
   }
+
+  .carousel-arrow-left,
+  .carousel-arrow-right{
+    margin: 0px;
+    max-width: 30px;
+  }
+
+  .search-top{
+    margin: 20px;
+  }
+
 
   
 

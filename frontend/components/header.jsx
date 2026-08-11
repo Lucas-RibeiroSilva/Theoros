@@ -1,67 +1,91 @@
-import { useState, useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import imgMenu from "/menuScroll.png";
-
-import "../styles/components/header.css";
-import LoginModal from "../components/modals/loginModal";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import DoorBackOutlinedIcon from "@mui/icons-material/DoorBackOutlined";
 import MeetingRoomOutlinedIcon from "@mui/icons-material/MeetingRoomOutlined";
-import D20Dice from './D20Dice';
-
-import {
-  getMyUserInfo,
-  getUserInfo
-} from "../services/api";
-// import StyleIcon from '@mui/icons-material/Style'; ICONE DE FICHAS
-
 import Tooltip from "@mui/material/Tooltip";
 
-export default function Header({ handleLogout, removeProfile, onLoginSuccess }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [doorHover, setDoorHover] = useState(false);
-  const [isOwnProfile, setIsOwnProfile] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showLoginMenu, setShowLoginMenu] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const [hover, setHover] = useState(false);
-  const [haveProfile, setHaveProfile] = useState(false);
-  const [isClosingAlert, setIsClosingAlert] = useState(false);
-  const [noImageProfile, setNoImageProfile] = useState(true);
+import imgMenu from "/menuScroll.png";
+
+import "../styles/components/header.css";
+import LoginModal from "../components/modals/loginModal";
+import D20Dice from "./D20Dice";
+
+import { getUserInfo } from "../services/api";
+
+export default function Header({
+  handleLogout,
+  removeProfile,
+  onLoginSuccess,
+}) {
+  const navigate = useNavigate();
   const timeoutRef = useRef(null);
 
-  const openLoginModal = () => {
-    setShowLoginModal(true);
+  // -----------------------------
+  // Estados
+  // -----------------------------
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [doorHover, setDoorHover] = useState(false);
+  const [profileHover, setProfileHover] = useState(false);
+
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const [userData, setUserData] = useState(null);
+  const [isGuest, setIsGuest] = useState(!localStorage.getItem("token"));
+
+  const [showProfileAlert, setShowProfileAlert] = useState(false);
+  const [closingProfileAlert, setClosingProfileAlert] = useState(false);
+
+  const [showLogoutAlert, setShowLogoutAlert] = useState(false);
+  const [closingLogoutAlert, setClosingLogoutAlert] = useState(false);
+
+  // -----------------------------
+  // Limpa timeout ao desmontar
+  // -----------------------------
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  // -----------------------------
+  // Recupera ID do usuário
+  // -----------------------------
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.id ?? null;
+    } catch (error) {
+      console.error("Erro ao decodificar token:", error);
+      return null;
+    }
   };
 
-  const closeLoginModal = () => {
-    setShowLoginModal(false);
-  };
-
-  const navigate = useNavigate();
-
-  // Verifica se é visitante
-  const [isGuest, setIsGuest] = useState(
-    !localStorage.getItem("token")
-  );
-
+  // -----------------------------
+  // Busca informações do usuário
+  // -----------------------------
   const updateInfoUser = async () => {
     try {
-      const id = getUserIdFromToken();
+      const userId = getUserIdFromToken();
 
-      if (!id) {
+      if (!userId) {
         setIsGuest(true);
         setUserData(null);
-        setNoImageProfile(true);
         return;
       }
 
       setIsGuest(false);
-      setNoImageProfile(false);
 
-      const data = await getUserInfo(id);
+      const data = await getUserInfo(userId);
 
       if (data?.error) {
         console.error(data.error);
@@ -74,179 +98,238 @@ export default function Header({ handleLogout, removeProfile, onLoginSuccess }) 
     }
   };
 
-  function getUserIdFromToken() {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      return null;
-    }
-
-    try {
-      const parts = token.split(".");
-      if (parts.length !== 3) {
-        return null;
-      }
-
-      const payload = JSON.parse(atob(parts[1]));
-      return payload.id;
-    } catch (error) {
-      console.error("Erro ao decodificar token:", error);
-      return null;
-    }
-  }
-
-  // ──────────────────────────────────────────────
-  // Buscar informações do usuário
-  // ──────────────────────────────────────────────
+  // Busca usuário ao carregar o Header
   useEffect(() => {
-    async function reloadUser() {
-      updateInfoUser();
-    }
-
-    reloadUser();
+    updateInfoUser();
   }, []);
 
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-    };
-  }, []);
+  // -----------------------------
+  // Login
+  // -----------------------------
+  const openLoginModal = () => {
+    setShowLoginModal(true);
+  };
 
-  // Função para exibir o alerta com fechamento automático
-  const showAlertWithTimeout = (duration = 3000) => {
-    // Cancela qualquer timeout pendente
+  const closeLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
+  // -----------------------------
+  // Alertas
+  // -----------------------------
+  const showAlert = (setShow, setClosing, duration = 3000) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
     }
 
-    setIsClosingAlert(false);
-    setHaveProfile(true);
+    setClosing(false);
+    setShow(true);
 
-    // Agenda o fechamento após 'duration' milissegundos
     timeoutRef.current = setTimeout(() => {
-      setIsClosingAlert(true);
+      setClosing(true);
 
       setTimeout(() => {
-        setHaveProfile(false);
-        setIsClosingAlert(false);
+        setShow(false);
+        setClosing(false);
       }, 300);
 
       timeoutRef.current = null;
     }, duration);
   };
 
-  // Fecha o alerta manualmente (cancelando o timeout)
-  const closeAlert = () => {
+  const closeAlert = (setShow, setClosing) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-    setIsClosingAlert(true);
+
+    setClosing(true);
 
     setTimeout(() => {
-      setHaveProfile(false);
-      setIsClosingAlert(false);
+      setShow(false);
+      setClosing(false);
     }, 300);
   };
 
-  // Clique no perfil
-  function handleProfileClick() {
-    // Visitante → abre modal login
-    if (isGuest) {
-      openLoginModal()
-      showAlertWithTimeout()
+  const showProfileLoginAlert = () => {
+    showAlert(setShowProfileAlert, setClosingProfileAlert);
+  };
 
+  const showLogoutSuccessAlert = () => {
+    showAlert(setShowLogoutAlert, setClosingLogoutAlert);
+  };
+
+  // -----------------------------
+  // Perfil
+  // -----------------------------
+  const handleProfileClick = () => {
+    if (isGuest) {
+      openLoginModal();
+      showProfileLoginAlert();
       return;
     }
-    // Usuário logado
+
     navigate("/profile");
-  }
+  };
 
-  // UTILIZADO PARA O MENU
-  function chamarMenu() {
-    setMenuOpen(!menuOpen);
-  }
+  // -----------------------------
+  // Logout
+  // -----------------------------
+  const logoutProfile = () => {
+    handleLogout();
+    showLogoutSuccessAlert();
+  };
 
-  function fecharMenu() {
+  // -----------------------------
+  // Menu
+  // -----------------------------
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
+
+  const closeMenu = () => {
     setMenuOpen(false);
-  }
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    closeMenu();
+  };
+
+  // -----------------------------
+  // Render
+  // -----------------------------
+  const hasProfileImage = !isGuest && userData?.image;
 
   return (
     <>
       <header className="home-header">
-
         {/* PERFIL */}
         <div className="header-left">
           {!removeProfile && (
-            <button onClick={(e) => { e.preventDefault(); handleProfileClick(); }} className="profile-icon" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-              {(isGuest || noImageProfile === true || !userData?.image) ? (
-                <Tooltip title="Perfil" arrow>
+            <button
+              type="button"
+              className="profile-icon"
+              onClick={handleProfileClick}
+              onMouseEnter={() => setProfileHover(true)}
+              onMouseLeave={() => setProfileHover(false)}
+            >
+              <Tooltip title="Perfil" arrow>
+                {hasProfileImage ? (
+                  <img
+                    src={userData.image}
+                    alt="Perfil"
+                    className="profile-image"
+                  />
+                ) : (
                   <AccountCircleOutlinedIcon className="default-profile-icon" />
-                </Tooltip>
-              ) : (
-                <Tooltip title="Perfil" arrow>
-                  <img src={userData?.image} alt="Logo" className="profile-image" />
-                </Tooltip>
-              )}
+                )}
+              </Tooltip>
             </button>
           )}
 
-          <div className={`profile-menu ${hover ? "hover" : ""}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-
-            <a onClick={() => handleLogout()} className="btn-logout-icon" onMouseEnter={() => setDoorHover(true)} onMouseLeave={() => setDoorHover(false)}>
-              {doorHover ? (
-                <Tooltip title="Deslogar" arrow>
+          <div
+            className={`profile-menu ${profileHover ? "hover" : ""}`}
+            onMouseEnter={() => setProfileHover(true)}
+            onMouseLeave={() => setProfileHover(false)}
+          >
+            <button
+              type="button"
+              className="btn-logout-icon"
+              onClick={logoutProfile}
+              onMouseEnter={() => setDoorHover(true)}
+              onMouseLeave={() => setDoorHover(false)}
+            >
+              <Tooltip title="Deslogar" arrow>
+                {doorHover ? (
                   <MeetingRoomOutlinedIcon className="logout-door-icon" />
-                </Tooltip>
-              ) : (
-                <Tooltip title="Deslogar" arrow>
+                ) : (
                   <DoorBackOutlinedIcon className="logout-door-icon" />
-                </Tooltip>
-              )}
-            </a>
-
+                )}
+              </Tooltip>
+            </button>
           </div>
         </div>
 
-          <D20Dice />
-          
-        <div className="header-right">
+        {/* D20 */}
+        <D20Dice />
+
         {/* MENU */}
-        <button type="button" onClick={chamarMenu} className="btn-menu" aria-expanded={menuOpen}>
-          <img src={imgMenu} alt="Menu" className="menu-icon" />
+        <div className="header-right">
+          <button
+            type="button"
+            className="btn-menu"
+            onClick={toggleMenu}
+            aria-expanded={menuOpen}
+            aria-label="Abrir menu"
+          >
+            <img src={imgMenu} alt="Menu" className="menu-icon" />
 
-          <span className="hamburger" aria-hidden="true">
-            ☰
-          </span>
-        </button>
+            <span className="hamburger" aria-hidden="true">
+              ☰
+            </span>
+          </button>
 
+          <div className={`menu-container ${menuOpen ? "menuOpen" : ""}`}>
+            <nav className="opcoes-menu">
+              <a onClick={() => handleNavigation("/")}>Home</a>
 
-        <div className={`menu-container ${menuOpen ? "menuOpen" : ""}`}>
+              <a onClick={() => handleNavigation("/create")}>Criar</a>
 
-          <div className="opcoes-menu">
-            <a onClick={(e) => { e.preventDefault(); navigate("/"); }}>Home</a>
-            <a onClick={(e) => { e.preventDefault(); navigate("/create"); }}>Criar</a>
-            <a onClick={(e) => { e.preventDefault(); navigate("/searchCards"); }}>Fichas</a>
-            <a onClick={(e) => { e.preventDefault(); handleProfileClick(); }}>Perfil</a>
+              <a onClick={() => handleNavigation("/searchCards")}>Fichas</a>
+
+              <a onClick={handleProfileClick}>Perfil</a>
+            </nav>
           </div>
-        </div>
         </div>
       </header>
-    
-      {/* MODAL LOGIN */}
-      {showLoginModal && <LoginModal onClose={closeLoginModal} onLoginSuccess={updateInfoUser} />}
 
-      {haveProfile && (
-        <div className={`popup-alert-profile-overlay  ${isClosingAlert ? "closing" : ""}`} onClick={closeAlert} >
-          <div className={`alert-profile-dialog ${isClosingAlert ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
-            <p>Voce precisa Logar ou Registar para acessar a aba de Perfil !</p>
+      {/* MODAL DE LOGIN */}
+      {showLoginModal && (
+        <LoginModal
+          onClose={closeLoginModal}
+          onLoginSuccess={onLoginSuccess ?? updateInfoUser}
+        />
+      )}
+
+      {/* ALERTA DE LOGIN */}
+      {showProfileAlert && (
+        <div
+          className={`popup-alert-profile-overlay ${
+            closingProfileAlert ? "closing" : ""
+          }`}
+          onClick={() =>
+            closeAlert(setShowProfileAlert, setClosingProfileAlert)
+          }
+        >
+          <div
+            className={`alert-profile-dialog ${
+              closingProfileAlert ? "closing" : ""
+            }`}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p>Você precisa logar ou registrar para acessar a aba de Perfil!</p>
           </div>
         </div>
-        
+      )}
+
+      {/* ALERTA DE LOGOUT */}
+      {showLogoutAlert && (
+        <div
+          className={`popup-logout-overlay ${
+            closingLogoutAlert ? "closing" : ""
+          }`}
+          onClick={() => closeAlert(setShowLogoutAlert, setClosingLogoutAlert)}
+        >
+          <div
+            className={`popup-logout-dialog ${
+              closingLogoutAlert ? "closing" : ""
+            }`}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p>Deslogado com sucesso!</p>
+          </div>
+        </div>
       )}
     </>
   );

@@ -32,14 +32,15 @@ export default function Home({ handleLogout }) {
         </button>
 
         <div className="main-content">
-        <h2>
-          Uma biblioteca extensa e detalhada de cada sistema
-        </h2>
-        <h2>
-          ● Um banco completo, pronto para atender todas as necessidades dos mestres e jogadores <br />
-          ● Sistemas com constante atualização, garantindo a melhor experiência <br />
-          ● Suporte e auxílio para todos os perfís de jogadores
-          </h2>
+          <div className="main-content-text">
+            <h2>Uma biblioteca extensa e detalhada de cada sistema</h2>
+            <p>
+              ● Um banco completo, pronto para atender todas as necessidades dos mestres e jogadores<br />
+              ● Sistemas com constante atualização, garantindo a melhor experiência<br />
+              ● Suporte e auxílio para todos os perfís de jogadores
+            </p>
+          </div>
+          <img src="Modelo_fichas_1.png" alt="Modelo de Fichas" />
         </div>
       </main>
 

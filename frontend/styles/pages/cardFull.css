@@ -51,6 +51,7 @@
   grid-area: rate;
   max-height: 50px;
   align-items: center;
+  min-width: 300px;
   justify-content: center;
 }
 /* ===== BOTÕES DE AÇÃO ===== */
@@ -105,9 +106,9 @@
 .card-ratings {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  
   justify-content: center;
-  margin: 0.5rem 0 1.5rem 0;
+  margin: 0.4rem;
 }
 
 .card-ratings p {
@@ -143,11 +144,12 @@
 .card-main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-rows: max-content max-content;
   grid-template-areas:
-    "user           .         rate"
-    "image         title        rating"
-    "image         infos        alignment"
+    "user           .        rate"
+    "image         title       ."
+    "image         infos        rating"
+    "image         infos         alignment"
     "status        history      history"
     "status       history      history"
     "characteristics characteristics characteristics";
@@ -198,7 +200,7 @@
 
 .card-title{
   grid-area: title;
-  margin: 0;
+  margin-bottom: 10px;   
 }
 
 .sub-card-main-3{
@@ -236,8 +238,8 @@
 }
 
 #character-image {
-  max-width: 100%;
-  max-height: 350px;
+  width: 100%;
+  height: 100%;
   border-radius: 6px;
   object-fit: cover;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
@@ -695,6 +697,7 @@
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-height: 44px;
