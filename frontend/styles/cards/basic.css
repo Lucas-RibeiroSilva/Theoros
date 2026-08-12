@@ -17,6 +17,8 @@
 
 .form-informations {
     grid-area: info;
+    align-items: center;
+    justify-content: center;
 }
 
 .form-stats {
@@ -24,7 +26,8 @@
    max-height: 220px;
    grid-template-columns: repeat(4, 1fr);
    display: grid;
-   align-items: center; 
+   align-items: center;
+   
    grid-area: stats;
 }
 
@@ -151,8 +154,7 @@ textarea:focus {
 
     transition: all 0.25s ease;
 
-   margin-left: 35px;
-   margin-right: 35px;
+   
 }
 
 #personagem-imagem:hover {
