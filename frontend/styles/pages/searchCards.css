@@ -296,6 +296,7 @@
   transition: transform 0.3s ease-in-out;
   position: relative;
   cursor: url('/cursor/cursor_manopla_pointer2.webp') 0 0, auto;
+  font-size: smaller;
 }
 
 .selected-search-item:hover {
@@ -333,15 +334,16 @@
 }
 
 #search-card-name {
-  font-size: 1.0rem;
+  font-size: small;
   font-weight: 700;
   color: #bdbaba;
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
   margin: 0 0 6px 0;
   font-family: "Cinzel",'Arial', sans-serif;
   padding-top: 10px;
-  
 }
+
+
 
 .card-name {
   flex: 1;
@@ -387,6 +389,7 @@
   box-shadow:  0 0 10px rgb(27, 27, 27);
   background-color: #090909e7;
   border-radius: 7px;
+  margin-bottom: 6px;
 }
 
 .rating-search-card #star,

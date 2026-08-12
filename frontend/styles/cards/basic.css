@@ -369,7 +369,7 @@ html.modal-open {
             "stats"
             "history";
     }
-    
+
 }
 
 /* ===== RESPONSIVO - Até 900px ===== */
@@ -391,6 +391,11 @@ html.modal-open {
             "info"
             "stats"
             "history";
+    }
+
+    .form-stats label{
+        font-size: 10px;
+        max-width: 10ch;
     }
     
 }

@@ -207,9 +207,7 @@ export default function SearchCards({ handleLogout }) {
                                         <RatingStars id="stars-rating-created" rating={card.ratingAverage} />
                                     </div>
 
-                                    <div className="rating-search-card">
-
-                                    </div>
+                        
                                 </div>
                             </li>
                         ))
