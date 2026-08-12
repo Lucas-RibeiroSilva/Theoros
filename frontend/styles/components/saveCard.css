@@ -67,7 +67,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 50%;
   transition: opacity 2s ease-in-out;
   opacity: 1;
   z-index: 6000;
@@ -88,8 +87,8 @@
 
   padding: 1.4rem;
 
-  width: 500px;
-  height: 30px;
+  width: 800px;
+  height: 40px;
 
   border-radius: 14px;
 
@@ -118,12 +117,18 @@
 
 /* ===== MENSAGEM ===== */
 .alert-dialog p {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: bold;
   line-height: 1.6;
   color: #d3c4a7;
 }
 
+@media (max-width: 768px) {
+  
+  .alert-dialog{
+    width: 382px
+  }
+}
 /* ===== ANIMAÇÃO (mesma do modal) ===== */
 @keyframes modalFade {
   from {

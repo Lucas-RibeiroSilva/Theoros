@@ -376,12 +376,12 @@ export default function CardFull({ handleLogout }) {
                 onClick={() => navigate(`/profile/${commentary.user.id}`)}
               >
                 <div className="top-commentary">
-                  {card?.user?.image === null || card?.user?.image === "" ? (
+                  {commentary?.user?.image === null || commentary?.user?.image === "" ? (
                     <AccountCircleOutlinedIcon
                       id="img-profile-card"
                       onClick={(e) => {
                         e.stopPropagation();
-                        navigate(`/profile/${card.user?.id}`);
+                        navigate(`/profile/${commentary.user?.id}`);
                       }}
                     />
                   ) : (

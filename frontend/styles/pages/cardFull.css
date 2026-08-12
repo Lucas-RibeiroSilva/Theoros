@@ -848,5 +848,18 @@
   .top-commentary {
     height: auto;
   }
+
+  .alert-favorite-dialog{
+    width: 341px;
+    right: 36%;
+  }
+}
+
+@media (max-width: 550px){
+
+.alert-favorite-dialog{
+    width: 306px;
+    right: 36%;
+  }
 }
 
