@@ -105,7 +105,7 @@ select {
   bottom: 20px;
   left: 50px;
 
-  z-index: 9999;
+  z-index: 1005;
 
   transition:
     transform 0.15s ease,

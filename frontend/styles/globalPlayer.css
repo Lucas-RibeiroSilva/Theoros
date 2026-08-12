@@ -5,13 +5,13 @@
   background-image: url(/player/Player_images/fundo_player.png);
   background-size: cover;
   background-repeat: no-repeat;
-  bottom: 0%;
-  left: 87%;
+  bottom: 16px;
+  right: 24px;
   width: 300px;
   height: 100px;
   transform: scale(0.78);
-  transform-origin: top left;
-  z-index: 10;
+  transform-origin: bottom right; /* ANCORA no canto inferior direito: o elemento agora encolhe/cresce sempre a partir desse ponto fixo */
+  z-index: 8000;
   font-family: sans-serif;
   color: #7e4904;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
@@ -199,7 +199,7 @@
   background-size: 100% 100%;
   display: none;
   overflow-y: auto;
-  z-index: 15;
+  z-index: 8000;
   border-radius: 8px 8px 0 0; 
   box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
   padding-bottom: 10px;
@@ -266,7 +266,6 @@
   touch-action: none;
   user-select: none;
   display: none;
-  z-index: 20;
 }
 
 .volume-bar-container {
@@ -313,7 +312,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 999;
+  z-index: 7000;
   transition: all 0.3s ease;
   background-size: cover;
   background-repeat: no-repeat;
@@ -360,14 +359,14 @@
 
 #player-shell.mobile-player-open {
   position: fixed;
-  left: 52%;
   right: 0;
+  left: auto; /* removido o left: 52% que conflitava com right: 0 */
   background-image: url(/player/Player_images/fundo_player.png);
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
   border-radius: 20px 20px 0 0;
-  z-index: 1000;
+  z-index: 8000;
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
   width: 400px;
   height: 110px;
@@ -417,8 +416,6 @@
 @media (max-width: 550px){
   #player-shell {
     transform: scale(0.50);
-    left: 55% !important;
-    bottom: -4%;
   }
 
   .player-title {
@@ -508,8 +505,6 @@
 @media (min-width: 560px) and (max-width: 612px) {
   #player-shell {
     transform: scale(0.50);
-    left: 60% !important;
-    bottom: -4%;
   }
 
   .player-title {
@@ -599,8 +594,6 @@
 @media (min-width: 613px) and (max-width: 640px) {
   #player-shell {
     transform: scale(0.55); 
-    left: 60% !important;
-    bottom: -4%; 
   }
 
   .player-title {
@@ -690,8 +683,6 @@
 @media (min-width: 641px) and (max-width: 768px) {
   #player-shell {
     transform: scale(0.80); 
-    left: 85%; 
-    bottom: 0%; 
   }
 
   .player-title {
@@ -772,12 +763,10 @@
   }
 }
 
-/* ===== TABLET PEQUENO Arrumando BUG (769px - 849px) ===== */
+/* ===== TABLET PEQUENO (769px - 849px) ===== */
 @media (min-width: 769px) and (max-width: 849px) {
   #player-shell {
     transform: scale(0.95); 
-    left: 62%; 
-    bottom: 0%; 
   }
 
   .player-title {
@@ -857,13 +846,11 @@
   }
 }
 
-/* ===== TABLET (801px - 949px) ===== */
+/* ===== TABLET (850px - 949px) ===== */
 @media (min-width: 850px) and (max-width: 949px) {
 
   #player-shell {
     transform: scale(0.95); 
-    left: 65%;
-    bottom: 0%; 
   }
 
   .player-title {
@@ -946,17 +933,13 @@
 @media (min-width: 950px) and (max-width: 1100px) {
   #player-shell {
     transform: scale(0.95); 
-    left: 70%;
-    bottom: 0%; 
   }
 }
 
-/* ===== NOTEBOOK (1025px - 1240px) ===== */
+/* ===== NOTEBOOK (1101px - 1240px) ===== */
 @media (min-width: 1101px) and (max-width: 1240px) {
   #player-shell {
     transform: scale(0.75); 
-    left: 77%; 
-    bottom: 0%; 
   }
 
   .player-title {
@@ -1018,23 +1001,19 @@
   }
 }
 
-/* ===== NOTEBOOK Grande (1025px - 1240px) ===== */
+/* ===== NOTEBOOK Grande (1240px - 1440px) ===== */
 @media (min-width: 1240px) and (max-width: 1440px) {
   #player-shell {
     transform: scale(0.85); 
-    left: 78%; 
-    bottom: 0%; 
   }
 }
 
 /* ============================================ */
-/* ===== DESKTOP (1441px - 1920px) ===== */
+/* ===== DESKTOP (1441px - 1750px) ===== */
 /* ============================================ */
 @media (min-width: 1441px) and (max-width: 1750px) {
   #player-shell {
     transform: scale(0.85); 
-    left: 80%; 
-    bottom: 0%; 
   }
 
   .player-title {
@@ -1109,8 +1088,6 @@
 @media (min-width: 1921px) {
   #player-shell {
     transform: scale(1); 
-    left: 80%; 
-    bottom: 1%; 
   }
 
   .player-title {
