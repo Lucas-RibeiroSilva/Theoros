@@ -48,7 +48,6 @@ function validatePassword(password, confirmPassword) {
   return;
 }
 
-
 export default function LoginModal({ onClose, onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -100,7 +99,6 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
 
       onLoginSuccess();
       onClose?.();
-
     } finally {
       setLoading(false);
     }
@@ -122,7 +120,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
 
     const passwordError = validatePassword(
       registerPassword,
-      confirmeRegisterPassword
+      confirmeRegisterPassword,
     );
 
     if (passwordError) {
@@ -150,11 +148,8 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
 
       onLoginSuccess();
       onClose?.();
-
-
     } finally {
       setLoading(false);
-
     }
   }
 
@@ -180,9 +175,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
             </div>
 
             <div className="input-group">
-              <label id="label-login">
-                E-mail
-              </label>
+              <label id="label-login">E-mail</label>
               <input
                 id="input-login-email"
                 type="email"
@@ -192,9 +185,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
             </div>
 
             <div className="input-group">
-              <label id="label-login">
-                Senha
-              </label>
+              <label id="label-login">Senha</label>
               <input
                 id="input-login-password"
                 type="password"
@@ -202,7 +193,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
                 onChange={(e) => {
                   const value = e.target.value.replace(
                     /[^a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~]/g,
-                    ""
+                    "",
                   );
                   setPassword(value);
                 }}
@@ -226,33 +217,40 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
             </div>
 
             <div className="input-group">
-              <label id="label-login">
-                Nome
-              </label>
+              <label id="label-login">Nome</label>
               <input
                 id="input-register-username"
                 type="text"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value.replace(
+                    /[^a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~]/g,
+                    "",
+                  );
+
+                  setUsername(value);
+                }}
               />
             </div>
 
             <div className="input-group">
-              <label id="label-login">
-                E-mail
-              </label>
+              <label id="label-login">E-mail</label>
               <input
                 id="input-register-email"
                 type="email"
                 value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value.toLowerCase())}
+                onChange={(e) => {
+                  const value = e.target.value.replace(
+                    /[^a-zA-Z0-9/]/g,
+                    "",
+                  );
+                  setRegisterEmail(value.toLowerCase())
+                }}
               />
             </div>
 
             <div className="input-group">
-              <label id="label-login">
-                Senha
-              </label>
+              <label id="label-login">Senha</label>
 
               <div className="password-input-wrapper">
                 <input
@@ -262,7 +260,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
                   onChange={(e) => {
                     const value = e.target.value.replace(
                       /[^a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~]/g,
-                      ""
+                      "",
                     );
                     setRegisterPassword(value);
                   }}
@@ -274,16 +272,17 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
                   onClick={() => setViewPassword((prev) => !prev)}
                   title={viewPassword ? "Ocultar senha" : "Mostrar senha"}
                 >
-                  {viewPassword ? <IoEye id="view-on" /> : <IoEyeOff id="view-off" />}
+                  {viewPassword ? (
+                    <IoEye id="view-on" />
+                  ) : (
+                    <IoEyeOff id="view-off" />
+                  )}
                 </button>
               </div>
-
             </div>
 
             <div className="input-group">
-              <label id="label-login">
-                Confirmar senha
-              </label>
+              <label id="label-login">Confirmar senha</label>
               <div className="password-input-wrapper">
                 <input
                   id="input-confirm-register-password"
@@ -292,20 +291,25 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
                   onChange={(e) => {
                     const value = e.target.value.replace(
                       /[^a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~]/g,
-                      ""
+                      "",
                     );
                     setConfirmeRegisterPassword(value);
                   }}
                 />
 
-
                 <button
                   type="button"
                   className="show-password-btn"
                   onClick={() => setViewConfirmPassword((prev) => !prev)}
-                  title={viewConfirmPassword ? "Ocultar senha" : "Mostrar senha"}
+                  title={
+                    viewConfirmPassword ? "Ocultar senha" : "Mostrar senha"
+                  }
                 >
-                  {viewConfirmPassword ? <IoEye id="view-on" /> : <IoEyeOff id="view-off" />}
+                  {viewConfirmPassword ? (
+                    <IoEye id="view-on" />
+                  ) : (
+                    <IoEyeOff id="view-off" />
+                  )}
                 </button>
               </div>
             </div>
@@ -317,7 +321,6 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
             </button>
           </form>
         )}
-
 
         {/* Alternar entre login/registro */}
         <p className="auth-switch">
