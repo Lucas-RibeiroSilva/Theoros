@@ -241,7 +241,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
                 value={registerEmail}
                 onChange={(e) => {
                   const value = e.target.value.replace(
-                    /[^a-zA-Z0-9@/]/g,
+                    /[^a-zA-Z0-9@./]/g,
                     "",
                   );
                   setRegisterEmail(value.toLowerCase())
