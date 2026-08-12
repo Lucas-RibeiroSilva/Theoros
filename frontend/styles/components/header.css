@@ -30,18 +30,6 @@ header {
   position: relative;
 }
 
-.header-player-iframe {
-  width: auto;
-  height: 350px;
-  border: none;
-  position: fixed;
-  display: flex;
-  align-items: flex-end;
-  bottom: 0%;
-  left: 85%;
-  z-index: 1000;
-}
-
 .header-right span {
   font-size: 1rem;
   font-weight: 500;
