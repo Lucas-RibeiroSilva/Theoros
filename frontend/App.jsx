@@ -11,7 +11,7 @@ import "./App.css";
 
 import SessionManager from "./components/sessionManager";
 import ExpiredModal from "./components/modals/expiredModal";
-import GlobalPlayer from "./components/globalPlayer";
+import GlobalPlayer from "./components/player/globalPlayer";
 import { useCardStore } from "./stores/cardStore";
 
 export default function App() {
