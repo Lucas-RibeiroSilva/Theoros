@@ -4,21 +4,19 @@ import { useCardStore } from "../stores/cardStore";
 import { updateCard, createCard } from "../services/api";
 import { MdFileDownload } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
-
 import { useDownloadPDF } from "../services/pdfGenerator";
-
 
 export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
   const [showAlert, setShowAlert] = useState(false);
   const [isClosingAlert, setIsClosingAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const timeoutRef = useRef(null); // Guarda o ID do setTimeout
+  const timeoutRef = useRef(null);
   const state = useCardStore();
-  const [editable, setEditable] = useState(isEdit)
+  const [editable, setEditable] = useState(isEdit);
   const [isSaving, setIsSaving] = useState(false);
   const { handleDownload } = useDownloadPDF();
 
-  // Limpa o timeout ao desmontar o componente
+  // Limpa o timeout ao desmontar
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -28,9 +26,9 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
     };
   }, []);
 
-  // Função para exibir o alerta com fechamento automático
-  const showAlertWithTimeout = (message, duration = 3000) => {
-    // Cancela qualquer timeout pendente
+  // Função para exibir o alerta
+  const showAlertWithTimeout = (message, duration = 3000) => { // Mudado para 3 segundos
+    // Cancela timeout pendente
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
@@ -40,25 +38,19 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
     setIsClosingAlert(false);
     setShowAlert(true);
 
-    // Agenda o fechamento após 'duration' milissegundos
+    // Fecha automaticamente
     timeoutRef.current = setTimeout(() => {
-      setIsClosingAlert(true);
-
-      setTimeout(() => {
-        setShowAlert(false);
-        setIsClosingAlert(false);
-      }, 300);
-
-      timeoutRef.current = null;
+      closeAlert();
     }, duration);
   };
 
-  // Fecha o alerta manualmente (cancelando o timeout)
+  // Fecha o alerta
   const closeAlert = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
+    
     setIsClosingAlert(true);
 
     setTimeout(() => {
@@ -71,10 +63,8 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
     setIsSaving(true);
 
     try {
-      // 1° Verifica se o usuário está logado através do token
       const token = localStorage.getItem("token");
 
-      // Se o usuário não estiver logado, abre o modal de Login
       if (!token) {
         if (onOpenLoginModal) {
           onOpenLoginModal();
@@ -83,26 +73,22 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
         return;
       }
 
-      // 2° Verifica se tem nome
       if (!state.name) {
         showAlertWithTimeout("O nome da ficha é obrigatório !!");
         setIsSaving(false);
         return;
       }
 
-      // 3° Transforma a imagem em base64
       const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
           if (!file) {
             reject(new Error('Nenhum arquivo fornecido'));
             return;
           }
-
           if (!(file instanceof File) && !(file instanceof Blob)) {
             reject(new Error('Arquivo inválido'));
             return;
           }
-
           const reader = new FileReader();
           reader.onload = () => resolve(reader.result);
           reader.onerror = (error) => reject(error);
@@ -110,7 +96,6 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
         });
       };
 
-      // 4° Monta o payload
       let imageBase64 = null;
 
       if (state.imageBase64) {
@@ -123,7 +108,6 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
         }
       }
 
-      // 5° Monta o cardData
       const cardData = {
         name: state.name,
         image: imageBase64,
@@ -141,7 +125,6 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
         willing: state.attributes?.willing?.current ?? 0,
         history: state.history || '',
         alignment: state.alignment || '',
-
         advantages: state.advantages?.map((a) => ({
           id: a.id,
           level: a.level || 0,
@@ -174,20 +157,17 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
 
       let response;
 
-      // 6° Envia para a API, porém antes verifica se o usuário está criando ou editando um card
-      if (editable === true){
-        const response = await updateCard(cardId, cardData);
-        setEditable(false)
+      if (editable === true) {
+        response = await updateCard(cardId, cardData);
+        setEditable(false);
       } else {
-        const response = await createCard(cardData)
+        response = await createCard(cardData);
       }
 
-      // 7° Verifica a resposta
       if (response && response.error) {
         showAlertWithTimeout(`Erro: ${response.error}`);
       } else {
         showAlertWithTimeout("Ficha salva com sucesso!");
-        // Limpa o card após salvar
         useCardStore.getState().resetCard();
       }
     } catch (error) {
@@ -200,32 +180,40 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
       } else {
         showAlertWithTimeout('Erro ao salvar a ficha. Tente novamente.');
       }
+    } finally {
       setIsSaving(false);
     }
-    setIsSaving(false);
   };
 
   return (
     <>
       <div id="save-popup">
         <div className="save-box">
-          <button className="save-button" onClick={saveCard} disabled={isSaving}><IoIosSave id="icon-save-card" /></button>
+          <button className="save-button" onClick={saveCard} disabled={isSaving}>
+            <IoIosSave id="icon-save-card" />
+          </button>
         </div>
 
         <div className="download-box">
           <button onClick={handleDownload} className="download-button">
-            <MdFileDownload id="icon-download-card"/>
+            <MdFileDownload id="icon-download-card" />
           </button>
         </div>
       </div>
 
-      {showAlert && (
-        <div className={`popup-alert-overlay  ${isClosingAlert ? "closing" : ""}`} onClick={closeAlert} >
-          <div className={`alert-dialog ${isClosingAlert ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
-            <p >{alertMessage}</p>
-          </div>
+      {/* Popup de alerta - SEMPRE RENDERIZADO, mas controlado por CSS */}
+      <div 
+        className={`popup-alert-overlay ${showAlert ? '' : 'closing'} ${isClosingAlert ? 'closing' : ''}`}
+        onClick={closeAlert}
+        style={{ display: showAlert || isClosingAlert ? 'flex' : 'none' }}
+      >
+        <div 
+          className={`alert-dialog ${isClosingAlert ? 'closing' : ''}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <p>{alertMessage}</p>
         </div>
-      )}
+      </div>
     </>
   );
 }
