@@ -219,7 +219,6 @@ export default function GlobalPlayer() {
       soundRef.current.pause();
     } else {
       soundRef.current.play();
-      updateProgress();
     }
   };
 
