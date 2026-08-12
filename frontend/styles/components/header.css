@@ -533,6 +533,11 @@ header {
     z-index: 3000;
   }
 
+  .default-profile-icon{
+    font-size: 40px !important ;
+    
+  }
+
   .home-main h2 {
     font-size: 2rem;
   }
