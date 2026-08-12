@@ -21,6 +21,8 @@ export default function GlobalPlayer() {
   const progressRef = useRef(null);
   const volumeRef = useRef(null);
   const animationFrameRef = useRef(null);
+  const canvasRef = useRef(null);
+  const isDraggingVolumeRef = useRef(false);
 
   // Detectar mudança de tamanho da tela
   useEffect(() => {
@@ -40,6 +42,122 @@ export default function GlobalPlayer() {
   useEffect(() => {
     Howler.volume(volume);
   }, []);
+
+  // Inicializar animação de onda com canvas
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let frameId;
+    let phase = 0;
+
+    const resizeCanvas = () => {
+      // Redimensiona a caixa da wave conforme o tamanho do container do canvas.
+      const dpr = window.devicePixelRatio || 1;
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const drawWave = () => {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      ctx.clearRect(0, 0, width, height);
+
+      // Desenho de linha estática quando não tocando
+      if (!isPlaying) {
+        const padding = 2;
+        const availH = Math.max(2, height - padding * 2);
+        const midYStatic = padding + availH / 2;
+        ctx.beginPath();
+        ctx.moveTo(0, midYStatic);
+        ctx.lineTo(width, midYStatic);
+        ctx.strokeStyle = '#9c3f00';
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+        return;
+      }
+
+      // Configurações para evitar cortes nas cristas/vales
+      ctx.strokeStyle = '#9c3f00';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      const padding = Math.max(2, ctx.lineWidth);
+      const availH = Math.max(2, height - padding * 2);
+      const amplitude = availH * 0.45; // amplitude relativa à altura disponível
+      const midY = padding + availH / 2; // centro vertical com padding
+      const frequency = 0.1; // frequência da onda
+      for (let x = 0; x <= width; x += 1) {
+        const envelope = Math.pow(Math.sin((x / width) * Math.PI), 3);
+        const y = midY + Math.sin(x * frequency + phase) * amplitude * envelope;
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+      phase += 0.12;
+      frameId = requestAnimationFrame(drawWave);
+    };
+
+    const handleResize = () => {
+      resizeCanvas();
+      // Após redimensionar o canvas ele é limpo automaticamente.
+      // Redesenhar uma vez: se não está tocando, desenha a barra estática;
+      // se está tocando e o loop de animação ainda não foi iniciado, inicia-o.
+      if (!isPlaying) {
+        drawWave();
+      } else if (isPlaying && !frameId) {
+        drawWave();
+      }
+    };
+
+    resizeCanvas();
+    // Sempre desenha uma vez após redimensionar — quando não está tocando desenha a barra estática,
+    // quando está tocando inicia o loop de animação dentro de drawWave().
+    drawWave();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(frameId);
+    };
+    // isMobile / isMobilePlayerOpen entram aqui porque no mobile o <canvas> só
+    // existe no DOM quando o player está aberto. Sem essas dependências, ao abrir
+    // o player o efeito não re-executa (isPlaying não mudou), e o canvas fica com
+    // o tamanho padrão do navegador (300x150) até o usuário clicar em play/pause.
+  }, [isPlaying, isMobile, isMobilePlayerOpen]);
+
+  // Garantir que a linha estática seja desenhada imediatamente quando a reprodução parar.
+  // Em alguns casos mobile o canvas não é redesenhado pelo loop imediatamente — desenhamos aqui.
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    if (isPlaying) return;
+    const ctx = canvas.getContext('2d');
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const padding = 2;
+    const availH = Math.max(2, height - padding * 2);
+    const midYStatic = padding + availH / 2;
+    ctx.clearRect(0, 0, width, height);
+    ctx.beginPath();
+    ctx.moveTo(0, midYStatic);
+    ctx.lineTo(width, midYStatic);
+    ctx.strokeStyle = '#9c3f00';
+    ctx.lineWidth = 1;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }, [isPlaying, isMobile, isMobilePlayerOpen]);
 
   // Carregar música atual
   const loadTrack = useCallback((index) => {
@@ -61,7 +179,6 @@ export default function GlobalPlayer() {
         setIsPlaying(true);
         setIsLoading(false);
         setDuration(sound.duration());
-        updateProgress();
       },
       onload: () => {
         setIsLoading(false);
@@ -82,18 +199,7 @@ export default function GlobalPlayer() {
     sound.play();
   }, []);
 
-  // Atualizar barra de progresso
-  const updateProgress = useCallback(() => {
-    if (!soundRef.current) return;
-    const seek = soundRef.current.seek() || 0;
-    const dur = soundRef.current.duration() || 1;
-    setCurrentTime(seek);
-    setProgress((seek / dur) * 100);
-
-    if (soundRef.current.playing()) {
-      animationFrameRef.current = requestAnimationFrame(updateProgress);
-    }
-  }, []);
+ 
 
   useEffect(() => {
     loadTrack(currentIndex);
@@ -135,16 +241,51 @@ export default function GlobalPlayer() {
     setProgress(percent * 100);
   };
 
-  const handleVolume = (e) => {
+  const updateVolumeFromClientX = useCallback((clientX) => {
     if (!volumeRef.current) return;
     const rect = volumeRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
+    const x = clientX - rect.left;
     const percent = Math.max(0, Math.min(1, x / rect.width));
-    const newVol = percent;
-    setVolume(newVol);
-    Howler.volume(newVol);
-    setIsMuted(newVol === 0);
+    setVolume(percent);
+    Howler.volume(percent);
+    setIsMuted(percent === 0);
+  }, []);
+
+  const handleVolumeDragMove = useCallback((e) => {
+    if (!isDraggingVolumeRef.current) return;
+    if (e.touches) e.preventDefault();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    updateVolumeFromClientX(clientX);
+  }, [updateVolumeFromClientX]);
+
+  const handleVolumeDragEnd = useCallback(() => {
+    isDraggingVolumeRef.current = false;
+    window.removeEventListener('mousemove', handleVolumeDragMove);
+    window.removeEventListener('mouseup', handleVolumeDragEnd);
+    window.removeEventListener('touchmove', handleVolumeDragMove);
+    window.removeEventListener('touchend', handleVolumeDragEnd);
+  }, [handleVolumeDragMove]);
+
+  const handleVolumeDragStart = (e) => {
+    e.stopPropagation();
+    isDraggingVolumeRef.current = true;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    updateVolumeFromClientX(clientX);
+    window.addEventListener('mousemove', handleVolumeDragMove);
+    window.addEventListener('mouseup', handleVolumeDragEnd);
+    window.addEventListener('touchmove', handleVolumeDragMove, { passive: false });
+    window.addEventListener('touchend', handleVolumeDragEnd);
   };
+
+  // Limpar listeners de drag se o componente desmontar no meio do arraste
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('mousemove', handleVolumeDragMove);
+      window.removeEventListener('mouseup', handleVolumeDragEnd);
+      window.removeEventListener('touchmove', handleVolumeDragMove);
+      window.removeEventListener('touchend', handleVolumeDragEnd);
+    };
+  }, [handleVolumeDragMove, handleVolumeDragEnd]);
 
   const toggleMute = () => {
     if (isMuted) {
@@ -164,7 +305,6 @@ export default function GlobalPlayer() {
     setShowVolume(!showVolume);
   };
 
-  // Função para alternar o player mobile
   const toggleMobilePlayer = () => {
     setIsMobilePlayerOpen(!isMobilePlayerOpen);
   };
@@ -203,19 +343,22 @@ export default function GlobalPlayer() {
         <div className="player-duration">{formatTime(duration)}</div>
       </div>
 
+      <div className="waveform-wrapper">
+        {/* Para redimensionar a caixa da wave: altere `height` em frontend/styles/globalPlayer.css `.waveform-wrapper` */}
+        <canvas className="waveform" ref={canvasRef} />
+      </div>
+
       {/* NOVO LAYOUT DOS CONTROLES */}
       <div className="controls-container">
         
-        {/* Linha 1: Play/Pause + Barra de Progresso */}
+        {/* Linha 1: Play/Pause*/}
         <div className="controls-row-1">
           <div
             className={`btn-play-pause ${isPlaying ? 'pause-icon' : 'play-icon'}`}
             onClick={togglePlay}
             style={{ display: isLoading ? 'none' : 'block' }}
           />
-          <div className="progress-container" ref={progressRef} onClick={seek}>
-            <div className="progress-fill" style={{ width: `${progress}%` }} />
-          </div>
+          
         </div>
 
         {/* Linha 2: Playlist + Anterior/Próximo + Volume */}
@@ -267,10 +410,9 @@ export default function GlobalPlayer() {
           <div
             className="volume-bar-container"
             ref={volumeRef}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleVolume(e);
-            }}
+            onClick={(e) => e.stopPropagation()}
+            onMouseDown={handleVolumeDragStart}
+            onTouchStart={handleVolumeDragStart}
           >
             <div
               className="volume-bar-fill"
@@ -279,6 +421,9 @@ export default function GlobalPlayer() {
             <div
               className="volume-slider"
               style={{ left: `calc(${(isMuted ? 0 : volume) * 100}% - 7px)` }}
+              onClick={(e) => e.stopPropagation()}
+              onMouseDown={handleVolumeDragStart}
+              onTouchStart={handleVolumeDragStart}
             />
           </div>
         </div>
