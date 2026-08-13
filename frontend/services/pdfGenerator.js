@@ -130,14 +130,14 @@ export const generateGURPSPDF = async () => {
   doc.setFont('helvetica', 'bold');
   doc.text('Idade:', textX, textY);
   doc.setFont('helvetica', 'normal');
-  doc.text(state.age || 'Nao registrada', textX + 11, textY);
+  doc.text(String(state.age) || 'Nao registrada', textX + 11, textY);
   textY += lineHeight;
 
   // Altura
   doc.setFont('helvetica', 'bold');
   doc.text('Altura:', textX, textY);
   doc.setFont('helvetica', 'normal');
-  doc.text(state.height || 'Nao registrada', textX + 11, textY);
+  doc.text(String(state.height) || 'Nao registrada', textX + 11, textY);
   textY += lineHeight;
 
   // Alinhamento

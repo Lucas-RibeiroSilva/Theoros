@@ -16,10 +16,6 @@
   margin: 1.5rem 0 0.5rem 0;
 }
 
-.card-main{
-  z-index: 1001;
-}
-
 #img-profile-card {
   width: 130px;
   height: 130px;
@@ -798,9 +794,9 @@
 /* ===== RESPONSIVO ===== */
 @media (max-width: 720px) {
   .card-main {
+    margin: auto;
     
-    
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
     max-width: 350px;
     grid-template-areas:
@@ -814,6 +810,12 @@
     "history"
     "characteristics"
     "user";
+  }
+
+  .image-container{
+    font-display: flex;
+    align-self: center;
+    margin: auto;
   }
 
   .card-title{
@@ -843,6 +845,8 @@
   .commentary {
     max-width: 200px;
     height: auto;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 
   .top-commentary {

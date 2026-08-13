@@ -181,6 +181,20 @@ export default function TechniqueModal({ onClose }) {
     setSelectedTechniqueId(null);
   }
 
+  function typeName(name){
+    if (name === "Easy"){
+      return "Fácil";
+    }else if (name === "Average"){
+      return "Médio";
+    }else if (name === "Hard"){
+      return "Díficil";
+    }else if (name === "VeryHard"){
+      return "Muito Díficil";
+    }
+
+    return name;
+  }
+
 
   // ──────────────────────────────────────────────
   // Tela de Carregamento
@@ -238,7 +252,7 @@ export default function TechniqueModal({ onClose }) {
                   <div className="types-container">
                     {tec.difficulties?.map((item) => (
                       <span key={item.id} className="type">
-                        {item.difficulty.name}
+                        {typeName(item.difficulty.name)}
                       </span>
                     ))}
                   </div>

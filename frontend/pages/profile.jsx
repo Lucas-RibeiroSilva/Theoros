@@ -15,7 +15,7 @@ import {
   updateUserName,
   updateUserDescription,
   deleteCard,
-  deleteUser
+  deleteUser,
 } from "../services/api";
 
 import Tooltip from "@mui/material/Tooltip";
@@ -31,11 +31,13 @@ export default function Profile({ handleLogout }) {
   const [userData, setUserData] = useState(null);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userImage, setUserImage] = useState("");
   const [userName, setUserName] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const removeProfile = true;
   const [showConfirmDeleteCard, setShowConfirmDeleteCard] = useState(false);
-  const [showConfirmDeleteProfile, setShowConfirmDeleteProfile] = useState(false);
+  const [showConfirmDeleteProfile, setShowConfirmDeleteProfile] =
+    useState(false);
   const [cardToDelete, setCardToDelete] = useState(null);
 
   const handleLoading = (isLoading) => {
@@ -57,9 +59,9 @@ export default function Profile({ handleLogout }) {
   };
 
   const handleConfirmProfile = async () => {
-      await deleteUser(userData.id);
-      setShowConfirmDeleteProfile(false);
-      handleLogout();
+    await deleteUser(userData.id);
+    setShowConfirmDeleteProfile(false);
+    handleLogout();
   };
 
   const handleCancel = () => {
@@ -136,6 +138,9 @@ export default function Profile({ handleLogout }) {
         }
 
         setUserData(data);
+        setUserImage(data?.image);
+        setUserName(data.username);
+        setUserDescription(data.description);
         setLoading(false);
       } catch (error) {
         console.error("Erro:", error);
@@ -154,42 +159,42 @@ export default function Profile({ handleLogout }) {
   }
 
   async function imageChange(e) {
-  const file = e.target.files[0];
+    const file = e.target.files[0];
 
-  const getBase64 = async (file) => {
-    return new Promise((resolve, reject) => {
-      if (!file) {
-        reject(new Error("Nenhuma imagem selecionada"));
-        return;
-      }
+    const getBase64 = async (file) => {
+      return new Promise((resolve, reject) => {
+        if (!file) {
+          reject(new Error("Nenhuma imagem selecionada"));
+          return;
+        }
 
-      if (!(file instanceof File) && !(file instanceof Blob)) {
-        reject(new Error("Arquivo inválido"));
-        return;
-      }
+        if (!(file instanceof File) && !(file instanceof Blob)) {
+          reject(new Error("Arquivo inválido"));
+          return;
+        }
 
-      const reader = new FileReader();
+        const reader = new FileReader();
 
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
 
-      reader.readAsDataURL(file);
-    });
-  };
+        reader.readAsDataURL(file);
+      });
+    };
 
-  const imageBase64 = await getBase64(file);
+    const imageBase64 = await getBase64(file);
 
-  await updateUserImage(userData.id, imageBase64);
-  window.location.reload();
-}
+    await updateUserImage(userData.id, imageBase64);
+    setUserImage(imageBase64);
+  }
 
   if (!userData) {
-  return (
-    <>
-      <Header handleLogout={handleLogout} />
-      <Loading />
-    </>
-  );
+    return (
+      <>
+        <Header handleLogout={handleLogout} />
+        <Loading />
+      </>
+    );
   }
 
   return (
@@ -200,107 +205,116 @@ export default function Profile({ handleLogout }) {
 
       <div className="profile-container">
         <div className="profile-left">
-          <input
-            type="file"
-            ref={fileInputRef}
-            accept="image/*"
-            style={{ display: "none" }} // Serve para ficar trasnparente
-            onChange={imageChange}
-          />
-
-          {userData.image ? (
-            <div className="div-image-profile">
-              <img
-                className="image-profile"
-                src={userData.image}
-                alt="Imagem de Perfil"
-              />
-              {(isOwnProfile || isAdmin) && (
-                <Tooltip title="Editar foto de perfil" arrow>
-                  <FiEdit2 id="edit-image-profile" onClick={editImageProfile} />
-                </Tooltip>
-              )}
-            </div>
-          ) : (
-            <div className="div-image-profile">
-              <AccountCircleOutlinedIcon className="image-profile-default-avatar" />
-
-              {isOwnProfile && (
-                <Tooltip title="Editar foto de perfil" arrow>
-                  <FiEdit2 id="edit-image-profile" onClick={editImageProfile} />
-                </Tooltip>
-              )}
-            </div>
-          )}
-          {editName ? (
+          <div className="person-profile">
             <input
-              id="input-name-profile"
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              onKeyDown={async (e) => {
-  if (e.key === "Enter") {
-    await updateUserName(userData.id, userName);
-    setEditName(false);
-    window.location.reload();
-  }
-}}
-              autoFocus
+              type="file"
+              ref={fileInputRef}
+              accept="image/*"
+              style={{ display: "none" }} // Serve para ficar trasnparente
+              onChange={imageChange}
             />
-          ) : (
-            <div className="div-name-profile">
-              <h1 id="name-profile">{userData.username}</h1>
-              {(isOwnProfile || isAdmin) && (
-                <Tooltip title="Editar nome" arrow>
-                  <FiEdit2
-                    id="edit-name-profile"
-                    onClick={() => {
-                      setEditName(true);
-                    }}
-                  />
-                </Tooltip>
-              )}
-            </div>
-          )}
 
-          {editDescription ? (
-            <textarea
-              id="textarea-description-profile"
-              value={userDescription}
-              maxLength={252}
-              onChange={(e) => setUserDescription(e.target.value)}
-              onKeyDown={async (e) => {
-  if (e.key === "Enter") {
-    await updateUserDescription(userData.id, userDescription);
-    setEditDescription(false);
-    window.location.reload();
-  }
-}}
-              autoFocus
-            />
-          ) : (
-            <div className="div-description-profile">
-              <h3 className="description-profile">
-                {userData.description || "Sem descrição"}
-              </h3>
-              {(isOwnProfile || isAdmin) && (
-                <Tooltip title="Editar descrição" arrow>
-                  <FiEdit2
-                    id="edit-description-profile"
-                    onClick={() => {
-                      setEditDescription(true);
-                    }}
-                  />
-                </Tooltip>
-              )}
-            </div>
-          )}
+            {userData.image ? (
+              <div className="div-image-profile">
+                <img
+                  className="image-profile"
+                  src={userImage}
+                  alt="Imagem de Perfil"
+                />
+                {(isOwnProfile || isAdmin) && (
+                  <Tooltip title="Editar foto de perfil" arrow>
+                    <FiEdit2
+                      id="edit-image-profile"
+                      onClick={editImageProfile}
+                    />
+                  </Tooltip>
+                )}
+              </div>
+            ) : (
+              <div className="div-image-profile">
+                <AccountCircleOutlinedIcon className="image-profile-default-avatar" />
 
-          {(isOwnProfile || isAdmin) && (
-            <button id="delete-profile-btn" onClick={() => setShowConfirmDeleteProfile(true)}>
-              Apagar Perfil
-            </button>
-          )}
+                {isOwnProfile && (
+                  <Tooltip title="Editar foto de perfil" arrow>
+                    <FiEdit2
+                      id="edit-image-profile"
+                      onClick={editImageProfile}
+                    />
+                  </Tooltip>
+                )}
+              </div>
+            )}
+            {editName ? (
+              <input
+                id="input-name-profile"
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                onKeyDown={async (e) => {
+                  if (e.key === "Enter") {
+                    await updateUserName(userData.id, userName);
+                    setEditName(false);
+                  }
+                }}
+                autoFocus
+              />
+            ) : (
+              <div className="div-name-profile">
+                <h1 id="name-profile">{userName}</h1>
+                {(isOwnProfile || isAdmin) && (
+                  <Tooltip title="Editar nome" arrow>
+                    <FiEdit2
+                      id="edit-name-profile"
+                      onClick={() => {
+                        setEditName(true);
+                      }}
+                    />
+                  </Tooltip>
+                )}
+              </div>
+            )}
+
+            {editDescription ? (
+              <textarea
+                id="textarea-description-profile"
+                value={userDescription}
+                maxLength={252}
+                onChange={(e) => setUserDescription(e.target.value)}
+                onKeyDown={async (e) => {
+                  if (e.key === "Enter") {
+                    await updateUserDescription(userData.id, userDescription);
+                    setEditDescription(false);
+                  }
+                }}
+                autoFocus
+              />
+            ) : (
+              <div className="div-description-profile">
+                <h3 className="description-profile">
+                  { userDescription  || "Sem descrição"}
+                </h3>
+                {(isOwnProfile || isAdmin) && (
+                  <Tooltip title="Editar descrição" arrow>
+                    <FiEdit2
+                      id="edit-description-profile"
+                      onClick={() => {
+                        setEditDescription(true);
+                      }}
+                    />
+                  </Tooltip>
+                )}
+              </div>
+            )}
+
+            {(isOwnProfile || isAdmin) && (
+              <button
+                id="delete-profile-btn"
+                onClick={() => setShowConfirmDeleteProfile(true)}
+              >
+                Apagar Perfil
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="profile-right">

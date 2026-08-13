@@ -182,6 +182,17 @@ export default function DisadvantageModal({ onClose }) {
     setSelectedDisadvantageId(null);
   }
 
+  function typeName(name){
+    if (name === "Physical"){
+      return "Física";
+    }else if(name === "Supernatural"){
+      return "Sobrenatural";
+    }else if(name === "Exotic"){
+      return "Exótica"
+    }
+    return name;
+  }
+
   // ──────────────────────────────────────────────
   // Tela de carregamento
   // ──────────────────────────────────────────────
@@ -239,7 +250,7 @@ export default function DisadvantageModal({ onClose }) {
                   <div className="types-container">
                     {dis.types?.map((type) => (
                       <span key={type.id} className="type">
-                        {type.type.name}
+                        {typeName(type.type.name)}
                       </span>
                     ))}
                   </div>

@@ -12,20 +12,17 @@ body {
 /* ===== CONTAINER PRINCIPAL ===== */
 .profile-container {
   display: flex;
-  max-width: 1200px;
-  justify-content: center;
+  max-width: 1800px;
+  justify-content: flex-start;
   margin: auto;
-  gap: 2rem;
   box-sizing: border-box;
-  position: relative;
-  
+  align-items: center;
 }
 
 /* ===== SIDEBAR ESQUERDA (FIXA) ===== */
 .profile-left {
-  display: flex;
-  width: 300px;
-  height: 880px;
+ display: flex;
+  width: 30%;
   background: rgba(36, 27, 23, 0.925);
   backdrop-filter: blur(4px);
   border: 1px solid #b1844a;
@@ -33,10 +30,17 @@ body {
   border-radius: 20px;
   text-align: center;
   flex-direction: column;
-  bottom: 0px;
-  position: absolute;
-  right: 1200px;
-  z-index: 1001;
+  position: relative;
+}
+
+.person-profile{
+  display: flex;
+  height: 900px;
+  max-height: 72vh;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .div-image-profile {
@@ -187,10 +191,11 @@ body {
 /* ===== COLUNA DIREITA (CONTEÚDO) ===== */
 .profile-right {
   display: flex;
-  width: 100%;
+  width: 80%;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-right: 250px;
 }
 
 
@@ -316,10 +321,12 @@ body {
 
   .profile-left {
     flex: 1 1 auto;
-    max-width: 300px;
+    min-width: 300px;
     position: static;
     padding: 1.5rem;
   }
+
+  
 
   .image-profile {
     width: 120px;
@@ -329,6 +336,7 @@ body {
   .profile-right {
     padding: 1.0rem;
     max-width: 300px;
+    margin: 0;
   }
 
   .profile-header {
@@ -372,7 +380,7 @@ body {
 
 
 
-@media (720px <= width <= 1024px) {
+@media (width >= 721px) and (width <= 1024px) {
   .profile-container {
     flex-direction: column;
     justify-content: center;
@@ -381,7 +389,8 @@ body {
 
   .profile-left {
     flex: 1 1 auto;
-    min-width: 650px;
+    max-width: 650px;
+    width: 800px;
     position: static;
     padding: 1.5rem;
     max-height: 600px;
@@ -395,6 +404,7 @@ body {
   .profile-right {
     padding: 1.0rem;
     max-width: 700px;
+    margin: 0;
   }
 
   .profile-header {
@@ -436,7 +446,7 @@ body {
   }
 }
 
-@media (1024px < width <= 1440px) {
+@media (width >= 1025px) and (width <= 1440px) {
   .profile-container {
     flex-direction: column;
     justify-content: center;
@@ -444,23 +454,19 @@ body {
   }
 
   .profile-left {
-    flex: 1 1 auto;
-    min-width: 250px;
-    padding: 1.5rem;
-    max-height: 705px;
-    right: 925px;
+    max-width: 800px;
+    min-width: 800px;
   }
 
   .image-profile {
     width: 120px;
     height: 120px;
-
   }
 
   .profile-right {
     padding: 1rem;
     max-width: 1010px;
-    margin-left: 350px;
+    margin: 0;
   }
 
   .profile-header {

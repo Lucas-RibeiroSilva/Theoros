@@ -30,9 +30,16 @@ export default function Home({ handleLogout }) {
         <button onClick={() => navigate("/create")} className="btn-create-home">
           Criar nova ficha
         </button>
+        <div className="sub2">Escolha o seu sistema favorito!!</div>
+        
+          <div className="sistemas">
+            <button>GURPS</button>
+            <button disabled="disabled" title="Work in progress">Dungeon and Dragons</button>
+            <button disabled="disabled" title="Work in progress">Shadow Dark</button>
+          </div>
 
         <div className="main-content">
-          <div className="main-content-text">
+          <div className="main-content-text1">
             <h2>Uma biblioteca extensa e detalhada de cada sistema</h2>
             <p>
               ● Um banco completo, pronto para atender todas as necessidades dos mestres e jogadores<br />

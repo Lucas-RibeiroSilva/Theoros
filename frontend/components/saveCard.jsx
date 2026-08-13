@@ -111,9 +111,9 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
       const cardData = {
         name: state.name,
         image: imageBase64,
-        gender: state.gender || '',
-        height: state.height ? parseFloat(state.height) : null,
-        age: state.age ? parseInt(state.age) : null,
+        gender: state.gender || 'masculino',
+        height: state.height ? parseFloat(state.height) : 0,
+        age: state.age ? parseInt(state.age) : 0,
         raceId: state.raceId,
         strength: state.attributes?.strength?.current ?? 0,
         life: state.attributes?.life?.current ?? 0,
@@ -189,13 +189,23 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
     <>
       <div id="save-popup">
         <div className="save-box">
-          <button className="save-button" onClick={saveCard} disabled={isSaving}>
+          <button 
+            className="save-button" 
+            onClick={saveCard}
+            disabled={!!state.pendingCropImage}
+            title={state.pendingCropImage ? "Confirme o corte da imagem antes de Salvar a Ficha" : undefined}
+            >
             <IoIosSave id="icon-save-card" />
           </button>
         </div>
 
         <div className="download-box">
-          <button onClick={handleDownload} className="download-button">
+          <button 
+            onClick={handleDownload}
+            className="download-button"
+            disabled={!!state.pendingCropImage}
+            title={state.pendingCropImage ? "Confirme o corte da imagem antes de baixar" : undefined}
+            >
             <MdFileDownload id="icon-download-card" />
           </button>
         </div>

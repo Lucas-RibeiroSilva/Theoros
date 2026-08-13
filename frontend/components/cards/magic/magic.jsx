@@ -31,6 +31,7 @@ export default function MagicSection({ onLoading }) {
 
   // Serve para ver se o modal está ou não na tela
   const [showMagicModal, setShowMagicModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Filtros
   const [filters, setFilters] = useState({
@@ -76,7 +77,15 @@ export default function MagicSection({ onLoading }) {
     }
 
     loadMagics();
+
+    if (window.innerWidth <= 1240) {
+        setIsMobile(true)
+    }
+
+    
   }, []);
+
+
 
   // Funções para abrir e fechar o modal de adicionar ampliações
   function openMagicModal() {
@@ -277,8 +286,16 @@ export default function MagicSection({ onLoading }) {
           <p id="topics-points">Custo</p>
           <p id="topics-name">Nome</p>
           <p id="topics-types">Tipos</p>
-          <p id="topics-duration">Tempo Duração</p>
+
+          {(isMobile === false) && (
           <p id="topics-operation">Tempo Operação</p>
+          )}
+
+          {(isMobile === false) && (
+          <p id="topics-duration">Tempo Duração</p>
+          
+          )}
+
           <p id="topics-level">Nível</p>
           <p id="topics-remove"></p>
         </div>
@@ -304,13 +321,22 @@ export default function MagicSection({ onLoading }) {
                     {getIcon(magic)}
                   </span>
 
-                  <span className="selected-magic-duration">
+
+
+                  {(isMobile === false) && (
+                    <span className="selected-magic-duration">
                     {magic.timeDuration}
                   </span>
-
-                  <span className="selected-magic-operation">
+                  )}
+                 
+                  {(isMobile === false) && (
+                    <span className="selected-magic-operation">
                     {magic.timeOperating}
                   </span>
+                  )}
+
+                  
+                  
 
                   <span className="selected-magic-level">
                     {magic.level}

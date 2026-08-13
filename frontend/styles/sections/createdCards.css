@@ -260,16 +260,19 @@
 }
 
 /* ===== RESPONSIVO ===== */
-@media (max-width: 768px) {
-  .top-favorites {
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 720px) {
+  .item-created{
+    max-width: 200px;
   }
 
   #img-favorite {
     width: 100%;
     max-width: 200px;
     height: 200px;
+  }
+
+  .rating-created{
+    position: relative;
   }
 
   .info-favorites {
@@ -294,16 +297,15 @@
     align-self: center;
   }
 
+  .race-created-card{
+    position: static;
+  }
+
   .buttons-favorites {
     justify-content: center;
   }
 
-  .rating-favorites {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.1rem 0.4rem;
-  }
+
 
   #stars-rating-favorites .star,
   #stars-rating-favorites .star-empty,

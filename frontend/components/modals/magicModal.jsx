@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { getMagics } from "../../services/api";
 import { useCardStore } from "../../stores/cardStore";
 
-import Tooltip from '@mui/material/Tooltip';
-
+import Tooltip from "@mui/material/Tooltip";
 
 import FilterAltTwoToneIcon from "@mui/icons-material/FilterAltTwoTone";
 import AddIcon from "@mui/icons-material/Add";
@@ -24,8 +23,6 @@ export default function MagicModal({ onClose }) {
   const [loading, setLoading] = useState(true);
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [selectedMagicId, setSelectedMagicId] = useState(null);
-
-
 
   const [filters, setFilters] = useState({
     Air: false,
@@ -173,7 +170,7 @@ export default function MagicModal({ onClose }) {
 
     if (!mag.costIsVariable) return base;
 
-    return base + (level - 1) * variable;;
+    return base + (level - 1) * variable;
   }
 
   // ──────────────────────────────────────────────
@@ -198,13 +195,49 @@ export default function MagicModal({ onClose }) {
     setSelectedMagicId(null);
   }
 
+  function typeName(name) {
+    if (name === "Air") {
+      return "Ar";
+    } else if (name === "BodyControl") {
+      return "Controle Corporal";
+    } else if (name === "CommunicationandEmpathy") {
+      return "Comunicação e Empatia";
+    } else if (name === "Displacement") {
+      return "Deslocamento";
+    } else if (name === "Earth") {
+      return "Terra";
+    } else if (name === "Enchantment") {
+      return "Encantamento";
+    } else if (name === "Fire") {
+      return "Fogo";
+    } else if (name === "Healing") {
+      return "Cura";
+    } else if (name === "LightandDark") {
+      return "Luz e Trevas";
+    } else if (name === "Metamagic") {
+      return "Metamagia";
+    } else if (name === "MindControl") {
+      return "Controle Mental";
+    } else if (name === "Necromancy") {
+      return "Necromancia";
+    } else if (name === "Portal") {
+      return "Portal";
+    } else if (name === "ProtectionandWarning") {
+      return "Proteção e Alerta";
+    } else if (name === "Recognition") {
+      return "Reconhecimento";
+    } else if (name === "Water") {
+      return "Água";
+    }
+
+    return name;
+  }
+
   // ──────────────────────────────────────────────
   // Tela de carregamento
   // ──────────────────────────────────────────────
   if (loading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   return (
@@ -226,28 +259,111 @@ export default function MagicModal({ onClose }) {
           />
 
           <Tooltip title="Filtrar Vantagens" arrow>
-            <FilterAltTwoToneIcon className="filter-icon" onClick={showFilters} />
+            <FilterAltTwoToneIcon
+              className="filter-icon"
+              onClick={showFilters}
+            />
           </Tooltip>
         </div>
 
         {showMagics && (
           <div className="filters-magic">
-            <button className={filters.Air ? "active" : ""} onClick={() => toggleFilter("Air")}>Ar</button>
-            <button className={filters.Water ? "active" : ""} onClick={() => toggleFilter("Water")}>Água</button>
-            <button className={filters.CommunicationandEmpathy ? "active" : ""} onClick={() => toggleFilter("CommunicationandEmpathy")}>Comunicação e Empatia</button>
-            <button className={filters.BodyControl ? "active" : ""} onClick={() => toggleFilter("BodyControl")}>Controle Corporal</button>
-            <button className={filters.MindControl ? "active" : ""} onClick={() => toggleFilter("MindControl")}>Controle Mental</button>
-            <button className={filters.Healing ? "active" : ""} onClick={() => toggleFilter("Healing")}>Cura</button>
-            <button className={filters.Displacement ? "active" : ""} onClick={() => toggleFilter("Displacement")}>Deslocamento</button>
-            <button className={filters.Enchantment ? "active" : ""} onClick={() => toggleFilter("Enchantment")}>Encantamento</button>
-            <button className={filters.Fire ? "active" : ""} onClick={() => toggleFilter("Fire")}>Fogo</button>
-            <button className={filters.LightandDark ? "active" : ""} onClick={() => toggleFilter("LightandDark")}>Luz e Trevas</button>
-            <button className={filters.Metamagic ? "active" : ""} onClick={() => toggleFilter("Metamagic")}>Metamagia</button>
-            <button className={filters.Necromancy ? "active" : ""} onClick={() => toggleFilter("Necromancy")}>Necromancia</button>
-            <button className={filters.Portal ? "active" : ""} onClick={() => toggleFilter("Portal")}>Portal</button>
-            <button className={filters.ProtectionandWarning ? "active" : ""} onClick={() => toggleFilter("ProtectionandWarning")}>Proteção e Aviso</button>
-            <button className={filters.Recognition ? "active" : ""} onClick={() => toggleFilter("Recognition")}>Reconhecimento</button>
-            <button className={filters.Earth ? "active" : ""} onClick={() => toggleFilter("Earth")}>Terra</button>
+            <button
+              className={filters.Air ? "active" : ""}
+              onClick={() => toggleFilter("Air")}
+            >
+              Ar
+            </button>
+            <button
+              className={filters.Water ? "active" : ""}
+              onClick={() => toggleFilter("Water")}
+            >
+              Água
+            </button>
+            <button
+              className={filters.CommunicationandEmpathy ? "active" : ""}
+              onClick={() => toggleFilter("CommunicationandEmpathy")}
+            >
+              Comunicação e Empatia
+            </button>
+            <button
+              className={filters.BodyControl ? "active" : ""}
+              onClick={() => toggleFilter("BodyControl")}
+            >
+              Controle Corporal
+            </button>
+            <button
+              className={filters.MindControl ? "active" : ""}
+              onClick={() => toggleFilter("MindControl")}
+            >
+              Controle Mental
+            </button>
+            <button
+              className={filters.Healing ? "active" : ""}
+              onClick={() => toggleFilter("Healing")}
+            >
+              Cura
+            </button>
+            <button
+              className={filters.Displacement ? "active" : ""}
+              onClick={() => toggleFilter("Displacement")}
+            >
+              Deslocamento
+            </button>
+            <button
+              className={filters.Enchantment ? "active" : ""}
+              onClick={() => toggleFilter("Enchantment")}
+            >
+              Encantamento
+            </button>
+            <button
+              className={filters.Fire ? "active" : ""}
+              onClick={() => toggleFilter("Fire")}
+            >
+              Fogo
+            </button>
+            <button
+              className={filters.LightandDark ? "active" : ""}
+              onClick={() => toggleFilter("LightandDark")}
+            >
+              Luz e Trevas
+            </button>
+            <button
+              className={filters.Metamagic ? "active" : ""}
+              onClick={() => toggleFilter("Metamagic")}
+            >
+              Metamagia
+            </button>
+            <button
+              className={filters.Necromancy ? "active" : ""}
+              onClick={() => toggleFilter("Necromancy")}
+            >
+              Necromancia
+            </button>
+            <button
+              className={filters.Portal ? "active" : ""}
+              onClick={() => toggleFilter("Portal")}
+            >
+              Portal
+            </button>
+            <button
+              className={filters.ProtectionandWarning ? "active" : ""}
+              onClick={() => toggleFilter("ProtectionandWarning")}
+            >
+              Proteção e Aviso
+            </button>
+            <button
+              className={filters.Recognition ? "active" : ""}
+              onClick={() => toggleFilter("Recognition")}
+            >
+              Reconhecimento
+            </button>
+            <button
+              className={filters.Earth ? "active" : ""}
+              onClick={() => toggleFilter("Earth")}
+            >
+              Terra
+            </button>
           </div>
         )}
 
@@ -266,7 +382,7 @@ export default function MagicModal({ onClose }) {
                   <div className="types-container">
                     {mag.types?.map((type) => (
                       <span key={type.id} className="type">
-                        {type.type.name}
+                        {typeName(type.type.name)}
                       </span>
                     ))}
                   </div>
@@ -308,7 +424,9 @@ export default function MagicModal({ onClose }) {
         </ul>
       </div>
 
-      {showInfoModal && <InfoModal onClose={closeInfoModal} Type="magic" Id={selectedMagicId} />}
+      {showInfoModal && (
+        <InfoModal onClose={closeInfoModal} Type="magic" Id={selectedMagicId} />
+      )}
     </div>
   );
 }

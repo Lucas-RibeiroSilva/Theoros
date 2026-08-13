@@ -292,6 +292,11 @@
 
   .race-favorite-card {
     align-self: center;
+    position: static;
+  }
+
+  .item-favorites{
+    max-width: 200px;
   }
 
   .buttons-favorites {
@@ -299,7 +304,7 @@
   }
 
   .rating-favorites {
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
     padding: 0.1rem 0.4rem;
@@ -347,6 +352,8 @@
 
   .rating-favorites {
     padding: 0.1rem 0.3rem;
+    position: relative;
+  
   }
 
   #stars-rating-favorites .star,

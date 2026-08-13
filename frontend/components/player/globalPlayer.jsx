@@ -53,15 +53,20 @@ export default function GlobalPlayer() {
     let phase = 0;
 
     const resizeCanvas = () => {
-      // Redimensiona a caixa da wave conforme o tamanho do container do canvas.
-      const dpr = window.devicePixelRatio || 1;
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // Mede o WRAPPER (.waveform-wrapper), não o próprio canvas — o canvas
+    // recebe um style.width em px logo abaixo, então medir nele mesmo
+    // faz a leitura ficar "presa" no último valor definido por JS e nunca
+    // mais acompanhar o CSS/breakpoints (era isso que travava a wave em 200px
+    // quando o wrapper crescia pra 300px no mobile).
+    const dpr = window.devicePixelRatio || 1;
+    const parent = canvas.parentElement;
+    const width = parent.clientWidth;
+    const height = parent.clientHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     const drawWave = () => {
@@ -138,7 +143,7 @@ export default function GlobalPlayer() {
   }, [isPlaying, isMobile, isMobilePlayerOpen]);
 
   // Garantir que a linha estática seja desenhada imediatamente quando a reprodução parar.
-  // Em alguns casos mobile o canvas não é redesenhado pelo loop imediatamente — desenhamos aqui.
+  // Em alguns casos mobile o canvas não é redesenhado pelo loop imediatamente.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -347,7 +352,7 @@ export default function GlobalPlayer() {
         <canvas className="waveform" ref={canvasRef} />
       </div>
 
-      {/* NOVO LAYOUT DOS CONTROLES */}
+      {/*LAYOUT DOS CONTROLES */}
       <div className="controls-container">
         
         {/* Linha 1: Play/Pause*/}
