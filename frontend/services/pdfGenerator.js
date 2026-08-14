@@ -170,36 +170,6 @@ export const generateGURPSPDF = async () => {
 
   yPos = infoY + infoHeight + 10;
 
-  // ===== PONTOS =====
-  // Criando uma linha separada para os pontos
-  doc.setFillColor(250, 245, 235);
-  doc.setDrawColor(200, 155, 60);
-  doc.setLineWidth(0.3);
-  doc.roundedRect(infoX, yPos - 3, infoWidth, 10, 2, 2, 'FD');
-  doc.roundedRect(infoX, yPos - 3, infoWidth, 10, 2, 2, 'S');
-
-  const pontosY = yPos + 3;
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(44, 24, 16);
-  
-  doc.text('Pontos Totais:', infoX + 10, pontosY);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`${state.totalPoints}`, infoX + 35, pontosY);
-  
-  doc.setFont('helvetica', 'bold');
-  doc.text('Gastos:', infoX + 65, pontosY);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`${totalSpent}`, infoX + 80, pontosY);
-  
-  doc.setFont('helvetica', 'bold');
-  doc.text('Restantes:', infoX + 110, pontosY);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`${remainingPoints}`, infoX + 130, pontosY);
-
-  yPos += 15;
-
-  
 
   // ========== ATRIBUTOS ==========
   doc.setFontSize(14);
@@ -601,54 +571,6 @@ export const generateGURPSPDF = async () => {
   doc.text(colLabels[1], startX + colWidths[0] + 5, yPos);
   doc.text(colLabels[2], startX + colWidths[0] + colWidths[1] + 5, yPos);
   yPos += 7;
-
-  // Lista de gastos
-  breakdown.forEach((item, index) => {
-    if (yPos > 275) {
-      doc.addPage();
-      yPos = MARGIN + 10;
-      addDecoratedBorder(MARGIN - 3, MARGIN - 3, 180, 277);
-    }
-    
-    if (index % 2 === 0) {
-      doc.setFillColor(250, 245, 235);
-    } else {
-      doc.setFillColor(245, 240, 230);
-    }
-    doc.setDrawColor(200, 155, 60);
-    doc.setLineWidth(0.1);
-    doc.rect(startX, yPos - 3, colWidths[0] + colWidths[1] + colWidths[2], 5, 'FD');
-    
-    const label = item.label.length > 25 ? item.label.substring(0, 22) + '...' : item.label;
-    const costStr = item.cost >= 0 ? `+${item.cost}` : `${item.cost}`;
-    
-    doc.setTextColor(44, 24, 16);
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.text(label, startX + 3, yPos);
-    doc.text(String(item.level || 1), startX + colWidths[0] + 3, yPos);
-    doc.text(costStr, startX + colWidths[0] + colWidths[1] + 3, yPos);
-    
-    yPos += 5.5;
-  });
-
-  yPos += 5;
-  doc.setDrawColor(200, 155, 60);
-  doc.setLineWidth(0.5);
-  doc.line(startX, yPos, startX + colWidths[0] + colWidths[1] + colWidths[2], yPos);
-  yPos += 5;
-
-  doc.setFillColor(44, 24, 16);
-  doc.setDrawColor(200, 155, 60);
-  doc.setLineWidth(0.3);
-  doc.roundedRect(startX, yPos - 3, 160, 10, 1, 1, 'FD');
-  doc.roundedRect(startX, yPos - 3, 160, 10, 1, 1, 'S');
-
-  doc.setTextColor(200, 155, 60);
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text(`TOTAL GASTO: ${totalSpent} pts`, startX + 10, yPos + 3);
-  doc.text(`PONTOS RESTANTES: ${remainingPoints} pts`, startX + 80, yPos + 3);
 
   // Rodapé
   yPos += 15;

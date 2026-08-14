@@ -501,7 +501,8 @@ header {
   }
 
   .opcoes-menu a {
-    color: #dbbc56;
+    color: #b49940;
+    font-weight: 600;
   }
 
   header {

@@ -9,6 +9,8 @@ import { TbGhost2 } from "react-icons/tb";
 import { GiBiceps, GiAngelWings, GiCrossedSwords } from "react-icons/gi";
 import { RiSpeakLine } from "react-icons/ri";
 
+import { usePointsValidation } from "../../popups/usePointsValidation";
+
 // Serve para aparecer uma mensagem de explicacao para quando passa o cursor em cima
 import Tooltip from '@mui/material/Tooltip';
 

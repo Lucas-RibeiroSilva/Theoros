@@ -307,7 +307,12 @@
 
 /* ===== TRAÇOS (Vantagens/Desvantagens) ===== */
 .card-traits {
-  background: rgba(20, 16, 22, 0.7);
+   background:
+      linear-gradient(
+          145deg,
+          rgba(26, 18, 11, 0.719),
+          rgba(12, 8, 5, 0.596)
+      );
   border: 1px solid rgba(212, 175, 55, 0.1);
   border-radius: 12px;
   padding: 1.5rem 2rem;
@@ -357,7 +362,12 @@
 
 /* ===== EXPANSÕES ===== */
 .card-expansions {
-  background: rgba(20, 16, 22, 0.7);
+   background:
+      linear-gradient(
+          145deg,
+          rgba(26, 18, 11, 0.719),
+          rgba(12, 8, 5, 0.596)
+      );
   border: 1px solid rgba(212, 175, 55, 0.08);
   border-radius: 12px;
   padding: 1.5rem 2rem;
@@ -401,7 +411,12 @@
 
 /* ===== LIMITAÇÕES ===== */
 .card-limitations {
-  background: rgba(20, 16, 22, 0.7);
+   background:
+      linear-gradient(
+          145deg,
+          rgba(26, 18, 11, 0.719),
+          rgba(12, 8, 5, 0.596)
+      );
   border: 1px solid rgba(212, 175, 55, 0.08);
   border-radius: 12px;
   padding: 1.5rem 2rem;
@@ -445,7 +460,12 @@
 
 /* ===== PERÍCIAS ===== */
 .card-expertises {
-  background: rgba(20, 16, 22, 0.7);
+   background:
+      linear-gradient(
+          145deg,
+          rgba(26, 18, 11, 0.719),
+          rgba(12, 8, 5, 0.596)
+      );
   border: 1px solid rgba(212, 175, 55, 0.08);
   border-radius: 12px;
   padding: 1.5rem 2rem;
@@ -535,7 +555,12 @@
 
 /* ===== MÁGIAS ===== */
 .card-magics {
-  background: rgba(20, 16, 22, 0.7);
+   background:
+      linear-gradient(
+          145deg,
+          rgba(26, 18, 11, 0.719),
+          rgba(12, 8, 5, 0.596)
+      );
   border: 1px solid rgba(212, 175, 55, 0.08);
   border-radius: 12px;
   padding: 1.5rem 2rem;

@@ -215,8 +215,8 @@ export const useCardStore = create(
           selectedRace: data.race?.name ?? null,
           selectedRaceId: data.race?.id ?? null,
 
-          gender: data.gender ?? "masculino",
-          alignment: data.alignment ?? "bom",
+          gender: data.gender ?? "masculine",
+          alignment: data.alignment ?? "good",
 
           imageURL: data.image ?? "",
           imageBase64: data.image ?? "",
@@ -683,7 +683,7 @@ export function getSpendingBreakdown(state) {
 //──────────────────────────────────────────────
 export function getAttributesSpent(state) {
   return Object.values(state.attributes).reduce(
-    (total, attr) => total + (attr.current - attr.base) * 0,
+    (total, attr) => total + (attr.current - attr.base) * 10, // <-- MULTIPLICAR POR 10
     0,
   );
 }
@@ -691,17 +691,17 @@ export function getAttributesSpent(state) {
 //──────────────────────────────────────────────
 // Soma de todos os gastos (vantagens, desvantagens, atributos, etc).
 //──────────────────────────────────────────────
+
+// E corrigir o getTotalSpent para usar o cálculo correto
 export function getTotalSpent(state) {
-  // Gastos em vantagens/desvantagens/perícias e etc...
   const normalSpent = getSpendingBreakdown(state).reduce(
     (sum, item) => sum + item.cost,
     0,
   );
 
-  // Gastos em Atributos
   const attributesSpent = getAttributesSpent(state);
-
-  // Retorna o total gasto somando os atributos + vantagens/desvantagens
+  
+  // Retorna o total gasto
   return normalSpent + attributesSpent;
 }
 

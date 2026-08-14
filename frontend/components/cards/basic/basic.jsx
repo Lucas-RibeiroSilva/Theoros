@@ -34,37 +34,36 @@ async function getCroppedImg(imageSrc, pixelCrop, mimeType = "image/jpeg") {
     0,
     0,
     pixelCrop.width,
-    pixelCrop.height
+    pixelCrop.height,
   );
 
   return canvas.toDataURL(mimeType);
 }
 
-export default function BasicSection({ onLoading, }) {
-
+export default function BasicSection({ onLoading }) {
   useEffect(() => {
     async function load() {
       onLoading(true);
 
       if (!isEditing && !name && !race) {
         // Definir valores padrão
-        setName('');
-        setAge('');
-        setHeight('');
-        setHistory('');
-        setRace('');
-        setGender('masculine');
-        setAlignment('good');
+        setName("");
+        setAge("");
+        setHeight("");
+        setHistory("");
+        setRace("");
+        setGender("masculine");
+        setAlignment("good");
 
         // Atributos base
-        updateAttribute('strength', 10);
-        updateAttribute('dexterity', 10);
-        updateAttribute('intelligence', 10);
-        updateAttribute('health', 10);
-        updateAttribute('life', 10);
-        updateAttribute('fatigue', 10);
-        updateAttribute('perception', 10);
-        updateAttribute('willing', 10);
+        updateAttribute("strength", 10);
+        updateAttribute("dexterity", 10);
+        updateAttribute("intelligence", 10);
+        updateAttribute("health", 10);
+        updateAttribute("life", 10);
+        updateAttribute("fatigue", 10);
+        updateAttribute("perception", 10);
+        updateAttribute("willing", 10);
       }
 
       onLoading(false);
@@ -103,12 +102,12 @@ export default function BasicSection({ onLoading, }) {
     applyRaceModifiers,
     selectedRace,
     // Adicionando a função de reset se precisar
-    resetAttributes
+    resetAttributes,
   } = useCardStore();
 
   // Estado do modal de raça
   const [showRaceModal, setShowRaceModal] = useState(false);
-  const main = document.querySelector('main');
+  const main = document.querySelector("main");
 
   // Função para selecionar raça
   const handleSelectRace = (raceName, raceId, modifiers) => {
@@ -142,7 +141,11 @@ export default function BasicSection({ onLoading, }) {
 
     try {
       const mimeType = imageFile?.type || "image/jpeg";
-      const base64Image = await getCroppedImg(imageToCrop, croppedAreaPixels, mimeType);
+      const base64Image = await getCroppedImg(
+        imageToCrop,
+        croppedAreaPixels,
+        mimeType,
+      );
 
       if (typeof setImageURL === "function") {
         setImageURL(base64Image);
@@ -212,13 +215,13 @@ export default function BasicSection({ onLoading, }) {
     if (!raceName) return null;
 
     const raceImages = {
-      "Elfo": "/races/elfo.png",
-      "Humano": "/races/humano.png",
-      "Anão": "/races/anão.png",
-      "Orc": "/races/ogro.png",
-      "Vampiro": "/races/vampiro.png",
+      Elfo: "/races/elfo.png",
+      Humano: "/races/humano.png",
+      Anão: "/races/anão.png",
+      Orc: "/races/ogro.png",
+      Vampiro: "/races/vampiro.png",
       "Homem Fera": "/races/homem fera.png",
-      "Morto Vivo": "/races/morto vivo.png"
+      "Morto Vivo": "/races/morto vivo.png",
     };
 
     const imagePath = raceImages[raceName];
@@ -247,24 +250,32 @@ export default function BasicSection({ onLoading, }) {
               />
 
               {!imageURL && !imageBase64 && !imageToCrop ? (
-
-                <button className="btn-img-crop-select" type="button" onClick={() => inputImageRef.current?.click()}>
+                <button
+                  className="btn-img-crop-select"
+                  type="button"
+                  onClick={() => inputImageRef.current?.click()}
+                >
                   Selecionar imagem
                 </button>
-
               ) : imageToCrop ? (
-
                 <div className="crop-container">
                   <div
                     style={{
                       position: "relative",
                       width: "405px",
                       maxWidth: "100%",
-                      height: "239px"
+                      height: "239px",
                     }}
                     onDoubleClick={() => inputImageRef.current?.click()}
                   >
-                    <div style={{ width: "100%", height: "100%", overflow: "hidden", borderRadius: "10px" }}>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        overflow: "hidden",
+                        borderRadius: "10px",
+                      }}
+                    >
                       <Cropper
                         image={imageToCrop}
                         crop={crop}
@@ -272,7 +283,9 @@ export default function BasicSection({ onLoading, }) {
                         aspect={405 / 239}
                         onCropChange={setCrop}
                         onZoomChange={setZoom}
-                        onCropComplete={(_, croppedPixels) => setCroppedAreaPixels(croppedPixels)}
+                        onCropComplete={(_, croppedPixels) =>
+                          setCroppedAreaPixels(croppedPixels)
+                        }
                       />
                     </div>
                   </div>
@@ -297,22 +310,24 @@ export default function BasicSection({ onLoading, }) {
                     </button>
                   </div>
                 </div>
-
               ) : (
                 <div
                   style={{
                     position: "relative",
                     width: "405px",
-                    height: "239px"
+                    height: "239px",
                   }}
                   onDoubleClick={() => inputImageRef.current?.click()}
                 >
                   <img
                     src={imageBase64 || imageURL}
                     alt="Imagem do personagem"
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
                   />
-
                 </div>
               )}
             </div>
@@ -327,7 +342,10 @@ export default function BasicSection({ onLoading, }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               onInput={(e) => {
-                e.target.value = e.target.value.replace(/[^a-zA-ZÀ-ÿ0-9\s]/g, "");
+                e.target.value = e.target.value.replace(
+                  /[^a-zA-ZÀ-ÿ0-9\s]/g,
+                  "",
+                );
               }}
             />
 
@@ -449,7 +467,10 @@ export default function BasicSection({ onLoading, }) {
               value={attributes.intelligence.current}
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, "");
-                updateAttribute("intelligence", value === "" ? 0 : Number(value));
+                updateAttribute(
+                  "intelligence",
+                  value === "" ? 0 : Number(value),
+                );
               }}
             />
             <label>Percepção (Per)</label>
@@ -489,7 +510,6 @@ export default function BasicSection({ onLoading, }) {
               <option value="Maligno">Maligno</option>
             </select>
 
-
             {/* História */}
             <label id="historia">História:</label>
             <textarea
@@ -498,7 +518,13 @@ export default function BasicSection({ onLoading, }) {
               placeholder="Escreva a história do personagem"
               value={history}
               maxLength={10000}
-              onChange={(e) => setHistory(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.replace(
+                  /[^a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~]/g,
+                  "",
+                );
+                setHistory(value);
+              }}
             />
           </div>
         </div>
@@ -506,10 +532,7 @@ export default function BasicSection({ onLoading, }) {
 
       {/* Modal de raça */}
       {showRaceModal && (
-        <RaceModal
-          onClose={closeRaceModal}
-          onSelectRace={handleSelectRace}
-        />
+        <RaceModal onClose={closeRaceModal} onSelectRace={handleSelectRace} />
       )}
     </main>
   );

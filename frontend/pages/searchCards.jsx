@@ -55,7 +55,7 @@ export default function SearchCards({ handleLogout }) {
         return matchesName;
     });
 
-    const topThreeCards = [...filtered]
+    const topThreeCards = [...cards]
         .sort((a, b) => (b.ratingAverage || 0) - (a.ratingAverage || 0))
         .slice(0, 3);
 
@@ -169,7 +169,7 @@ export default function SearchCards({ handleLogout }) {
             <div className="search-top">
                 <input
                     type="text"
-                    placeholder="Digite o nome ou ID da Ficha"
+                    placeholder="Digite o nome da Ficha"
                     id="search-input"
                     value={filterText}
                     onChange={(e) => setFilterText(e.target.value)}

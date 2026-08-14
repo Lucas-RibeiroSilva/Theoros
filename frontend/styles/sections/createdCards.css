@@ -273,6 +273,7 @@
 
   .rating-created{
     position: relative;
+    width: fit-content;
   }
 
   .info-favorites {

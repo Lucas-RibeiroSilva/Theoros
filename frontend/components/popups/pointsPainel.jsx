@@ -11,9 +11,11 @@ import "../../styles/popups/pointsPainel.css";
 import { FiEdit2 } from "react-icons/fi";
 
 export default function PointsPainel() {
+const state = useCardStore();
+  const remainingPoints = getRemainingPoints(state);
+  const isNegative = remainingPoints < 0;
 
-
-    const state = useCardStore();
+    
     const [isEditing, setIsEditing] = useState(false);
     const [tempPoints, setTempPoints] = useState(state.totalPoints);
 
@@ -27,10 +29,6 @@ export default function PointsPainel() {
         [state]
     );
 
-    const remainingPoints = useMemo(
-        () => getRemainingPoints(state),
-        [state]
-    );
 
     function savePoints() {
         state.setTotalPoints(tempPoints);

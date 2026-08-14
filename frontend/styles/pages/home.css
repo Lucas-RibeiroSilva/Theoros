@@ -1,122 +1,101 @@
+:root {
+  --btn-red: #8b2f2f;
+  --btn-disabled: #646363;
+  --btn-gold: #dbb126;
+  --btn-text: #f5e6c8;
+  --btn-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+  --btn-shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.7), 0 0 12px rgba(212, 175, 55, 0.25);
+}
+
 .home-main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-   font-family:'Cinzel',serif;
+  font-family: 'Cinzel', serif;
+  width: 100%;
+  padding-inline: 1rem;
+  box-sizing: border-box;
 }
 
-.btn-create-home {
+/* ---------- Botões (compartilhado) ---------- */
+.btn-create-home,
+.sistemas button {
   margin-top: 30px;
-  background: linear-gradient(135deg, #000000, #8b2f2f, #000000);
-  color: #f5e6c8;
-
-  border: 2px solid #dbb126;
+  background: linear-gradient(135deg, #000000, var(--btn-red), #000000);
+  color: var(--btn-text);
+  border: 2px solid var(--btn-gold);
   border-radius: 10px;
-
   padding: 0.8rem 1.5rem;
-
   font-size: 1rem;
   font-weight: bold;
-
   cursor: pointer;
-
   transition: all 0.25s ease;
-
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--btn-shadow);
+  max-width: 100%;
 }
 
-.btn-create-home:hover {
+.sistemas button {
+  margin-inline: 10px;
+  width: 250px;
+}
+
+.sistemas button:disabled {
+  background: linear-gradient(135deg, #000000, var(--btn-disabled), #000000);
+}
+
+.btn-create-home:hover,
+.sistemas button:hover {
   transform: translateY(-1px);
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.7),
-    0 0 12px rgba(212, 175, 55, 0.25);
+  box-shadow: var(--btn-shadow-hover);
 }
 
+.sistemas button:disabled:hover {
+  transform: translateY(0px);
+}
+
+/* ---------- Textos ---------- */
 #welcome-message {
   font-size: 20px;
+  text-align: center;
 }
 
-#title-home{
+#title-home {
   margin-top: 50px;
   font-size: 40px;
+  text-align: center;
 }
 
-#description-home{
+#description-home {
   margin-top: 30px;
   font-size: 18px;
+  text-align: center;
 }
 
-.sub2{
+.sub2 {
   margin-top: 50px;
+  text-align: center;
 }
 
-
-.sistemas button{
-  background: linear-gradient(135deg, #000000, #8b2f2f, #000000);
-  color: #f5e6c8;
-
-  border: 2px solid #dbb126;
-  border-radius: 10px;
-
-  padding: 0.8rem 1.5rem;
-
-  font-size: 1rem;
-  font-weight: bold;
-
-  cursor: pointer;
-
-  transition: all 0.25s ease;
-
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
-  margin-inline: 10px;
-  width: 250px;
-}
-
-.sistemas button:disabled{
-  background: linear-gradient(135deg, #000000, #646363, #000000);
-  color: #f5e6c8;
-
-  border: 2px solid #dbb126;
-  border-radius: 10px;
-
-  padding: 0.8rem 1.5rem;
-
-  font-size: 1rem;
-  font-weight: bold;
-
-  cursor: pointer;
-
-  transition: all 0.25s ease;
-
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
-  margin-inline: 10px;
-  width: 250px;
-}
-
-.sistemas button:hover{
-  transform: translateY(-2px);
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.7),
-    0 0 12px rgba(212, 175, 55, 0.25);
-}
-.sistemas button:disabled:hover{
-    transform: translateY(0px);
-}
-.sistemas{
+/* ---------- Botões sistemas (linha) ---------- */
+.sistemas {
   margin-top: 25px;
-  display:flex;
+  display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
+/* ---------- Conteúdo principal ---------- */
 .main-content {
   margin-top: 30px;
   font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15rem;
+  gap: 5rem;
   width: 100%;
   max-width: 1600px;
 }
@@ -126,10 +105,12 @@
   margin-bottom: 30px;
   line-height: 1.4;
 }
+
 .main-content-text1 {
   flex: 1;
   text-align: left;
   margin-bottom: 50px;
+  min-width: 0;
 }
 
 .main-content-text1 p {
@@ -145,14 +126,94 @@
   object-fit: contain;
 }
 
+/* ==========================================================
+   BREAKPOINTS
+   ========================================================== */
+
+/* Tablet grande / laptop pequeno: reduz o gap fixo que era 15rem */
+@media (max-width: 1400px) {
+  .main-content {
+    gap: 3rem;
+  }
+}
+
+/* Tablet: empilha texto + imagem */
 @media (max-width: 900px) {
   .main-content {
     flex-direction: column;
     align-items: flex-start;
-    gap: 3rem;
+    gap: 2rem;
   }
 
   .main-content img {
     max-width: 100%;
+  }
+
+  .main-content-text1 {
+    text-align: center;
+  }
+}
+
+/* Mobile: ajusta fontes, botões e espaçamentos */
+@media (max-width: 600px) {
+  #title-home {
+    font-size: 28px;
+    margin-top: 30px;
+  }
+
+  #welcome-message {
+    font-size: 16px;
+  }
+
+  #description-home {
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  .sub2 {
+    margin-top: 30px;
+    font-size: 15px;
+  }
+
+  .main-content {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  .main-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .main-content-text1 p {
+    line-height: 1.8;
+  }
+
+  .sistemas {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .sistemas button {
+    width: 100%;
+    max-width: 280px;
+    margin-inline: 0;
+  }
+
+  .btn-create-home {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+}
+
+/* Telas muito pequenas (celulares antigos, <380px) */
+@media (max-width: 380px) {
+  #title-home {
+    font-size: 22px;
+  }
+
+  .main-content h2 {
+    font-size: 20px;
   }
 }

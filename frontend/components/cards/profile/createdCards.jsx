@@ -6,7 +6,9 @@ import { jwtDecode } from "jwt-decode";
 import Header from "../../header";
 import Loading from "../../loading";
 
-import { getUserCards, deleteCard, getMyUserInfo } from "../../../services/api";
+import { getUserCards, deleteCard, getMyUserInfo, getCardById } from "../../../services/api";
+import { useDownloadPDF } from "../../../services/pdfGenerator.js";
+import { useCardStore } from "../../../stores/cardStore.js";
 
 import "../../../styles/sections/createdCards.css"
 
@@ -15,6 +17,8 @@ export default function CreatedSection({ onLoading, openConfirmDialog }) {
   const { userId } = useParams();
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const { handleDownload } = useDownloadPDF();
+  const loadCard = useCardStore((state) => state.loadCard);
 
   useEffect(() => {
     async function load() {
@@ -152,6 +156,12 @@ export default function CreatedSection({ onLoading, openConfirmDialog }) {
     }
   }
 
+  async function downloadCard(cardId){
+    const dataDownload = await getCardById(cardId)
+    await loadCard(dataDownload);
+    handleDownload();
+  }
+
   return (
     <>
       <h2>Fichas Criadas</h2>
@@ -170,7 +180,14 @@ export default function CreatedSection({ onLoading, openConfirmDialog }) {
                     <p id="created-card-history" length="100">{created.history}</p>
 
                     <div className="buttons-created">
-                      <button id="download-created-card-btn">Download</button>
+                      <button id="download-created-card-btn"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            downloadCard(created.id)
+                        }}
+                      >
+                        Download
+                      </button>
                       {(isOwnProfile || isAdmin) && (
                         <button
                         id="delete-created-card-btn"

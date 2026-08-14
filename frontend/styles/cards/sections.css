@@ -619,7 +619,7 @@
 /* =========================
    RESPONSIVO
 ========================= */
-@media (max-width: 900px) {
+@media (max-width: 580px) {
     .filter-align {
         grid-template-columns: 1fr;
     }
@@ -632,7 +632,7 @@
     }
     
     .topics-information-magic {
-        grid-template-columns: 60px 1fr 80px 90px 90px 40px 30px;
+        grid-template-columns: 60px 50px 50px  30px;
         gap: 4px;
         font-size: 0.75rem;
     }
@@ -649,10 +649,11 @@
     }
     
     .selected-magic-info {
-        grid-template-columns: 50px 1fr 60px 70px 70px 30px 25px;
+        grid-template-columns: 50px 1fr 60px 30px 25px;
         gap: 4px;
         font-size: 0.75rem;
     }
+
 
     
 

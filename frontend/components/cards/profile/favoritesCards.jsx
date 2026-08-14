@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { getFavoritesCards, removeFavoriteCard } from "../../../services/api";
+import { getFavoritesCards, removeFavoriteCard, getCardById } from "../../../services/api";
+import { useDownloadPDF } from "../../../services/pdfGenerator.js";
+import { useCardStore } from "../../../stores/cardStore.js";
 import { jwtDecode } from "jwt-decode";
 
 import Header from "../../header";
@@ -13,6 +15,8 @@ export default function FavoritesSection({ onLoading }) {
   const [favorites, setFavorites] = useState([]);
   const { userId } = useParams();
   const [isOwnProfile, setIsOwnProfile] = useState(false);
+  const { handleDownload } = useDownloadPDF();
+  const loadCard = useCardStore((state) => state.loadCard);
 
   useEffect(() => {
     async function load() {
@@ -150,6 +154,12 @@ export default function FavoritesSection({ onLoading }) {
     }
   }
 
+  async function downloadCard(cardId){
+    const dataDownload = await getCardById(cardId)
+    await loadCard(dataDownload);
+    handleDownload();
+  }
+
   return (
     <>
       <h2>Fichas Favoritadas</h2>
@@ -168,7 +178,14 @@ export default function FavoritesSection({ onLoading }) {
                     <p id="favorite-card-history" length="100">{favorite.card?.history}</p>
 
                     <div className="buttons-favorites">
-                      <button id="download-favorite-card-btn">Download</button>
+                      <button id="download-favorite-card-btn"
+                      onClick={(e) => {
+                            e.stopPropagation();
+                            downloadCard(favorite.cardId)
+                        }}
+                      >
+                        Download
+                      </button>
                       {isOwnProfile && (
                         <button id="delete-favorite-card-btn" onClick={(e) => { e.stopPropagation(); removeFavorite(favorite.card.id)  }}>Remover</button>
                       )}

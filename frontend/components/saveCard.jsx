@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import "../styles/components/saveCard.css";
-import { useCardStore } from "../stores/cardStore";
+import { useCardStore } from "../stores/cardStore"
 import { updateCard, createCard } from "../services/api";
 import { MdFileDownload } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { useDownloadPDF } from "../services/pdfGenerator";
+
+import { getRemainingPoints } from "../stores/cardStore";
 
 export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
   const [showAlert, setShowAlert] = useState(false);
@@ -107,6 +109,14 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
           console.warn('Erro ao converter imagem:', error);
         }
       }
+
+      const remainingPoints = getRemainingPoints(state);
+
+       if (remainingPoints < 0) {
+      showAlertWithTimeout("Pontos Insuficientes!")
+      setIsSaving(false);
+      return;
+    }
 
       const cardData = {
         name: state.name,
