@@ -15,29 +15,30 @@ body {
   max-width: 1800px;
   justify-content: flex-start;
   margin: auto;
+  margin-left: 20px;
+  margin-top: -200px;
   box-sizing: border-box;
   align-items: center;
 }
 
 /* ===== SIDEBAR ESQUERDA (FIXA) ===== */
 .profile-left {
- display: flex;
+  display: flex;
   width: 30%;
   background: rgba(36, 27, 23, 0.925);
   backdrop-filter: blur(4px);
   border: 1px solid #b1844a;
   padding: 1rem;
-  border-radius: 20px;
   text-align: center;
   flex-direction: column;
   position: relative;
+  height: 880px;
 }
 
 .person-profile{
   display: flex;
   height: 900px;
-  max-height: 72vh;
-  border-radius: 20px;
+  max-height: vh;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -192,16 +193,20 @@ body {
 .profile-right {
   display: flex;
   width: 80%;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   margin-right: 250px;
+  margin-left: 10px;
+  margin-top: 195px;
 }
 
 
 /* Grupo de botões de seção (alinhados à direita) */
 .section-profile-buttons {
   display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
   margin-top: 0.5rem;
   gap: 10rem;
 }
@@ -244,10 +249,10 @@ body {
   background: rgba(58, 39, 28, 0.637);
   backdrop-filter: blur(2px);
   border: 1px solid #b1844a;
-  border-radius: 20px;
   padding: 1.8rem 2rem 2rem;
   align-items: center;
   flex-direction: column;
+  
 }
 
 /* Overlay que cobre a tela inteira */
@@ -313,10 +318,24 @@ body {
 
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 720px) {
+
+  .sections-profile{
+    box-sizing: border-box;  /* Certifique-se disso */
+    width: 100%;
+  }
+
+  
+
+
   .profile-container {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 0px;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    align-items: center;
+    margin: auto;
   }
 
   .profile-left {
@@ -324,6 +343,7 @@ body {
     min-width: 300px;
     position: static;
     padding: 1.5rem;
+    max-height: 600px;
   }
 
   
@@ -335,8 +355,9 @@ body {
 
   .profile-right {
     padding: 1.0rem;
-    max-width: 300px;
+    max-width: 400px;
     margin: 0;
+    align-items: center;
   }
 
   .profile-header {
@@ -385,6 +406,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 0px;
   }
 
   .profile-left {
@@ -405,6 +427,7 @@ body {
     padding: 1.0rem;
     max-width: 700px;
     margin: 0;
+    align-items: center;
   }
 
   .profile-header {
@@ -451,6 +474,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 0px;
   }
 
   .profile-left {
@@ -467,6 +491,7 @@ body {
     padding: 1rem;
     max-width: 1010px;
     margin: 0;
+    align-items: center;
   }
 
   .profile-header {

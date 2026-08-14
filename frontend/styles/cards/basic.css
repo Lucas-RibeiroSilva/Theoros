@@ -9,16 +9,28 @@
     margin-bottom: 24px;
     border: 3px solid transparent;
     border-image: linear-gradient(90deg, rgb(94, 77, 46)) 1;
-    background:linear-gradient(180deg, #352719 0%, #47352600 100%);
+    background:linear-gradient(180deg, #352719 0%, #27191536 100%);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     
+}
+
+#input-height-card::-webkit-outer-spin-button,
+#input-height-card::-webkit-inner-spin-button,
+#input-age-card::-webkit-outer-spin-button,
+#input-age-card::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
 }
 
 .form-informations {
     grid-area: info;
     align-items: center;
     justify-content: center;
+}
+
+.form-informations label{
+    justify-content: start;
 }
 
 .form-stats {
@@ -33,9 +45,15 @@
 
 .form-stats input {
     text-align: center;
-    max-width: 100px;
+    width: fit-content;
+    max-width: 50px;
     max-height: 50px;
     padding: 0.5rem 0rem;
+}
+
+.form-stats label{
+    
+    justify-content: end;
 }
 
 
@@ -81,7 +99,7 @@ textarea {
 
     border: 1px solid #6b4f1d;
 
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(19, 10, 8, 0.788);
 
     color: #f5e6c8;
 
@@ -291,6 +309,7 @@ html.modal-open {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: fit-content;
 }
 
 /* ===== RAÇA ===== */
@@ -341,7 +360,7 @@ html.modal-open {
     border: 1px solid #6b4f1d;
     border-radius: 10px;
 
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(19, 10, 8, 0.788);
 }
 
 .race-display img {
