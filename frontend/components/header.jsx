@@ -13,6 +13,7 @@ import LoginModal from "../components/modals/loginModal";
 import D20Dice from "./D20Dice";
 
 import { getUserInfo } from "../services/api";
+import { GiReturnArrow } from "react-icons/gi";
 
 export default function Header({
   handleLogout,
@@ -39,6 +40,7 @@ export default function Header({
 
   const [showLogoutAlert, setShowLogoutAlert] = useState(false);
   const [closingLogoutAlert, setClosingLogoutAlert] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // -----------------------------
   // Limpa timeout ao desmontar
@@ -74,6 +76,7 @@ export default function Header({
   // Busca informações do usuário
   // -----------------------------
   const updateInfoUser = async () => {
+     setIsLoading(true);
     try {
       const userId = getUserIdFromToken();
 
@@ -95,6 +98,8 @@ export default function Header({
       setUserData(data);
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
+    }finally{
+       setIsLoading(false);
     }
   };
 
@@ -199,7 +204,6 @@ export default function Header({
   // -----------------------------
   // Render
   // -----------------------------
-  const hasProfileImage = !isGuest && userData?.image;
 
   return (
     <>
@@ -215,14 +219,16 @@ export default function Header({
               onMouseLeave={() => setProfileHover(false)}
             >
               <Tooltip title="Perfil" arrow>
-                {hasProfileImage ? (
+                {isLoading ? (
+                  <div className="loading-image-profile-spinner" />
+                ) : isGuest || !userData?.image ? (
+                  <AccountCircleOutlinedIcon className="default-profile-icon" />
+                ) : (
                   <img
                     src={userData.image}
                     alt="Perfil"
                     className="profile-image"
                   />
-                ) : (
-                  <AccountCircleOutlinedIcon className="default-profile-icon" />
                 )}
               </Tooltip>
             </button>

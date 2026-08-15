@@ -15,7 +15,7 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
   const timeoutRef = useRef(null);
   const state = useCardStore();
   const [editable, setEditable] = useState(isEdit);
-  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { handleDownload } = useDownloadPDF();
 
   // Limpa o timeout ao desmontar
@@ -61,9 +61,15 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
     }, 300);
   };
 
-  const saveCard = async () => {
-    setIsSaving(true);
+  async function downloadCard(){
+    setIsLoading(true)
+    await handleDownload()
+    setIsLoading(false)
+  }
 
+  const saveCard = async () => {
+    setIsLoading(true);
+    
     try {
       const token = localStorage.getItem("token");
 
@@ -71,13 +77,11 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
         if (onOpenLoginModal) {
           onOpenLoginModal();
         }
-        setIsSaving(false);
         return;
       }
 
       if (!state.name) {
         showAlertWithTimeout("O nome da ficha é obrigatório !!");
-        setIsSaving(false);
         return;
       }
 
@@ -114,7 +118,6 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
 
        if (remainingPoints < 0) {
       showAlertWithTimeout("Pontos Insuficientes!")
-      setIsSaving(false);
       return;
     }
 
@@ -191,7 +194,7 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
         showAlertWithTimeout('Erro ao salvar a ficha. Tente novamente.');
       }
     } finally {
-      setIsSaving(false);
+     setIsLoading(false);
     }
   };
 
@@ -199,6 +202,9 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
     <>
       <div id="save-popup">
         <div className="save-box">
+          {isLoading ? (
+              <div className="loading-save-card-spinner" />
+            ) : (
           <button 
             className="save-button" 
             onClick={saveCard}
@@ -207,17 +213,24 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
             >
             <IoIosSave id="icon-save-card" />
           </button>
+          
+            )}
         </div>
 
         <div className="download-box">
+          {isLoading ? (
+            <div className="loading-download-card-spinner" />
+          ) : (
           <button 
-            onClick={handleDownload}
+            onClick={() => downloadCard()}
             className="download-button"
             disabled={!!state.pendingCropImage}
             title={state.pendingCropImage ? "Confirme o corte da imagem antes de baixar" : undefined}
             >
+              
             <MdFileDownload id="icon-download-card" />
           </button>
+          )}
         </div>
       </div>
 

@@ -16,6 +16,7 @@ export default function FavoritesSection({ onLoading }) {
   const { userId } = useParams();
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const { handleDownload } = useDownloadPDF();
+  const [isLoading, setIsLoading] = useState(false);
   const loadCard = useCardStore((state) => state.loadCard);
 
   useEffect(() => {
@@ -155,9 +156,11 @@ export default function FavoritesSection({ onLoading }) {
   }
 
   async function downloadCard(cardId){
+    setIsLoading(true)
     const dataDownload = await getCardById(cardId)
     await loadCard(dataDownload);
     handleDownload();
+    setIsLoading(false)
   }
 
   return (
@@ -178,6 +181,9 @@ export default function FavoritesSection({ onLoading }) {
                     <p id="favorite-card-history" length="100">{favorite.card?.history}</p>
 
                     <div className="buttons-favorites">
+                      {isLoading ? (
+                        <div className="loading-download-favorite-card-spinner" />
+                      ) : (
                       <button id="download-favorite-card-btn"
                       onClick={(e) => {
                             e.stopPropagation();
@@ -186,6 +192,7 @@ export default function FavoritesSection({ onLoading }) {
                       >
                         Download
                       </button>
+                      )}
                       {isOwnProfile && (
                         <button id="delete-favorite-card-btn" onClick={(e) => { e.stopPropagation(); removeFavorite(favorite.card.id)  }}>Remover</button>
                       )}

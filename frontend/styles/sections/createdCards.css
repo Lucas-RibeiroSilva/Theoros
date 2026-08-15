@@ -218,6 +218,20 @@
   transform: scale(0.97);
 }
 
+.loading-download-created-card-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #b08a3c;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* ===== BOTÃO EXCLUIR ===== */
 #delete-created-card-btn {
   background: linear-gradient(135deg, #5a1a1a, #8a2a2a);

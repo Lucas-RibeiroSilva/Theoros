@@ -6,18 +6,28 @@ import { jwtDecode } from "jwt-decode";
 import Header from "../../header";
 import Loading from "../../loading";
 
-import { getUserCards, deleteCard, getMyUserInfo, getCardById } from "../../../services/api";
+import {
+  getUserCards,
+  deleteCard,
+  getMyUserInfo,
+  getCardById,
+} from "../../../services/api";
 import { useDownloadPDF } from "../../../services/pdfGenerator.js";
 import { useCardStore } from "../../../stores/cardStore.js";
 
-import "../../../styles/sections/createdCards.css"
+import "../../../styles/sections/createdCards.css";
 
-export default function CreatedSection({ onLoading, openConfirmDialog, deletedCardId }) {
+export default function CreatedSection({
+  onLoading,
+  openConfirmDialog,
+  deletedCardId,
+}) {
   const [createds, setCreateds] = useState([]);
   const { userId } = useParams();
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const { handleDownload } = useDownloadPDF();
+  const [isLoading, setIsLoading] = useState(false);
   const loadCard = useCardStore((state) => state.loadCard);
 
   useEffect(() => {
@@ -57,7 +67,6 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
 
         setCreateds(data || []);
         onLoading(false);
-
       } catch (error) {
         console.error("Erro:", error);
         onLoading(false);
@@ -67,13 +76,11 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
     load();
   }, [userId]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (!deletedCardId) return;
 
     setCreateds((prevCreateds) =>
-      prevCreateds.filter(
-        (created) => created.id !== deletedCardId
-      )
+      prevCreateds.filter((created) => created.id !== deletedCardId),
     );
   }, [deletedCardId]);
 
@@ -83,14 +90,14 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
   // Pegar o ID do usuário através do token
   // ──────────────────────────────────────────────
   function getUserIdFromToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
       return null;
     }
 
     try {
-      const parts = token.split('.');
+      const parts = token.split(".");
       if (parts.length !== 3) {
         return null;
       }
@@ -98,7 +105,7 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
       const payload = JSON.parse(atob(parts[1]));
       return payload.id;
     } catch (error) {
-      console.error('Erro ao decodificar token:', error);
+      console.error("Erro ao decodificar token:", error);
       return null;
     }
   }
@@ -113,13 +120,17 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
     return (
-       <>
+      <>
         {[...Array(fullStars)].map((_, index) => (
           <img src="/stars/full_star.webp" id="star" key={`full-${index}`} />
         ))}
         {hasHalfStar && <img src="/stars/half_star.webp" id="star-half" />}
         {[...Array(emptyStars)].map((_, index) => (
-          <img src="/stars/null_star.webp" id="star-empty" key={`empty-${index}`} />
+          <img
+            src="/stars/null_star.webp"
+            id="star-empty"
+            key={`empty-${index}`}
+          />
         ))}
       </>
     );
@@ -127,12 +138,11 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
 
   async function deleteMyCard(cardId) {
     try {
-      await deleteCard(cardId)
+      await deleteCard(cardId);
 
-      setCreateds(prevCreateds =>
-        prevCreateds.filter(created => created.id !== cardId)
+      setCreateds((prevCreateds) =>
+        prevCreateds.filter((created) => created.id !== cardId),
       );
-
     } catch (error) {
       console.error("Erro ao excluir ficha:", error);
     }
@@ -166,10 +176,12 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
     }
   }
 
-  async function downloadCard(cardId){
-    const dataDownload = await getCardById(cardId)
+  async function downloadCard(cardId) {
+    setIsLoading(true)
+    const dataDownload = await getCardById(cardId);
     await loadCard(dataDownload);
     handleDownload();
+    setIsLoading(false)
   }
 
   return (
@@ -180,34 +192,45 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
         {createds.length > 0 ? (
           createds.map((created) => {
             return (
-              <li key={created.id} className={"item-created"} onClick={() => navigate(`/card/${created.id}`)}>
+              <li
+                key={created.id}
+                className={"item-created"}
+                onClick={() => navigate(`/card/${created.id}`)}
+              >
                 <div className="top-created">
                   <img src={created.image} alt="" id="img-created" />
 
                   <div className="info-created">
                     <p id="created-card-name">{created.name}</p>
 
-                    <p id="created-card-history" length="100">{created.history}</p>
+                    <p id="created-card-history" length="100">
+                      {created.history}
+                    </p>
 
                     <div className="buttons-created">
-                      <button id="download-created-card-btn"
-                        onClick={(e) => {
+                      {isLoading ? (
+                        <div className="loading-download-created-card-spinner" />
+                      ) : (
+                        <button
+                          id="download-created-card-btn"
+                          onClick={(e) => {
                             e.stopPropagation();
-                            downloadCard(created.id)
-                        }}
-                      >
-                        Download
-                      </button>
+                            downloadCard(created.id);
+                          }}
+                        >
+                          Download
+                        </button>
+                      )}
                       {(isOwnProfile || isAdmin) && (
                         <button
-                        id="delete-created-card-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openConfirmDialog(created.id);
-                        }}
-                      >
-                        Excluir
-                      </button>
+                          id="delete-created-card-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openConfirmDialog(created.id);
+                          }}
+                        >
+                          Excluir
+                        </button>
                       )}
                     </div>
 
@@ -217,7 +240,10 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
                     </div>
 
                     <div className="rating-created">
-                      <RatingStars id="stars-rating-created" rating={created.ratingAverage} />
+                      <RatingStars
+                        id="stars-rating-created"
+                        rating={created.ratingAverage}
+                      />
                     </div>
                   </div>
                 </div>
@@ -228,7 +254,6 @@ export default function CreatedSection({ onLoading, openConfirmDialog, deletedCa
           <p id="empty-list-createds-cards">Nenhuma ficha encontrada</p>
         )}
       </ul>
-
     </>
   );
 }
