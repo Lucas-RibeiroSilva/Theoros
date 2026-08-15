@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
+//teste
+
 import { getCardById, favoriteCard, getRatingsByCard } from "../services/api";
 import Header from "../components/header";
 import Loading from "../components/loading";
