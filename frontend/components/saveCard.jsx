@@ -221,7 +221,6 @@ export default function SaveCard({ onOpenLoginModal, cardId, isEdit }) {
         </div>
       </div>
 
-      {/* Popup de alerta - SEMPRE RENDERIZADO, mas controlado por CSS */}
       <div 
         className={`popup-alert-overlay ${showAlert ? '' : 'closing'} ${isClosingAlert ? 'closing' : ''}`}
         onClick={closeAlert}

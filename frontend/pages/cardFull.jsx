@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
-//teste
-
 import { getCardById, favoriteCard, getRatingsByCard } from "../services/api";
 import Header from "../components/header";
 import Loading from "../components/loading";
@@ -55,6 +53,7 @@ export default function CardFull({ handleLogout }) {
   const [showAlertFavorite, setShowAlertFavorite] = useState(false);
   const [isClosingAlert, setIsClosingAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const timeoutRef = useRef(null);
 
@@ -62,23 +61,45 @@ export default function CardFull({ handleLogout }) {
   const currentUser = token ? jwtDecode(token) : null;
 
   // Efeito para carregar os dados da ficha
-  useEffect(() => {
-    async function loadCard() {
-      try {
-        setLoading(true);
-        const data = await getCardById(id);
-        const dataCommentarys = await getRatingsByCard(id);
+  async function loadCardData() {
+    try {
+      setLoading(true);
+      const [data, dataCommentarys] = await Promise.all([
+        getCardById(id),
+        getRatingsByCard(id)
+      ]);
 
-        setCard(data);
-        setCommentarys(dataCommentarys);
-      } catch (error) {
-        console.error("Erro ao carregar ficha:", error);
-      } finally {
-        setLoading(false);
-      }
+      setCard(data);
+      setCommentarys(dataCommentarys);
+    } catch (error) {
+      console.error("Erro ao carregar ficha:", error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    loadCard();
+  async function refreshRatings() {
+    if (isRefreshing) return;
+    
+    setIsRefreshing(true);
+    try {
+      // Busca apenas os comentários/avaliações atualizados
+      const [data, dataCommentarys] = await Promise.all([
+        getCardById(id),
+        getRatingsByCard(id)
+      ]);
+
+      setCard(data);
+      setCommentarys(dataCommentarys);
+    } catch (error) {
+      console.error("Erro ao atualizar avaliações:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
+  }
+
+  useEffect(() => {
+    loadCardData();
   }, [id]);
 
   // Efeito para limpar o timeout ao desmontar
@@ -252,6 +273,7 @@ export default function CardFull({ handleLogout }) {
               <div className="stars">
                 <RatingStars rating={card?.ratingAverage} />
                 <span>{card?.ratingAverage?.toFixed(1)}</span>
+                {isRefreshing && <span className="refreshing-indicator">↻</span>}
               </div>
             </div>
           </div>
@@ -410,7 +432,7 @@ export default function CardFull({ handleLogout }) {
       </div>
 
       {showRatingModal && (
-        <RatingModal onClose={closeRatingModal} cardId={card.id} />
+        <RatingModal onClose={closeRatingModal} cardId={card.id} onRatingSubmit={refreshRatings}/>
       )}
 
       {showLoginModal && <LoginModal onClose={closeLoginModal} />}

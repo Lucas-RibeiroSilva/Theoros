@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import "../../styles/modals/ratingModal.css"
-
+// RatingModal.jsx
+import { useState } from "react";
+import "../../styles/modals/ratingModal.css";
 import { rateCard } from "../../services/api";
 
-export default function RatingModal({ onClose, cardId }) {
+export default function RatingModal({ onClose, cardId, onRatingSubmit }) {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
     const [hoverRating, setHoverRating] = useState(0);
@@ -12,13 +12,10 @@ export default function RatingModal({ onClose, cardId }) {
     function showStars() {
         const starsArray = [];
         const totalStars = 5;
-
-        // Usa a avaliação de hover se existir, senão usa a avaliação atual
         const currentRating = hoverRating || rating;
 
         for (let i = 1; i <= totalStars; i++) {
             if (i <= currentRating) {
-                // Estrela cheia
                 starsArray.push(
                     <img
                         key={i}
@@ -30,7 +27,6 @@ export default function RatingModal({ onClose, cardId }) {
                     />
                 );
             } else {
-                // Estrela vazia
                 starsArray.push(
                     <img
                         key={i}
@@ -47,7 +43,6 @@ export default function RatingModal({ onClose, cardId }) {
         return starsArray;
     }
 
-    // Handlers para interação com as estrelas
     function handleMouseEnter(index) {
         setHoverRating(index);
     }
@@ -58,32 +53,36 @@ export default function RatingModal({ onClose, cardId }) {
 
     function handleClick(index) {
         setRating(index);
-        setHoverRating(0); // Reseta o hover após clicar
+        setHoverRating(0);
     }
 
-    // Função para enviar avaliação para a API
     async function submitRating() {
         if (rating === 0) {
-            alert("Por favor, selecione uma avaliação antes de enviar.");
             return;
         }
 
         setIsSubmitting(true);
 
         try {
-            await rateCard(cardId, rating, comment)
-
+            await rateCard(cardId, rating, comment);
+            
+            // Chama o callback para atualizar os dados no componente pai
+            if (onRatingSubmit) {
+                await onRatingSubmit();
+            }
+            
+            // Fecha o modal
+            onClose();
+            
+            // NÃO use window.location.reload()
+            
         } catch (error) {
             console.error('Erro ao enviar avaliação:', error);
-            alert('Erro ao enviar avaliação. Tente novamente.');
         } finally {
             setIsSubmitting(false);
-            onClose();
-            window.location.reload();
         }
     }
 
-    // Função para resetar a avaliação
     function resetRating() {
         setRating(0);
         setComment("");
@@ -104,8 +103,13 @@ export default function RatingModal({ onClose, cardId }) {
 
                 <div className="rating-comment">
                     <p>Comentário:</p>
-                    <textarea name="comment" id="textarea-rating-commnet" value={comment}
-                        onChange={(e) => setComment(e.target.value)} maxLength="200"></textarea>
+                    <textarea 
+                        name="comment" 
+                        id="textarea-rating-commnet" 
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)} 
+                        maxLength="200"
+                    />
                 </div>
 
                 <div className="rating-actions">

@@ -117,7 +117,7 @@ export default function Header({
   // -----------------------------
   // Alertas
   // -----------------------------
-  const showAlert = (setShow, setClosing, duration = 3000) => {
+  const showAlert = (setShow, setClosing, duration = 2000) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }

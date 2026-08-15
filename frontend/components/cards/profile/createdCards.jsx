@@ -12,7 +12,7 @@ import { useCardStore } from "../../../stores/cardStore.js";
 
 import "../../../styles/sections/createdCards.css"
 
-export default function CreatedSection({ onLoading, openConfirmDialog }) {
+export default function CreatedSection({ onLoading, openConfirmDialog, deletedCardId }) {
   const [createds, setCreateds] = useState([]);
   const { userId } = useParams();
   const [isOwnProfile, setIsOwnProfile] = useState(false);
@@ -66,6 +66,16 @@ export default function CreatedSection({ onLoading, openConfirmDialog }) {
 
     load();
   }, [userId]);
+
+   useEffect(() => {
+    if (!deletedCardId) return;
+
+    setCreateds((prevCreateds) =>
+      prevCreateds.filter(
+        (created) => created.id !== deletedCardId
+      )
+    );
+  }, [deletedCardId]);
 
   const navigate = useNavigate();
 

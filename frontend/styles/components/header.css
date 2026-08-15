@@ -1,4 +1,3 @@
-/* ===== HEADER (MEDIEVAL / RPG) ===== */
 header {
   height: 120px;
   position: relative;
@@ -11,7 +10,6 @@ header {
   margin-bottom: 100px;
 }
 
-/* ===== TITULO ===== */
 .logo {
   position: absolute;
   left: 50%;
@@ -36,11 +34,10 @@ header {
   color: #e6d8b5;
 }
 
-/* ===== BOTÕES ===== */
 .btn-logout,
 .btn-menu {
   background: #b0893c00;
-  border: 0px;
+  border: 0;
 }
 
 .btn-logout:hover {
@@ -51,24 +48,17 @@ header {
   transform: scale(0.97);
 }
 
-/* ===== PROFILE ICON ===== */
 .profile-icon {
   width: 83px;
   height: 83px;
-
   padding: 0;
-
   border: 2px solid #d4af37;
   border-radius: 50%;
-
   overflow: hidden;
-
   background: radial-gradient(circle at top, #4a3217, #24150c);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   transition: all 0.25s ease;
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.7),
@@ -106,30 +96,23 @@ header {
 
 .profile-icon:hover {
   transform: translateY(-2px) scale(1.05);
-
   box-shadow:
     0 10px 20px rgba(0, 0, 0, 0.7),
     0 0 12px rgba(212, 175, 55, 0.25);
 }
 
-/* ===== FOTO PERFIL ===== */
 .profile-image {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
-/* ===== ICONE PADRÃO ===== */
 .default-profile-icon {
   font-size: 70px !important;
-
   color: #d4b653;
-
   filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.3));
 }
 
-/* ===== HOME HEADER ===== */
 .home-header {
   width: 100%;
   padding: 1rem 2rem;
@@ -160,7 +143,6 @@ header {
   z-index: 1002;
 }
 
-/* ===== BOTÃO LOGOUT ICON ===== */
 .btn-logout-icon {
   width: 52px;
   height: 52px;
@@ -178,18 +160,13 @@ header {
   transform: translateY(-2px) scale(1.05);
 }
 
-/* ===== ICONE PORTA ===== */
 .logout-door-icon {
   font-size: 40px !important;
-
   color: #d4b653;
-
   transition: all 0.2s ease;
-
   filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.3));
 }
 
-/* ===== OVERLAY ===== */
 .btn-menu {
   width: 300px;
   height: 50px;
@@ -204,7 +181,6 @@ header {
   pointer-events: auto;
 }
 
-/* ===== MENU CONTAINER ===== */
 .menu-container {
   width: 320px;
   height: auto;
@@ -243,7 +219,7 @@ header {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   right: -3px;
-  top: 0px;
+  top: 0;
   pointer-events: none;
 }
 
@@ -290,14 +266,14 @@ header {
   opacity: 1;
   transform: scaleY(1);
   pointer-events: auto;
-  
 }
 
-/* =====LOGIN MENU ===== */
 .login-container {
   width: min(92vw, 320px);
-  right: 1560px;
-  top: 120px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 0;
   display: flex;
   background: transparent;
@@ -305,7 +281,6 @@ header {
   visibility: hidden;
   pointer-events: none;
   z-index: 9000;
-  position: fixed;
 }
 
 .login-container.showLoginMenu {
@@ -316,15 +291,16 @@ header {
 
 .popup-alert-profile-overlay {
   position: fixed;
-  top: 100%;
-  left: calc(36%);
-  background: rgba(0, 0, 0, 0.75);
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  transition: opacity 2s ease-in-out;
+  pointer-events: none;
   opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .popup-alert-profile-overlay.closing,
@@ -333,38 +309,27 @@ header {
   pointer-events: none;
 }
 
-/* ===== CAIXA DO ALERTA ===== */
 .alert-profile-dialog {
   display: flex;
-  background: linear-gradient(180deg, #1a120b, #2b1b0f);
-  color: #e6d8b5;
   justify-content: center;
   align-items: center;
-  bottom: 900px;
-
-  padding: 1.4rem;
-
-  width: 500px;
-  height: 25px;
-
+  width: min(600px, 90vw);
+  min-height: 30px;
+  padding: 0.25rem;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #1a120b, #2b1b0f);
+  color: #e6d8b5;
   border-radius: 14px;
-
-  text-align: center;
-
   border: 2px solid #b08a3c;
-
+  text-align: center;
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.8),
     0 0 15px rgba(212, 175, 55, 0.15);
-
-  animation: modalFade 0.3s ease;
-
   font-family: "Georgia", "Times New Roman", serif;
-
-  position: relative;
   opacity: 1;
   transform: scale(1);
   transition: all 0.3s ease-in-out;
+  animation: modalFade 0.3s ease;
 }
 
 .alert-profile-dialog.closing,
@@ -382,42 +347,37 @@ header {
 
 .popup-logout-overlay {
   position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 45%;
-  left: 35%;
-  transition: opacity 2s ease-in-out;
+  z-index: 9999;
   opacity: 1;
-  z-index: 6000;
+  pointer-events: auto;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .popup-logout-dialog {
   display: flex;
-  background: linear-gradient(180deg, #47290e, #4a2e0f);
-  color: #e6d8b5;
   justify-content: center;
   align-items: center;
-
   padding: 1.4rem;
-
-  width: 500px;
-  height: 30px;
-
+  width: min(500px, 90vw);
+  min-height: 30px;
+  height: auto;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #47290e, #4a2e0f);
+  color: #e6d8b5;
   border-radius: 14px;
-
   text-align: center;
-
   border: 2px solid #d89e33;
-
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.8),
     0 0 15px rgba(212, 175, 55, 0.15);
-
   animation: modalFade 0.3s ease;
-
   font-family: "Cinzel", "Georgia", "Times New Roman", serif;
-
   position: relative;
   opacity: 1;
   transform: scale(1);
@@ -429,9 +389,14 @@ header {
   font-weight: bold;
   line-height: 1.6;
   color: #d3c4a7;
+  margin: 0;
 }
 
-/* ===== RESPONSIVO (Até 1024px Tablets) ===== */
+.popup-logout-dialog.closing {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
 @media (max-width: 1024px) {
   .btn-menu {
     display: flex;
@@ -534,9 +499,8 @@ header {
     z-index: 3000;
   }
 
-  .default-profile-icon{
-    font-size: 40px !important ;
-    
+  .default-profile-icon {
+    font-size: 40px !important;
   }
 
   .home-main h2 {
@@ -547,31 +511,17 @@ header {
     font-size: 1rem;
   }
 
-  .alert-profile-dialog {
-    bottom: 800px;
-    width: 600px;
-    height: 40px;
-    right: 160px;
-  }
-
   .menu-container {
     left: -100px;
   }
 
-  .header-player-iframe{
-	left: 60%;
-	z-index: 2000;
+  .header-player-iframe {
+    left: 60%;
+    z-index: 2000;
   }
 }
 
-/* ===== RESPONSIVO (Até 768px Celulares) ===== */
 @media (max-width: 768px) {
-  .alert-profile-dialog {
-    width: 400px;
-    bottom: 800px;
-    right: 120px;
-  }
-
   .alert-profile-dialog p {
     font-size: 0.9rem;
   }
@@ -581,21 +531,17 @@ header {
     width: 30px;
   }
 
-  .header-player-iframe{
-	left: 40%;
-	z-index: 2000;
-  }
-}
-
-/* ===== RESPONSIVO (Até 600px Celulares pequenos) ===== */
-@media (max-width: 600px) {
-  .alert-profile-dialog {
-    width: 250px;
-    bottom: 800px;
-    right: 80px;
+  .header-player-iframe {
+    left: 40%;
+    z-index: 2000;
   }
 
-  .alert-profile-dialog p {
-    font-size: 0.9rem;
+  .popup-logout-dialog {
+    width: min(500px, 90vw);
+    padding: 1rem;
+  }
+
+  .popup-logout-dialog p {
+    font-size: 1.1rem;
   }
 }

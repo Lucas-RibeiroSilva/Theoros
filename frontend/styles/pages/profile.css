@@ -209,7 +209,7 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
   margin-top: 0.5rem;
-  gap: 1rem;
+  gap: 5rem;
 }
 
 .section-profile-buttons button {
@@ -376,7 +376,7 @@ body {
     align-items: center;
     flex-direction: column;
     max-height: 30px;
-    padding: 0px;
+    padding: 5px;
     gap: 1rem;
   }
 
@@ -391,7 +391,7 @@ body {
   }
 
   .section-profile-buttons button {
-    padding: 0.6rem;
+    padding: 0.8rem;
     font-size: 0.8rem;
     max-width: 110px;
   }
@@ -409,6 +409,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 50px;
     margin-top: 0px;
   }
 
@@ -446,7 +447,7 @@ body {
     align-items: center;
     flex-direction: column;
     max-height: 30px;
-    padding: 0px;
+    padding: 5px;
     
   }
 
@@ -461,7 +462,7 @@ body {
   }
 
   .section-profile-buttons button {
-    padding: 0.6rem;
+    padding: 0.8rem;
     font-size: 0.8rem;
     max-width: 110px;
   }
@@ -510,8 +511,7 @@ body {
     align-items: center;
     flex-direction: column;
     max-height: 30px;
-    padding: 0px;
-    width: fit-content;
+    padding: 5px;
   }
 
   .ficha-item {
@@ -525,7 +525,7 @@ body {
   }
 
   .section-profile-buttons button {
-    padding: 0.6rem;
+    padding: 0.8rem;
     font-size: 0.8rem;
     max-width: 110px;
   }

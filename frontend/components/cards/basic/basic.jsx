@@ -520,7 +520,7 @@ export default function BasicSection({ onLoading }) {
               maxLength={10000}
               onChange={(e) => {
                 const value = e.target.value.replace(
-                  /[^a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~]/g,
+                  /[^a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~ ]/g,
                   "",
                 );
                 setHistory(value);

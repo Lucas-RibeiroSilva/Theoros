@@ -33,7 +33,8 @@ export default function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("guest_token");
-    localStorage.removeItem('card-storage');
+    localStorage.removeItem("card-storage");
+    localStorage.removeItem("cookieConsent");
 
     // Logout automático
     if (autoLogout) {
@@ -43,6 +44,9 @@ export default function App() {
 
     // Logout manual
     navigate("/");
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   return (
@@ -51,16 +55,34 @@ export default function App() {
 
       {showExpiredModal && <ExpiredModal onClose={closeExpiredModal} />}
 
-       <GlobalPlayer />
+      <GlobalPlayer />
 
       <Routes>
         <Route path="/" element={<Home handleLogout={handleLogout} />} />
-        <Route path="/create" element={<Create handleLogout={handleLogout} />} />
-        <Route path="/edit/:cardId" element={<EditCard handleLogout={handleLogout} />} />
-        <Route path="/profile" element={<Profile handleLogout={handleLogout}/>} />
-        <Route path="/profile/:userId" element={<Profile handleLogout={handleLogout}/>} />
-        <Route path="/searchCards" element={<SearchCards handleLogout={handleLogout}/>} />
-        <Route path="/card/:id" element={<CardFull handleLogout={handleLogout} />} />
+        <Route
+          path="/create"
+          element={<Create handleLogout={handleLogout} />}
+        />
+        <Route
+          path="/edit/:cardId"
+          element={<EditCard handleLogout={handleLogout} />}
+        />
+        <Route
+          path="/profile"
+          element={<Profile handleLogout={handleLogout} />}
+        />
+        <Route
+          path="/profile/:userId"
+          element={<Profile handleLogout={handleLogout} />}
+        />
+        <Route
+          path="/searchCards"
+          element={<SearchCards handleLogout={handleLogout} />}
+        />
+        <Route
+          path="/card/:id"
+          element={<CardFull handleLogout={handleLogout} />}
+        />
       </Routes>
     </SessionManager>
   );

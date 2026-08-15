@@ -15,12 +15,12 @@
 
 /* Caixa principal do modal */
 .rating-modal {
-  border: 2px solid #d4af37;
+  border: 2px solid rgb(158, 126, 67);
   border-radius: 15px;
   padding: 25px;
   width: 500px;
   max-width: 90%;
-
+  background: linear-gradient(180deg, #3b2b1a 0%, #271915a6 100%);
   text-align: center;
 }
 

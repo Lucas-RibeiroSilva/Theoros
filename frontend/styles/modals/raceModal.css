@@ -1,35 +1,31 @@
-/* Fundo escuro atrás do modal */
 .modal-races-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
   background: rgba(0, 0, 0, 0.75);
-
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  z-index: 3002;
+  z-index: 9000;
 }
 
-
-/* Caixa principal do modal */
 .modal-race {
-  border: 2px solid #d4af37;
+  position: relative;
+  border: 2px solid rgb(158, 126, 67);
   border-radius: 15px;
   padding: 25px;
   width: 700px;
   max-width: 90%;
-   background:
-      linear-gradient(
-          rgb(58, 42, 29),
-          rgba(20, 16, 12, 0.932)
-      );
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #3b2b1a 0%, #271915a6 100%);
   text-align: center;
 }
-
 
 .modal-race-header {
   display: flex;
@@ -39,49 +35,43 @@
 
 #race-close-btn {
   position: absolute;
+  top: 12px;
+  right: 15px;
   border: none;
   background: transparent;
-  transform: translateY(-100%) translateX(1000%);
-
   color: #d4af37;
-
   font-size: 1.6rem;
   line-height: 1;
-
   cursor: pointer;
-
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 #race-close-btn:hover {
   color: #ffe08a;
-  transform: translateY(-105%) translateX(1000%) scale(1.1);
+  transform: scale(1.1);
   background: transparent;
 }
 
-/* Título */
 .modal-race h2 {
   margin-bottom: 20px;
   font-size: 2rem;
   color: #d4af37;
 }
 
-/* Container das raças */
 .race-options {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  align-items: flex-start;
+  gap: 25px;
   flex-wrap: wrap;
 }
 
-/* Cada opção */
 .race-options p {
   margin-bottom: 1px;
   font-size: 1rem;
   font-weight: bold;
 }
 
-/* Botões */
 .race-options button {
   background: transparent;
   border: 2px solid transparent;
@@ -91,12 +81,10 @@
   transition: all 0.3s ease;
 }
 
-/* Hover */
 .race-options button:hover {
   transform: scale(1.08);
 }
 
-/* Imagens */
 .race-options img {
   width: 120px;
   height: 120px;
@@ -106,27 +94,27 @@
 
 .race-button-wrapper {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Tooltip - aparece APENAS no hover do race-item */
 .race-tooltip {
   position: absolute;
   bottom: calc(100% + 5px);
   left: 50%;
   transform: translateX(-50%);
-  background:
-      linear-gradient(
-          rgb(58, 42, 29),
-          rgb(20, 16, 12)
-      );
-  border: 2px solid #ffd700;
+  background: linear-gradient(
+    rgb(58, 42, 29),
+    rgb(20, 16, 12)
+  );
+  border: 2px solid rgb(158, 126, 67);
   border-radius: 10px;
   padding: 10px;
   min-width: 280px;
   max-width: 280px;
   max-height: 320px;
-  z-index: 9999;
+  z-index: 9000;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
   pointer-events: none;
   animation: fadeIn 0.2s ease-in;
@@ -134,7 +122,6 @@
   word-wrap: break-word;
 }
 
-/* Seta do tooltip */
 .race-tooltip::after {
   content: '';
   position: absolute;
@@ -147,7 +134,7 @@
 
 .race-tooltip h4 {
   margin: 0 0 8px 0;
-  color: #ffd700;
+  color: rgb(231, 199, 138);
   font-size: 16px;
   text-align: center;
   border-bottom: 1px solid rgba(255, 215, 0, 0.3);
@@ -174,7 +161,7 @@
 
 .race-modifiers strong {
   width: 100%;
-  color: #ffd700;
+  color: rgb(231, 199, 138);
   text-align: center;
   font-size: 13px;
 }
@@ -191,7 +178,6 @@
   background: rgba(255, 215, 0, 0.25);
 }
 
-/* Animação do tooltip */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -204,51 +190,130 @@
   }
 }
 
-/* Responsividade */
-@media (max-width: 600px) {
-  .race-options {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
-  .race-item button {
-    width: 80px;
-    height: 80px;
-  }
-
-  .race-item button img {
-    width: 60px;
-    height: 60px;
-  }
-
+@media (max-width: 1400px) {
   .race-tooltip {
-    min-width: 180px;
-    max-width: 220px;
+    max-height: 180px;
     padding: 12px;
-    bottom: calc(100% + 10px);
-  }
-
-  .race-tooltip h4 {
-    font-size: 14px;
   }
 
   .race-description {
-    font-size: 12px;
+    font-size: 11px !important;
   }
 
   .race-modifiers span {
     font-size: 11px;
-    padding: 3px 8px;
+    padding: 2px 4px;
   }
 }
 
-/* Para telas muito pequenas, o tooltip aparece em cima */
-@media (max-width: 400px) {
+@media (max-width: 600px) {
+  .modal-races-overlay {
+    padding: 10px;
+  }
+
+  .modal-race {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92vh;
+    padding: 40px 15px 20px;
+    border-radius: 12px;
+  }
+
+  .modal-race h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  #race-close-btn {
+    top: 10px;
+    right: 12px;
+    font-size: 1.5rem;
+  }
+
+  .race-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    width: 100%;
+  }
+
+  .race-button-wrapper {
+    width: 100%;
+  }
+
+  .race-options button {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .race-options img {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+  }
+
+  .race-options p {
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+
   .race-tooltip {
-    min-width: 150px;
-    max-width: 180px;
+    min-width: 0;
+    width: 220px;
+    max-width: calc(100vw - 30px);
+    max-height: 220px;
+    overflow-y: auto;
     padding: 10px;
     bottom: calc(100% + 8px);
+  }
+
+  .race-tooltip h4 {
+    font-size: 13px;
+  }
+
+  .race-description {
+    font-size: 11px !important;
+    line-height: 1.4;
+  }
+
+  .race-modifiers {
+    gap: 3px;
+  }
+
+  .race-modifiers strong {
+    font-size: 11px;
+  }
+
+  .race-modifiers span {
+    width: 45%;
+    font-size: 10px;
+    padding: 3px 5px;
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-race {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .race-options {
+    gap: 10px;
+  }
+
+  .race-options img {
+    width: 65px;
+    height: 65px;
+  }
+
+  .race-options p {
+    font-size: 0.8rem;
+  }
+
+  .race-tooltip {
+    width: 190px;
+    max-width: calc(100vw - 20px);
+    max-height: 200px;
   }
 
   .race-modifiers {

@@ -10,7 +10,6 @@ import { FiEdit2 } from "react-icons/fi";
 
 import {
   getUserInfo,
-  getMyUserInfo,
   updateUserImage,
   updateUserName,
   updateUserDescription,
@@ -24,58 +23,128 @@ export default function Profile({ handleLogout }) {
   const navigate = useNavigate();
   const { userId } = useParams();
   const fileInputRef = useRef(null);
+
   const [editName, setEditName] = useState(false);
   const [editDescription, setEditDescription] = useState(false);
+
   const [activeSection, setActiveSection] = useState("cards-created");
   const [loading, setLoading] = useState(false);
+
   const [userData, setUserData] = useState(null);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+
   const [userImage, setUserImage] = useState("");
   const [userName, setUserName] = useState("");
   const [userDescription, setUserDescription] = useState("");
+  const [deletedCardId, setDeletedCardId] = useState(null);
+
   const removeProfile = true;
-  const [showConfirmDeleteCard, setShowConfirmDeleteCard] = useState(false);
-  const [showConfirmDeleteProfile, setShowConfirmDeleteProfile] =
-    useState(false);
-  const [cardToDelete, setCardToDelete] = useState(null);
+
+  // ÚNICO ESTADO PARA TODOS OS POPUPS DE CONFIRMAÇÃO
+  const [confirmation, setConfirmation] = useState(null);
 
   const handleLoading = (isLoading) => {
     setLoading(isLoading);
   };
 
-  const openConfirmationDialog = async (cardId) => {
-    setCardToDelete(cardId);
-    setShowConfirmDeleteCard(true);
+  // ABRIR POPUP DE CONFIRMAÇÃO
+  const openConfirmation = (action) => {
+    setConfirmation(action);
   };
 
+  // CONFIRMAR AÇÃO
   const handleConfirm = async () => {
-    if (cardToDelete) {
-      await deleteCard(cardToDelete);
-      setShowConfirmDeleteCard(false);
-      setCardToDelete(null);
-      window.location.reload();
+    if (!confirmation) return;
+
+    try {
+      setLoading(true);
+
+      switch (confirmation.type) {
+        // ALTERAR NOME
+        case "updateName":
+          await updateUserName(
+            confirmation.userId,
+            confirmation.value
+          );
+
+          setUserName(confirmation.value);
+          setEditName(false);
+          break;
+
+        // ALTERAR DESCRIÇÃO
+        case "updateDescription":
+          await updateUserDescription(
+            confirmation.userId,
+            confirmation.value
+          );
+
+          setUserDescription(confirmation.value);
+          setEditDescription(false);
+          break;
+
+        // ALTERAR IMAGEM
+        case "updateImage":
+          await updateUserImage(
+            confirmation.userId,
+            confirmation.value
+          );
+
+          setUserImage(confirmation.value);
+          setUserData((prev) => ({
+            ...prev,
+            image: confirmation.value,
+          }));
+          break;
+
+        // EXCLUIR FICHA
+        case "deleteCard":
+          await deleteCard(confirmation.cardId);
+
+          setDeletedCardId(confirmation.cardId)
+          break;
+
+        // EXCLUIR PERFIL
+        case "deleteProfile":
+          await deleteUser(confirmation.userId);
+
+          setConfirmation(null);
+          handleLogout();
+          return;
+
+        default:
+          console.warn(
+            "Tipo de ação desconhecido:",
+            confirmation.type
+          );
+      }
+
+      setConfirmation(null);
+    } catch (error) {
+      console.error("Erro ao executar ação:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleConfirmProfile = async () => {
-    await deleteUser(userData.id);
-    setShowConfirmDeleteProfile(false);
-    handleLogout();
-  };
-
+  // CANCELAR AÇÃO
   const handleCancel = () => {
-    setShowConfirmDeleteCard(false);
-    setCardToDelete(null);
+    setEditName(false)
+    setUserName(userData?.username)
+    setEditDescription(false)
+    setUserDescription(userData?.description)
+    setConfirmation(null);
   };
 
-  const handleCancelProfile = () => {
-    setShowConfirmDeleteProfile(false);
+  // ABRIR CONFIRMAÇÃO PARA EXCLUIR FICHA
+  const openConfirmationDialog = (cardId) => {
+    openConfirmation({
+      type: "deleteCard",
+      cardId,
+    });
   };
 
-  // ──────────────────────────────────────────────
-  // Pegar o ID do usuário através do token
-  // ──────────────────────────────────────────────
+  // PEGAR ID DO USUÁRIO ATRAVÉS DO TOKEN
   function getUserIdFromToken() {
     const token = localStorage.getItem("token");
 
@@ -85,11 +154,13 @@ export default function Profile({ handleLogout }) {
 
     try {
       const parts = token.split(".");
+
       if (parts.length !== 3) {
         return null;
       }
 
       const payload = JSON.parse(atob(parts[1]));
+
       return payload.id;
     } catch (error) {
       console.error("Erro ao decodificar token:", error);
@@ -97,15 +168,13 @@ export default function Profile({ handleLogout }) {
     }
   }
 
-  // ──────────────────────────────────────────────
-  // Buscar informações do usuário
-  // ──────────────────────────────────────────────
+  // BUSCAR INFORMAÇÕES DO USUÁRIO
   useEffect(() => {
     async function loadInfos() {
       try {
         setLoading(true);
 
-        // Pega o ID do usuário logado
+        // ID do usuário logado
         const loggedUserId = getUserIdFromToken();
 
         if (!loggedUserId) {
@@ -115,20 +184,23 @@ export default function Profile({ handleLogout }) {
           return;
         }
 
-        // Serve para saber qual id usar (loggedUserId = ID do próprio usuário | userId = ID do usuário que deseja ver o perfil)
+        // Se tiver userId na URL, mostra esse perfil.
+        // Caso contrário, mostra o próprio perfil.
         const targetUserId = userId || loggedUserId;
 
         // Verifica se é o próprio perfil
-        setIsOwnProfile(targetUserId === loggedUserId);
+        setIsOwnProfile(
+          String(targetUserId) === String(loggedUserId)
+        );
 
-        // Verifica se o usuário é adminstrador através do próprio perfil logado
+        // Busca usuário logado para verificar admin
         const loggedUser = await getUserInfo(loggedUserId);
 
         if (loggedUser?.admin) {
           setIsAdmin(true);
         }
 
-        // Busca os dados do usuário ou perfil alvo
+        // Busca dados do perfil
         const data = await getUserInfo(targetUserId);
 
         if (data?.error) {
@@ -138,9 +210,10 @@ export default function Profile({ handleLogout }) {
         }
 
         setUserData(data);
-        setUserImage(data?.image);
-        setUserName(data.username);
-        setUserDescription(data.description);
+        setUserImage(data?.image || "");
+        setUserName(data?.username || "");
+        setUserDescription(data?.description || "");
+
         setLoading(false);
       } catch (error) {
         console.error("Erro:", error);
@@ -149,25 +222,23 @@ export default function Profile({ handleLogout }) {
     }
 
     loadInfos();
-  }, [userId]); // Recarrega quando o userId mudar
+  }, [userId, navigate]);
 
-  // ──────────────────────────────────────────────
-  // Funções para editar/apagar (só no próprio perfil)
-  // ──────────────────────────────────────────────
+  // EDITAR IMAGEM
   function editImageProfile() {
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
   }
 
+  // QUANDO UMA NOVA IMAGEM FOR SELECIONADA
   async function imageChange(e) {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
 
     const getBase64 = async (file) => {
       return new Promise((resolve, reject) => {
-        if (!file) {
-          reject(new Error("Nenhuma imagem selecionada"));
-          return;
-        }
-
         if (!(file instanceof File) && !(file instanceof Blob)) {
           reject(new Error("Arquivo inválido"));
           return;
@@ -182,12 +253,25 @@ export default function Profile({ handleLogout }) {
       });
     };
 
-    const imageBase64 = await getBase64(file);
+    try {
+      const imageBase64 = await getBase64(file);
 
-    await updateUserImage(userData.id, imageBase64);
-    setUserImage(imageBase64);
-  }
+      // Não atualiza imediatamente.
+      // Primeiro abre o popup de confirmação.
+      openConfirmation({
+        type: "updateImage",
+        userId: userData.id,
+        value: imageBase64,
+      });
+    } catch (error) {
+      console.error("Erro ao carregar imagem:", error);
+    }
 
+    // Permite selecionar a mesma imagem novamente depois
+    e.target.value = "";
+  };
+
+  // LOADING INICIAL
   if (!userData) {
     return (
       <>
@@ -199,21 +283,27 @@ export default function Profile({ handleLogout }) {
 
   return (
     <>
-      <Header handleLogout={handleLogout} removeProfile={removeProfile} />
+      <Header
+        handleLogout={handleLogout}
+        removeProfile={removeProfile}
+      />
 
       {loading && <Loading />}
 
       <div className="profile-container">
+        {/* LADO ESQUERDO */}
         <div className="profile-left">
           <div className="person-profile">
+            {/* INPUT DE IMAGEM */}
             <input
               type="file"
               ref={fileInputRef}
               accept="image/*"
-              style={{ display: "none" }} // Serve para ficar trasnparente
+              style={{ display: "none" }}
               onChange={imageChange}
             />
 
+            {/* IMAGEM DO PERFIL */}
             {userData.image ? (
               <div className="div-image-profile">
                 <img
@@ -221,8 +311,12 @@ export default function Profile({ handleLogout }) {
                   src={userImage}
                   alt="Imagem de Perfil"
                 />
+
                 {(isOwnProfile || isAdmin) && (
-                  <Tooltip title="Editar foto de perfil" arrow>
+                  <Tooltip
+                    title="Editar foto de perfil"
+                    arrow
+                  >
                     <FiEdit2
                       id="edit-image-profile"
                       onClick={editImageProfile}
@@ -232,10 +326,15 @@ export default function Profile({ handleLogout }) {
               </div>
             ) : (
               <div className="div-image-profile">
-                <AccountCircleOutlinedIcon className="image-profile-default-avatar" />
+                <AccountCircleOutlinedIcon
+                  className="image-profile-default-avatar"
+                />
 
-                {isOwnProfile && (
-                  <Tooltip title="Editar foto de perfil" arrow>
+                {(isOwnProfile || isAdmin) && (
+                  <Tooltip
+                    title="Editar foto de perfil"
+                    arrow
+                  >
                     <FiEdit2
                       id="edit-image-profile"
                       onClick={editImageProfile}
@@ -244,16 +343,30 @@ export default function Profile({ handleLogout }) {
                 )}
               </div>
             )}
+
+            {/* NOME */}
             {editName ? (
               <input
                 id="input-name-profile"
                 type="text"
                 value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                onKeyDown={async (e) => {
+                onChange={(e) =>
+                  setUserName(e.target.value)
+                }
+                onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    await updateUserName(userData.id, userName);
+                    e.preventDefault();
+
+                    openConfirmation({
+                      type: "updateName",
+                      userId: userData.id,
+                      value: userName,
+                    });
+                  }
+
+                  if (e.key === "Escape") {
                     setEditName(false);
+                    setUserName(userData.username || "");
                   }
                 }}
                 autoFocus
@@ -261,6 +374,7 @@ export default function Profile({ handleLogout }) {
             ) : (
               <div className="div-name-profile">
                 <h1 id="name-profile">{userName}</h1>
+
                 {(isOwnProfile || isAdmin) && (
                   <Tooltip title="Editar nome" arrow>
                     <FiEdit2
@@ -274,16 +388,33 @@ export default function Profile({ handleLogout }) {
               </div>
             )}
 
+            {/*  DESCRIÇÃO */}
             {editDescription ? (
               <textarea
                 id="textarea-description-profile"
                 value={userDescription}
                 maxLength={252}
-                onChange={(e) => setUserDescription(e.target.value)}
-                onKeyDown={async (e) => {
-                  if (e.key === "Enter") {
-                    await updateUserDescription(userData.id, userDescription);
+                onChange={(e) =>
+                  setUserDescription(e.target.value)
+                }
+                onKeyDown={(e) => {
+                  // Enter confirma
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+
+                    openConfirmation({
+                      type: "updateDescription",
+                      userId: userData.id,
+                      value: userDescription,
+                    });
+                  }
+                  if (
+                    e.key === "Escape"
+                  ) {
                     setEditDescription(false);
+                    setUserDescription(
+                      userData.description || ""
+                    );
                   }
                 }}
                 autoFocus
@@ -291,10 +422,14 @@ export default function Profile({ handleLogout }) {
             ) : (
               <div className="div-description-profile">
                 <h3 className="description-profile">
-                  { userDescription  || "Sem descrição"}
+                  {userDescription || "Sem descrição"}
                 </h3>
+
                 {(isOwnProfile || isAdmin) && (
-                  <Tooltip title="Editar descrição" arrow>
+                  <Tooltip
+                    title="Editar descrição"
+                    arrow
+                  >
                     <FiEdit2
                       id="edit-description-profile"
                       onClick={() => {
@@ -306,10 +441,16 @@ export default function Profile({ handleLogout }) {
               </div>
             )}
 
+            {/*EXCLUIR PERFIL*/}
             {(isOwnProfile || isAdmin) && (
               <button
                 id="delete-profile-btn"
-                onClick={() => setShowConfirmDeleteProfile(true)}
+                onClick={() => {
+                  openConfirmation({
+                    type: "deleteProfile",
+                    userId: userData.id,
+                  });
+                }}
               >
                 Apagar Perfil
               </button>
@@ -317,18 +458,31 @@ export default function Profile({ handleLogout }) {
           </div>
         </div>
 
+        {/*LADO DIREITO*/}
         <div className="profile-right">
           <div className="section-profile-buttons">
             <button
-              className={activeSection === "cards-created" ? "active" : ""}
-              onClick={() => setActiveSection("cards-created")}
+              className={
+                activeSection === "cards-created"
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                setActiveSection("cards-created")
+              }
             >
               Criadas
             </button>
 
             <button
-              className={activeSection === "cards-favorites" ? "active" : ""}
-              onClick={() => setActiveSection("cards-favorites")}
+              className={
+                activeSection === "cards-favorites"
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                setActiveSection("cards-favorites")
+              }
             >
               Favoritas
             </button>
@@ -339,37 +493,77 @@ export default function Profile({ handleLogout }) {
               <CreatedSection
                 onLoading={handleLoading}
                 openConfirmDialog={openConfirmationDialog}
+                deletedCardId={deletedCardId}
               />
             )}
 
             {activeSection === "cards-favorites" && (
-              <FavoritesSection onLoading={handleLoading} />
+              <FavoritesSection
+                onLoading={handleLoading}
+              />
             )}
           </div>
         </div>
       </div>
 
-      {showConfirmDeleteCard && (
+      {/* POPUP DE CONFIRMAÇÃO */}
+      {confirmation && (
         <div className="modal-overlay-confirmation">
           <div className="confirmation-dialog">
-            <h2>Tem certeza que deseja excluir está ficha?</h2>
-            <p>Essa ação é irreversível!!</p>
-            <div className="confirmation-buttons">
-              <button onClick={handleConfirm}>Sim</button>
-              <button onClick={handleCancel}>Não</button>
-            </div>
-          </div>
-        </div>
-      )}
+            {confirmation.type === "updateName" && (
+              <h2>
+                Tem certeza que deseja alterar seu nome?
+              </h2>
+            )}
 
-      {showConfirmDeleteProfile && (
-        <div className="modal-overlay-confirmation">
-          <div className="confirmation-dialog">
-            <h2>Tem certeza que deseja excluir seu perfil?</h2>
-            <p>Essa ação é irreversível!!</p>
+            {confirmation.type ===
+              "updateDescription" && (
+              <h2>
+                Tem certeza que deseja alterar sua
+                descrição?
+              </h2>
+            )}
+
+            {confirmation.type === "updateImage" && (
+              <h2>
+                Tem certeza que deseja alterar sua foto
+                de perfil?
+              </h2>
+            )}
+
+            {confirmation.type === "deleteCard" && (
+              <h2>
+                Tem certeza que deseja excluir esta
+                ficha?
+              </h2>
+            )}
+
+            {confirmation.type === "deleteProfile" && (
+              <h2>
+                Tem certeza que deseja excluir seu
+                perfil?
+              </h2>
+            )}
+
+            {/* DESCRIÇÃO */}
+            {confirmation.type === "deleteCard" ||
+            confirmation.type === "deleteProfile" ? (
+              <p>Essa ação é irreversível!</p>
+            ) : (
+              <p>
+                Está ação é Irreversível!!
+              </p>
+            )}
+
+            {/* BOTÕES */}
             <div className="confirmation-buttons">
-              <button onClick={handleConfirmProfile}>Sim</button>
-              <button onClick={handleCancelProfile}>Não</button>
+              <button onClick={handleConfirm}>
+                Sim
+              </button>
+
+              <button onClick={handleCancel}>
+                Não
+              </button>
             </div>
           </div>
         </div>

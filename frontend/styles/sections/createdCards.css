@@ -120,7 +120,7 @@
 .race-created-card {
   position: absolute;
   top: -14px;
-  right: 450px;
+  right: 300px;
   font-size: 0.95rem;
   display: flex;
   align-items: center;
@@ -250,19 +250,17 @@
 #empty-list-createds-cards{
   text-align: center;
   padding: 2.5rem;
-  font-size: 1.1rem;
-  color: #80725a;
-  background: rgba(20, 16, 22, 0.6);
+  font-size: 1.5rem;
+  color: #e6d8b5;
   border-radius: 10px;
-  border: 1px dashed rgba(212, 175, 55, 0.2);
-  font-family: "Georgia", "Times New Roman", serif;
-  font-style: italic;
+  font-family: "Cinzel", "Georgia", "Times New Roman", serif;
 }
 
 /* ===== RESPONSIVO ===== */
 @media (max-width: 720px) {
   .item-created{
-    max-width: 200px;
+    max-width: 650px;
+    padding: 1rem;
   }
 
   #img-favorite {
@@ -323,11 +321,16 @@
     font-size: 0.8rem;
     padding: 0.3rem 0.8rem;
   }
+
+  #empty-list-createds-cards{
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 480px) {
   .item-favorites {
     padding: 0.8rem;
+    max-width: 250px;
   }
 
   #img-favorite {
@@ -373,6 +376,10 @@
   .list-favorites-cards>p {
     font-size: 0.95rem;
     padding: 1.5rem;
+  }
+  
+  #empty-list-createds-cards{
+    font-size: 1rem;
   }
 }
 

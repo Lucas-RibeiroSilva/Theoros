@@ -126,6 +126,143 @@
   object-fit: contain;
 }
 
+.cookie-popup-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 9999;
+  padding: 20px;
+  pointer-events: none;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.cookie-popup {
+  background: linear-gradient(135deg, #250202, #360808);
+  border: 2px solid var(--btn-gold);
+  border-radius: 16px;
+  padding: 10px 10px;
+  height: 180px;
+  max-width: 550px;
+  width: 100%;
+  pointer-events: all;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de brilho no topo */
+.cookie-popup::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--btn-gold), transparent);
+  opacity: 0.6;
+}
+
+.cookie-popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cookie-icon {
+  font-size: 40px;
+}
+
+.cookie-popup h3 {
+  color: var(--btn-gold);
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  margin: 0;
+  letter-spacing: 1px;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.cookie-popup p {
+  color: var(--btn-text);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cookie-popup p a {
+  color: var(--btn-gold);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  font-weight: 600;
+}
+
+.cookie-popup p a:hover {
+  color: #f5d742;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cookie-btn {
+  padding: 10px 30px;
+  border: 2px solid var(--btn-gold);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.5px;
+  min-width: 120px;
+}
+
+.cookie-btn-accept {
+  background: linear-gradient(135deg, #000000, var(--btn-red), #000000);
+  color: var(--btn-text);
+  box-shadow: 0 4px 15px rgba(139, 47, 47, 0.3);
+}
+
+.cookie-btn-accept:hover {
+  transform: translateY(-2px);
+}
+
+.cookie-btn-decline {
+  background: linear-gradient(135deg, #000000, var(--btn-disabled), #000000);
+  color: var(--btn-text);
+  border-color: #413f3f;
+}
+
+.cookie-btn-decline:hover {
+  background: linear-gradient(135deg, #000000, #858484, #000000);
+  border-color: #4b4848;
+  transform: translateY(-2px);
+}
+
+/* Animações */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 /* ==========================================================
    BREAKPOINTS
    ========================================================== */
@@ -205,6 +342,37 @@
     max-width: 280px;
     text-align: center;
   }
+
+   .cookie-popup-overlay {
+    padding: 10px;
+  }
+
+  .cookie-popup {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .cookie-popup h3 {
+    font-size: 17px;
+  }
+
+  .cookie-popup p {
+    font-size: 13px;
+  }
+
+  .cookie-icon {
+    font-size: 32px;
+  }
+
+  .cookie-btn {
+    padding: 8px 20px;
+    font-size: 13px;
+    min-width: 100px;
+  }
+
+  .cookie-buttons {
+    gap: 8px;
+  }
 }
 
 /* Telas muito pequenas (celulares antigos, <380px) */
@@ -215,5 +383,23 @@
 
   .main-content h2 {
     font-size: 20px;
+  }
+
+  .cookie-popup {
+    padding: 16px;
+  }
+
+  .cookie-popup h3 {
+    font-size: 15px;
+  }
+
+  .cookie-popup p {
+    font-size: 12px;
+  }
+
+  .cookie-btn {
+    padding: 6px 16px;
+    font-size: 12px;
+    min-width: 80px;
   }
 }
