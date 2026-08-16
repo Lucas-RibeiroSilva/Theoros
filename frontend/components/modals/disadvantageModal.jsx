@@ -29,6 +29,7 @@ export default function DisadvantageModal({ onClose }) {
     Social: false,
     Supernatural: false,
     Exotic: false,
+    Combat: false,
   });
 
   // ──────────────────────────────────────────────
@@ -188,7 +189,9 @@ export default function DisadvantageModal({ onClose }) {
     }else if(name === "Supernatural"){
       return "Sobrenatural";
     }else if(name === "Exotic"){
-      return "Exótica"
+      return "Exótica";
+    }else if(name === "Combat"){
+      return "Combate";
     }
     return name;
   }
@@ -231,6 +234,7 @@ export default function DisadvantageModal({ onClose }) {
             <button className={filters.Social ? "active" : ""} onClick={() => toggleFilter("Social")}>Social</button>
             <button className={filters.Supernatural ? "active" : ""} onClick={() => toggleFilter("Supernatural")}>Sobrenatural</button>
             <button className={filters.Exotic ? "active" : ""} onClick={() => toggleFilter("Exotic")}>Exótica</button>
+            <button className={filters.Combat ? "active" : ""} onClick={() => toggleFilter("Combat")}>Combate</button>
           </div>
         )}
 

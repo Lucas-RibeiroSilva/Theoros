@@ -10,7 +10,7 @@ import { GiBiceps, GiAngelWings, GiCrossedSwords } from "react-icons/gi";
 import { RiSpeakLine } from "react-icons/ri";
 
 // Serve para aparecer uma mensagem de explicacao para quando passa o cursor em cima
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 
 // Modal para adicionar Ampliação
 import ExpansionsModal from "../../modals/expansionsModal";
@@ -19,7 +19,7 @@ import ExpansionsModal from "../../modals/expansionsModal";
 import { useCardStore } from "../../../stores/cardStore";
 
 // CSS
-import "../../../styles/cards/sections.css"
+import "../../../styles/cards/sections.css";
 
 export default function ExpansionsSection({ onLoading }) {
   // Serve para quando ele clicar no icone de filtro mostrar os botões de filtragem
@@ -38,6 +38,7 @@ export default function ExpansionsSection({ onLoading }) {
     Social: false,
     Supernatural: false,
     Exotic: false,
+    Combat: false,
   });
 
   // ──────────────────────────────────────────────
@@ -52,11 +53,9 @@ export default function ExpansionsSection({ onLoading }) {
   useEffect(() => {
     async function loadExpansions() {
       try {
-
         const storedExpansions = useCardStore.getState().expansions;
 
         onLoading(false);
-
       } catch (error) {
         console.error("Erro:", error);
         onLoading(false);
@@ -75,9 +74,20 @@ export default function ExpansionsSection({ onLoading }) {
   }
 
   // Filtra a lista de ampliações já adicionadas pelo texto de busca
-  const expansionsFilters = expansions.filter((expansion) =>
-    expansion.name?.toLowerCase().includes(filterExpansions.toLowerCase())
-  );
+  const expansionsFilters = expansions.filter((expansion) => {
+    const matchesText = expansion.name?.toLowerCase().includes(filterExpansions.toLowerCase());
+
+    const hasActiveFilters = Object.values(filters).some(value => value === true);
+    if (!hasActiveFilters) return matchesText;
+
+    const matchesType = Object.keys(filters).some(typeName => {
+      if (!filters[typeName]) return false;
+      return hasType(expansion, typeName);
+    });
+
+
+    return matchesText && matchesType;
+  });
 
   function handleToggleExpansions() {
     setShowExpansions((prev) => !prev);
@@ -109,35 +119,57 @@ export default function ExpansionsSection({ onLoading }) {
 
   // Buscar icones para cada tipo
   function getIcon(exp) {
-      const icons = [];
-  
-      if (hasType(exp, "Physical"))
-        icons.push(<Tooltip title="Físico" arrow key="Physical"><GiBiceps /></Tooltip>);
-  
-      if (hasType(exp, "Combat"))
-        icons.push(<Tooltip title="Combate" arrow key="Combat"><GiCrossedSwords /></Tooltip>);
-  
-      if (hasType(exp, "Supernatural"))
-        icons.push(<Tooltip title="Sobrenatural" arrow key="Supernatural"><TbGhost2 /></Tooltip>);
-  
-      if (hasType(exp, "Mental"))
-        icons.push(<Tooltip title="Mental" arrow key="Mental"><PiBrainDuotone /></Tooltip>);
-  
-      if (hasType(exp, "Social"))
-        icons.push(<Tooltip title="Social" arrow key="Social"><RiSpeakLine /></Tooltip>);
-  
-      if (hasType(exp, "Exotic"))
-        icons.push(<Tooltip title="Exótico" arrow key="Exotic"><GiAngelWings /></Tooltip>);
-  
-      return icons;
-    }
+    const icons = [];
 
+    if (hasType(exp, "Physical"))
+      icons.push(
+        <Tooltip title="Físico" arrow key="Physical">
+          <GiBiceps />
+        </Tooltip>,
+      );
+
+    if (hasType(exp, "Combat"))
+      icons.push(
+        <Tooltip title="Combate" arrow key="Combat">
+          <GiCrossedSwords />
+        </Tooltip>,
+      );
+
+    if (hasType(exp, "Supernatural"))
+      icons.push(
+        <Tooltip title="Sobrenatural" arrow key="Supernatural">
+          <TbGhost2 />
+        </Tooltip>,
+      );
+
+    if (hasType(exp, "Mental"))
+      icons.push(
+        <Tooltip title="Mental" arrow key="Mental">
+          <PiBrainDuotone />
+        </Tooltip>,
+      );
+
+    if (hasType(exp, "Social"))
+      icons.push(
+        <Tooltip title="Social" arrow key="Social">
+          <RiSpeakLine />
+        </Tooltip>,
+      );
+
+    if (hasType(exp, "Exotic"))
+      icons.push(
+        <Tooltip title="Exótico" arrow key="Exotic">
+          <GiAngelWings />
+        </Tooltip>,
+      );
+
+    return icons;
+  }
 
   return (
     <>
       {/* Direita da Seção Modificadores - Ampliações */}
       <div className="expansions-box">
-
         {/* Titulo junto com botão "+" para abrir o modal de ampliações */}
         <div className="box-header">
           <label>Buscar Ampliação:</label>
@@ -158,10 +190,12 @@ export default function ExpansionsSection({ onLoading }) {
 
           {/* Icone de filtro */}
           <Tooltip title="Filtrar Ampliações" arrow>
-            <FilterAltTwoToneIcon className="filter-icon" onClick={handleToggleExpansions} />
+            <FilterAltTwoToneIcon
+              className="filter-icon"
+              onClick={handleToggleExpansions}
+            />
           </Tooltip>
         </div>
-
 
         {/* Botões dos filtros */}
         {showExpansions && (
@@ -200,6 +234,13 @@ export default function ExpansionsSection({ onLoading }) {
             >
               Exótica
             </button>
+
+            <button
+              className={filters.Combat ? "active" : ""}
+              onClick={() => toggleFilter("Combat")}
+            >
+              Combate
+            </button>
           </div>
         )}
 
@@ -219,7 +260,6 @@ export default function ExpansionsSection({ onLoading }) {
             expansionsFilters.map((exp) => (
               <li key={exp.id} className="selected-expansion-item">
                 <div className="selected-expansion-info">
-
                   <span className="selected-expansion-cost">
                     {getCost(exp)} pts
                   </span>
@@ -229,14 +269,9 @@ export default function ExpansionsSection({ onLoading }) {
                     {exp.isAllowedLevel ? ` (Nível ${exp.level ?? 1})` : ""}
                   </span>
 
-                  <span id="icons">
-                    {getIcon(exp)}
-                  </span>
+                  <span id="icons">{getIcon(exp)}</span>
 
-                  <span className="selected-expansion-level">
-                    {exp.level}
-                  </span>
-
+                  <span className="selected-expansion-level">{exp.level}</span>
 
                   <button
                     className="remove-expansion-btn"
@@ -250,12 +285,11 @@ export default function ExpansionsSection({ onLoading }) {
             ))
           )}
         </ul>
-
-      </div >
+      </div>
 
       {showExpansionsModal && (
-          <ExpansionsModal onClose={closeExpansionsModal} />
-        )}
+        <ExpansionsModal onClose={closeExpansionsModal} />
+      )}
     </>
   );
 }

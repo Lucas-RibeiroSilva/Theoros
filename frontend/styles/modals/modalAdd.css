@@ -163,6 +163,7 @@
   justify-content: center;
   column-gap: 15px;
   margin-bottom: 15px;
+  gap: 5px;
 }
 
 .filters-magic {
@@ -270,7 +271,7 @@
 
 /* Scroll RPG */
 .list-modal::-webkit-scrollbar {
-  width: 8px;
+  width: 15px;
 }
 
 .list-modal::-webkit-scrollbar-track {

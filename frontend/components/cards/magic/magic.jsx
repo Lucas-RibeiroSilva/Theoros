@@ -96,9 +96,20 @@ export default function MagicSection({ onLoading }) {
   }
 
   // Filtra a lista de ampliações já adicionadas pelo texto de busca
-  const magicFilters = magic.filter((magic) =>
-    magic.name?.toLowerCase().includes(filterMagic.toLowerCase())
-  );
+  const magicFilters = magic.filter((magic) => {
+    const matchesText = magic.name?.toLowerCase().includes(filterMagic.toLowerCase());
+
+    const hasActiveFilters = Object.values(filters).some(value => value === true);
+    if (!hasActiveFilters) return matchesText;
+
+    const matchesType = Object.keys(filters).some(typeName => {
+      if (!filters[typeName]) return false;
+      return hasType(magic, typeName);
+    });
+
+
+    return matchesText && matchesType;
+  });
 
   function handleToggleMagic() {
     setShowMagic((prev) => !prev);

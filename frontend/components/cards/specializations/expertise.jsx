@@ -72,9 +72,20 @@ export default function ExpertiseSection({ onLoading }) {
   }
 
   // Filtra a lista de perícia já adicionadas pelo texto de busca
-  const filteredExpertises = expertises.filter((expertise) =>
-    expertise.name?.toLowerCase().includes(filterExpertise.toLowerCase())
-  );
+  const filteredExpertises = expertises.filter((expertise) => {
+    const matchesText = expertise.name?.toLowerCase().includes(filterExpertise.toLowerCase());
+
+    const hasActiveFilters = Object.values(filters).some(value => value === true);
+    if (!hasActiveFilters) return matchesText;
+
+    const matchesType = Object.keys(filters).some(typeName => {
+      if (!filters[typeName]) return false;
+      return hasType(expertise, typeName);
+    });
+
+
+    return matchesText && matchesType;
+  });
 
   function handleToggleExpertise() {
     setShowExpertise((prev) => !prev);
@@ -101,7 +112,7 @@ export default function ExpertiseSection({ onLoading }) {
   }
 
   function hasType(expertise, difficulty) {
-    return expertise.difficulties.some((item) => item.difficulty?.name === difficulty);
+    return expertise.difficulties.some((item) => item.difficulty.name === difficulty);
   }
 
   function getIcon(expertise) {

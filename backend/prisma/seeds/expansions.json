@@ -22,7 +22,7 @@
     "costIsVariable": true,
     "variableCost": 5,
     "isAllowedLevel": true,
-    "maxLevel": null,
+    "maxLevel": 3,
     "shortDescription": "O ataque é excepcionalmente preciso.",
     "fullDescription": "O ataque do personagem é excepcionalmente preciso. Cada nível adiciona +1 à Precisão (Prec) do ataque. A Precisão base de um ataque é normalmente 3.",
     "formula": "Cf = +5% por nível de Precisão (Prec) adicionado",

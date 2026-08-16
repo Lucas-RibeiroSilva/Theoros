@@ -187,7 +187,7 @@ export default function ExpertiseModal({ onClose }) {
       return "Médio";
     }else if (name === "Hard"){
       return "Díficil";
-    }else if (name === "VeryHard"){
+    }else if (name === "Very Hard"){
       return "Muito Díficil";
     }
 

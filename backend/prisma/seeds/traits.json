@@ -10,7 +10,7 @@
     "isAllowedLevel": true,
     "maxLevel": 3,
     "shortDescription": "Você reage mais rapidamente que pessoas normais.",
-    "fullDescription": "O cérebro do personagem está condicionado a reagir instintivamente a ameaças e perigos súbitos. Ele treinou extensivamente para lidar com emboscadas ou possui um talento natural para entrar no <strong>estado de alerta</strong> em frações de segundo, tornando quase impossível pegá-lo de surpresa em situações mortais.",
+    "fullDescription": "O cérebro do personagem está condicionado a reagir instintivamente a ameaças e perigos súbitos. Ele treinou extensivamente para lidar com emboscadas ou possui um talento natural para entrar no estado de alerta em frações de segundo, tornando quase impossível pegá-lo de surpresa em situações mortais.",
     "rules": [
       {
         "name": "Bônus em Defesas",
@@ -69,7 +69,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Anula a energia mágica ao redor do personagem e de quem ele toca.",
-    "fullDescription": "O personagem emana uma <strong>zona de anulação arcana</strong> ao seu redor, suprimindo naturalmente o fluxo de mana no ambiente. Quanto maior o nível adquirido, mais intensa e abrangente é essa supressão, tornando difícil ou impossível a conjuração de magias nas proximidades.",
+    "fullDescription": "O personagem emana uma zona de anulação arcana ao seu redor, suprimindo naturalmente o fluxo de mana no ambiente. Quanto maior o nível adquirido, mais intensa e abrangente é essa supressão, tornando difícil ou impossível a conjuração de magias nas proximidades.",
     "rules": [
       {
         "name": "Anulação Passiva",
@@ -101,7 +101,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Concede resistência contra mágicas e elixires.",
-    "fullDescription": "O corpo e a mente do personagem desenvolveram uma <strong>resistência natural</strong> a influências arcanas, tornando-o mais difícil de ser afetado por feitiços hostis ou por poções e elixires de origem mística.",
+    "fullDescription": "O corpo e a mente do personagem desenvolveram uma resistência natural a influências arcanas, tornando-o mais difícil de ser afetado por feitiços hostis ou por poções e elixires de origem mística.",
     "rules": [
       {
         "name": "Resistência Ativa",
@@ -140,7 +140,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Recebe auxílio divino em feitos heroicos.",
-    "fullDescription": "Forças superiores observam o personagem com favor, intervindo sutilmente em seu benefício quando ele age em conformidade com <strong>preceitos elevados</strong> ou realiza atos de bravura genuína.",
+    "fullDescription": "Forças superiores observam o personagem com favor, intervindo sutilmente em seu benefício quando ele age em conformidade com preceitos elevados ou realiza atos de bravura genuína.",
     "rules": [
       {
         "name": "Intervenção Favorável",
@@ -172,7 +172,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Pequenos equipamentos úteis incorporados ao corpo.",
-    "fullDescription": "O personagem possui pequenas ferramentas ou utensílios <strong>integrados diretamente ao seu corpo</strong>, sejam de origem biológica ou mecânica, eliminando a necessidade de carregá-los separadamente.",
+    "fullDescription": "O personagem possui pequenas ferramentas ou utensílios integrados diretamente ao seu corpo, sejam de origem biológica ou mecânica, eliminando a necessidade de carregá-los separadamente.",
     "rules": [
       {
         "name": "Integração Biológica ou Mecânica",
@@ -204,7 +204,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "O personagem está familiarizado com uma grande variedade de culturas.",
-    "fullDescription": "Através de vivência, estudo ou talento inato, o personagem compreende instantaneamente <strong>hábitos, costumes e etiquetas sociais</strong> de diferentes civilizações, transitando entre elas sem causar estranhamento.",
+    "fullDescription": "Através de vivência, estudo ou talento inato, o personagem compreende instantaneamente hábitos, costumes e etiquetas sociais de diferentes civilizações, transitando entre elas sem causar estranhamento.",
     "rules": [
       {
         "name": "Trânsito Social Fluido",
@@ -236,7 +236,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Ignora penalidades em terrenos específicos.",
-    "fullDescription": "O corpo do personagem está adaptado a um tipo específico de terreno hostil, permitindo que ele se mova com <strong>total desenvoltura</strong> onde outros teriam dificuldade, como gelo, lama ou pântanos.",
+    "fullDescription": "O corpo do personagem está adaptado a um tipo específico de terreno hostil, permitindo que ele se mova com total desenvoltura onde outros teriam dificuldade, como gelo, lama ou pântanos.",
     "rules": [
       {
         "name": "Movimentação Desimpedida",
@@ -268,7 +268,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Permite andar em paredes e tetos.",
-    "fullDescription": "Estruturas exóticas nas mãos e pés do personagem, ou uma força mística sutil, permitem que ele <strong>desafie a gravidade</strong>, prendendo-se e deslocando-se por superfícies verticais ou invertidas.",
+    "fullDescription": "Estruturas exóticas nas mãos e pés do personagem, ou uma força mística sutil, permitem que ele desafie a gravidade, prendendo-se e deslocando-se por superfícies verticais ou invertidas.",
     "rules": [
       {
         "name": "Locomoção Vertical e Invertida",
@@ -300,7 +300,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Talento social para perícias de influência.",
-    "fullDescription": "O personagem possui um <strong>carisma natural aprimorado</strong>, funcionando como um talento voltado para negociação, persuasão e todo tipo de interação social baseada em lábia e diplomacia.",
+    "fullDescription": "O personagem possui um carisma natural aprimorado, funcionando como um talento voltado para negociação, persuasão e todo tipo de interação social baseada em lábia e diplomacia.",
     "rules": [
       {
         "name": "Aprimoramento Social",
@@ -325,14 +325,14 @@
     "id": "aliados",
     "isAdvantage": true,
     "name": "Aliados",
-    "baseCost": 0,
+    "baseCost": 10,
     "costIsVariable": true,
     "variableCost": 0,
     "display": "Aliados",
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "PdMs leais que auxiliam o personagem.",
-    "fullDescription": "Um ou mais Personagens de Mestre <strong>totalmente leais</strong> ao jogador estão dispostos a ajudá-lo em missões, aparecendo em cena de acordo com uma frequência determinada.",
+    "fullDescription": "Um ou mais Personagens de Mestre totalmente leais ao jogador estão dispostos a ajudá-lo em missões, aparecendo em cena de acordo com uma frequência determinada.",
     "rules": [
       {
         "name": "Invocação por Frequência",
@@ -364,7 +364,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Remove penalidade da mão inábil.",
-    "fullDescription": "O sistema nervoso do personagem possui <strong>simetria motora total</strong>, permitindo que ele use qualquer uma das mãos com igual destreza, sem qualquer desvantagem prática.",
+    "fullDescription": "O sistema nervoso do personagem possui simetria motora total, permitindo que ele use qualquer uma das mãos com igual destreza, sem qualquer desvantagem prática.",
     "rules": [
       {
         "name": "Simetria Motora",
@@ -396,7 +396,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Aumenta o nível de mana local.",
-    "fullDescription": "O personagem funciona como um <strong>catalisador místico ambulante</strong>, elevando naturalmente a densidade de energia mágica disponível na região onde se encontra.",
+    "fullDescription": "O personagem funciona como um catalisador místico ambulante, elevando naturalmente a densidade de energia mágica disponível na região onde se encontra.",
     "rules": [
       {
         "name": "Elevação Ambiental",
@@ -428,7 +428,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Permite agir normalmente sob a água.",
-    "fullDescription": "O corpo do personagem está fisiologicamente adaptado ao ambiente aquático, permitindo que ele se mova, lute e aja <strong>sem penalidades</strong> tanto na terra quanto embaixo d'água.",
+    "fullDescription": "O corpo do personagem está fisiologicamente adaptado ao ambiente aquático, permitindo que ele se mova, lute e aja sem penalidades tanto na terra quanto embaixo d'água.",
     "rules": [
       {
         "name": "Operação Subaquática",
@@ -460,7 +460,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Justifica habilidades raras no cenário.",
-    "fullDescription": "O personagem possui uma <strong>linhagem, acesso ou segredo</strong> estritamente restrito ou único dentro do universo da campanha, exigindo um custo regulatório em pontos para ser justificado mecanicamente.",
+    "fullDescription": "O personagem possui uma linhagem, acesso ou segredo estritamente restrito ou único dentro do universo da campanha, exigindo um custo regulatório em pontos para ser justificado mecanicamente.",
     "rules": [
       {
         "name": "Taxa de Exclusividade",
@@ -486,7 +486,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Não possui registros oficiais.",
-    "fullDescription": "O personagem simplesmente <strong>não existe</strong> para o sistema: nenhum banco de dados governamental, cartório ou arquivo institucional possui qualquer registro sobre ele, tornando investigações formais quase impossíveis.",
+    "fullDescription": "O personagem simplesmente não existe para o sistema: nenhum banco de dados governamental, cartório ou arquivo institucional possui qualquer registro sobre ele, tornando investigações formais quase impossíveis.",
     "rules": [
       {
         "name": "Inexistência Burocrática",
@@ -518,7 +518,7 @@
     "isAllowedLevel": true,
     "maxLevel": 0,
     "shortDescription": "Atratividade física que afeta reações sociais.",
-    "fullDescription": "A beleza física do personagem vai de simplesmente atraente até patamares <strong>sobre-humanos</strong>, influenciando diretamente a forma como as pessoas reagem a ele.",
+    "fullDescription": "A beleza física do personagem vai de simplesmente atraente até patamares sobre-humanos, influenciando diretamente a forma como as pessoas reagem a ele.",
     "rules": [
       {
         "name": "Modificador de Reação",
@@ -550,7 +550,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Permite sacar itens úteis inesperadamente.",
-    "fullDescription": "Por sorte, preparação implícita ou algum truque sutil, o personagem <strong>sempre tem consigo</strong> um pequeno item mundano de utilidade exatamente quando mais precisa dele.",
+    "fullDescription": "Por sorte, preparação implícita ou algum truque sutil, o personagem sempre tem consigo um pequeno item mundano de utilidade exatamente quando mais precisa dele.",
     "rules": [
       {
         "name": "Conveniência de Equipamento",
@@ -582,7 +582,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Facilita aprendizado de magias.",
-    "fullDescription": "O personagem possui <strong>sensibilidade arcana</strong> natural, sendo capaz de perceber e conjurar magias. Essa vantagem é um pré-requisito essencial para a maioria dos feitiços do jogo.",
+    "fullDescription": "O personagem possui sensibilidade arcana natural, sendo capaz de perceber e conjurar magias. Essa vantagem é um pré-requisito essencial para a maioria dos feitiços do jogo.",
     "rules": [
       {
         "name": "Sensibilidade Arcana",
@@ -621,7 +621,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Puxa pequenos itens de mundos alternativos.",
-    "fullDescription": "O personagem consegue estender sua vontade através do <strong>tecido da realidade</strong>, extraindo pequenos objetos e ferramentas úteis diretamente de planos paralelos ou dimensões alternativas.",
+    "fullDescription": "O personagem consegue estender sua vontade através do tecido da realidade, extraindo pequenos objetos e ferramentas úteis diretamente de planos paralelos ou dimensões alternativas.",
     "rules": [
       {
         "name": "Manifestação Interdimensional",
@@ -653,7 +653,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Imita sons e vozes.",
-    "fullDescription": "O controle vocal do personagem é tão refinado que ele consegue <strong>replicar com fidelidade</strong> ruídos mecânicos, sons de animais ou a voz exata de outras pessoas.",
+    "fullDescription": "O controle vocal do personagem é tão refinado que ele consegue replicar com fidelidade ruídos mecânicos, sons de animais ou a voz exata de outras pessoas.",
     "rules": [
       {
         "name": "Mimetismo Vocal",
@@ -685,7 +685,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Talento para perícias técnicas.",
-    "fullDescription": "O personagem possui uma <strong>afinidade natural</strong> com mecanismos, engenharia e reparos, atuando como um talento que aprimora todas as perícias técnicas relacionadas.",
+    "fullDescription": "O personagem possui uma afinidade natural com mecanismos, engenharia e reparos, atuando como um talento que aprimora todas as perícias técnicas relacionadas.",
     "rules": [
       {
         "name": "Bônus Técnico",
@@ -717,7 +717,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Talento artístico e manual.",
-    "fullDescription": "O personagem possui um <strong>dom natural para a criação</strong>, aprimorando seu desempenho em perícias ligadas à expressão artística ou a trabalhos manuais criativos.",
+    "fullDescription": "O personagem possui um dom natural para a criação, aprimorando seu desempenho em perícias ligadas à expressão artística ou a trabalhos manuais criativos.",
     "rules": [
       {
         "name": "Bônus Artístico",
@@ -749,7 +749,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Permite ataques extras por turno.",
-    "fullDescription": "O corpo do personagem é capaz de realizar <strong>ações ofensivas simultâneas</strong>, permitindo desferir golpes adicionais no mesmo turno sem sofrer as penalidades habituais de ações múltiplas.",
+    "fullDescription": "O corpo do personagem é capaz de realizar ações ofensivas simultâneas, permitindo desferir golpes adicionais no mesmo turno sem sofrer as penalidades habituais de ações múltiplas.",
     "rules": [
       {
         "name": "Ofensiva Múltipla",
@@ -781,7 +781,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Esmaga o alvo enquanto o agarra.",
-    "fullDescription": "Após prender um oponente, o personagem consegue aplicar uma <strong>pressão esmagadora contínua</strong>, infligindo dano ou sufocamento a cada turno em que mantém o agarre.",
+    "fullDescription": "Após prender um oponente, o personagem consegue aplicar uma pressão esmagadora contínua, infligindo dano ou sufocamento a cada turno em que mantém o agarre.",
     "rules": [
       {
         "name": "Asfixia por Agarre",
@@ -818,7 +818,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Arma natural como raio ou sopro.",
-    "fullDescription": "O personagem consegue projetar <strong>descargas de energia, projéteis biológicos ou lufadas elementais</strong> diretamente de sua estrutura biológica ou mística contra alvos à distância.",
+    "fullDescription": "O personagem consegue projetar descargas de energia, projéteis biológicos ou lufadas elementais diretamente de sua estrutura biológica ou mística contra alvos à distância.",
     "rules": [
       {
         "name": "Manifestação Ofensiva",
@@ -850,7 +850,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Usa Precisão sem Apontar.",
-    "fullDescription": "A coordenação do personagem com armas de disparo é tão elevada que ele aplica <strong>instintivamente</strong> o bônus de Precisão da arma ao atacar, sem precisar gastar turnos apontando.",
+    "fullDescription": "A coordenação do personagem com armas de disparo é tão elevada que ele aplica instintivamente o bônus de Precisão da arma ao atacar, sem precisar gastar turnos apontando.",
     "rules": [
       {
         "name": "Mira Instintiva",
@@ -882,7 +882,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Impõe condições negativas ao alvo.",
-    "fullDescription": "O personagem consegue canalizar um efeito que força a vítima a realizar um teste de resistência, sob pena de sofrer <strong>redutores ou estados prejudiciais</strong> físicos ou mentais.",
+    "fullDescription": "O personagem consegue canalizar um efeito que força a vítima a realizar um teste de resistência, sob pena de sofrer redutores ou estados prejudiciais físicos ou mentais.",
     "rules": [
       {
         "name": "Indução de Estados",
@@ -914,7 +914,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Bônus em testes auditivos.",
-    "fullDescription": "Os ouvidos do personagem são muito mais sensíveis que o normal, concedendo uma <strong>percepção auditiva aprimorada</strong> em qualquer situação que dependa da audição.",
+    "fullDescription": "Os ouvidos do personagem são muito mais sensíveis que o normal, concedendo uma percepção auditiva aprimorada em qualquer situação que dependa da audição.",
     "rules": [
       {
         "name": "Sensibilidade Acústica",
@@ -953,7 +953,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Distingue sons específicos com precisão.",
-    "fullDescription": "O personagem consegue filtrar ruídos de fundo e focar em sons isolados, reconhecendo <strong>vozes individuais em meio a multidões</strong>, passos específicos ou até batimentos cardíacos.",
+    "fullDescription": "O personagem consegue filtrar ruídos de fundo e focar em sons isolados, reconhecendo vozes individuais em meio a multidões, passos específicos ou até batimentos cardíacos.",
     "rules": [
       {
         "name": "Isolamento Acústico",
@@ -985,7 +985,7 @@
     "isAllowedLevel": true,
     "maxLevel": null,
     "shortDescription": "Amplia alcance da audição.",
-    "fullDescription": "Funcionando como uma <strong>lente acústica mental</strong>, essa vantagem permite ao personagem ouvir sons de baixa intensidade emitidos a distâncias extremamente longas, como se estivessem bem próximos.",
+    "fullDescription": "Funcionando como uma lente acústica mental, essa vantagem permite ao personagem ouvir sons de baixa intensidade emitidos a distâncias extremamente longas, como se estivessem bem próximos.",
     "rules": [
       {
         "name": "Foco à Distância",
@@ -1017,7 +1017,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Escuta frequências muito baixas.",
-    "fullDescription": "O personagem consegue detectar perfeitamente <strong>vibrações e infrassons</strong> extremamente baixos, frequências que passam totalmente despercebidas pelo ouvido humano padrão.",
+    "fullDescription": "O personagem consegue detectar perfeitamente vibrações e infrassons extremamente baixos, frequências que passam totalmente despercebidas pelo ouvido humano padrão.",
     "rules": [
       {
         "name": "Percepção de Infra-sons",
@@ -1048,7 +1048,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Você pesa bem mais que a média para sua Força.",
-    "fullDescription": "O personagem pesa cerca de <strong>130% da média</strong> esperada para sua Força (ST). O peso extra atrapalha em situações que exigem discrição, mas ajuda na flutuação e em resistir a ser derrubado.",
+    "fullDescription": "O personagem pesa cerca de 130% da média esperada para sua Força (ST). O peso extra atrapalha em situações que exigem discrição, mas ajuda na flutuação e em resistir a ser derrubado.",
     "rules": [
       {
         "name": "Peso Elevado",
@@ -1104,7 +1104,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Versão branda de Indiferente; ignora problemas que não o afetam diretamente.",
-    "fullDescription": "Uma versão mais <strong>branda</strong> da desvantagem Indiferente. O personagem tende a não se importar com problemas alheios, a menos que estes o afetem diretamente.",
+    "fullDescription": "Uma versão mais branda da desvantagem Indiferente. O personagem tende a não se importar com problemas alheios, a menos que estes o afetem diretamente.",
     "rules": [
       {
         "name": "Indiferença Seletiva",
@@ -1140,7 +1140,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "O personagem é viciado em álcool.",
-    "fullDescription": "O personagem é um <strong>viciado em álcool</strong>, considerado um Vício. É barato, incapacitante e normalmente legal, mas também traiçoeiro, tornando-se ainda mais custoso caso seja ilegal.",
+    "fullDescription": "O personagem é um viciado em álcool, considerado um Vício. É barato, incapacitante e normalmente legal, mas também traiçoeiro, tornando-se ainda mais custoso caso seja ilegal.",
     "rules": [
       {
         "name": "Teste de Vontade",
@@ -1193,7 +1193,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "O personagem se sacrifica por outras pessoas.",
-    "fullDescription": "O personagem é <strong>altruísta</strong> — sacrifica-se por outros e pouco se importa com fama ou riqueza pessoal. Precisa de sucesso em um teste de autocontrole para colocar suas próprias necessidades à frente das dos outros.",
+    "fullDescription": "O personagem é altruísta — sacrifica-se por outros e pouco se importa com fama ou riqueza pessoal. Precisa de sucesso em um teste de autocontrole para colocar suas próprias necessidades à frente das dos outros.",
     "rules": [
       {
         "name": "Prioridade Alheia",
@@ -1233,7 +1233,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "O personagem se dá bem com outras pessoas e busca companhia.",
-    "fullDescription": "O personagem se dá bem com outras pessoas e está sempre em busca de companhia. Existem dois níveis: <strong>Amigável</strong> (-5 pontos) e <strong>Gregário</strong> (-10 pontos), este último mais intenso.",
+    "fullDescription": "O personagem se dá bem com outras pessoas e está sempre em busca de companhia. Existem dois níveis: Amigável (-5 pontos) e Gregário (-10 pontos), este último mais intenso.",
     "rules": [
       {
         "name": "Amigável",
@@ -1276,7 +1276,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "O personagem perdeu a memória.",
-    "fullDescription": "O personagem <strong>perdeu a memória</strong> e não se lembra de nada relacionado à sua vida anterior, nem mesmo do próprio nome. Existem dois níveis: Amnésia Parcial (-10) e Amnésia Total (-25).",
+    "fullDescription": "O personagem perdeu a memória e não se lembra de nada relacionado à sua vida anterior, nem mesmo do próprio nome. Existem dois níveis: Amnésia Parcial (-10) e Amnésia Total (-25).",
     "rules": [
       {
         "name": "Amnésia Parcial",
@@ -1323,7 +1323,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "O personagem não tem experiência com o sobrenatural.",
-    "fullDescription": "O personagem não tem <strong>nenhuma experiência com o sobrenatural</strong> e coisas estranhas, possuindo apenas perícias e equipamentos mundanos no início do jogo. Só está disponível em cenários com elementos sobrenaturais ou bizarros.",
+    "fullDescription": "O personagem não tem nenhuma experiência com o sobrenatural e coisas estranhas, possuindo apenas perícias e equipamentos mundanos no início do jogo. Só está disponível em cenários com elementos sobrenaturais ou bizarros.",
     "rules": [
       {
         "name": "Restrição de Perícias",
@@ -1367,7 +1367,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Prefere ficar sozinho e realizar ações individuais.",
-    "fullDescription": "Uma versão menos intensa de Solitário. O personagem gosta de <strong>ficar sozinho</strong> e sempre prefere realizar ações individuais.",
+    "fullDescription": "Uma versão menos intensa de Solitário. O personagem gosta de ficar sozinho e sempre prefere realizar ações individuais.",
     "formula": "Cf = -1",
     "formulaDescription": "O custo final (Cf) é um valor fixo de -1 ponto.",
     "types": ["Mental"],
@@ -1399,7 +1399,7 @@
     "isAllowedLevel": true,
     "maxLevel": 10,
     "shortDescription": "Nível de atratividade física, do Horrendo ao Lindo, que afeta reações sociais.",
-    "fullDescription": "A aparência é expressa em níveis que vão de <strong>Horrendo</strong> (-24 pontos) a <strong>Lindo</strong> (+20 pontos). A maioria das pessoas tem aparência Comum (0 pontos). Aparência abaixo da média concede pontos de personagem (desvantagem); acima da média custa pontos (vantagem). Os modificadores de reação só afetam quem pode enxergar o personagem, e normalmente apenas membros da mesma raça (ou de uma raça que considere a dele atraente).",
+    "fullDescription": "A aparência é expressa em níveis que vão de Horrendo (-24 pontos) a Lindo (+20 pontos). A maioria das pessoas tem aparência Comum (0 pontos). Aparência abaixo da média concede pontos de personagem (desvantagem); acima da média custa pontos (vantagem). Os modificadores de reação só afetam quem pode enxergar o personagem, e normalmente apenas membros da mesma raça (ou de uma raça que considere a dele atraente).",
     "rules": [
       {
         "name": "Horrendo",
@@ -1471,7 +1471,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Precisa se alimentar de algo obtido de seres inteligentes.",
-    "fullDescription": "O personagem precisa de algum <strong>alimento</strong> que deve tirar de outros seres inteligentes — à força ou pela astúcia — e tem dificuldade para controlar seu apetite. O objeto da necessidade (sangue, força vital, sexo etc.) deve ser especificado pelo jogador.",
+    "fullDescription": "O personagem precisa de algum alimento que deve tirar de outros seres inteligentes — à força ou pela astúcia — e tem dificuldade para controlar seu apetite. O objeto da necessidade (sangue, força vital, sexo etc.) deve ser especificado pelo jogador.",
     "rules": [
       {
         "name": "Necessidade Específica",
@@ -1507,7 +1507,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Não possui órgãos sexuais típicos ou é genuinamente assexuado.",
-    "fullDescription": "O personagem não tem os órgãos sexuais típicos de sua raça, gênero e faixa etária, ou é genuinamente <strong>assexuado</strong>. Em compensação, é imune à sedução e nunca terá um filho por acidente.",
+    "fullDescription": "O personagem não tem os órgãos sexuais típicos de sua raça, gênero e faixa etária, ou é genuinamente assexuado. Em compensação, é imune à sedução e nunca terá um filho por acidente.",
     "rules": [
       {
         "name": "Ausência de Sexualidade",
@@ -1551,7 +1551,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Animais reagem com medo e agressividade na presença do personagem.",
-    "fullDescription": "Os animais ficam <strong>assustados e agressivos</strong> na presença do personagem: cavalos não o deixam montar, cachorros fogem ou atacam, e seu cheiro basta para apavorar a maioria das criaturas.",
+    "fullDescription": "Os animais ficam assustados e agressivos na presença do personagem: cavalos não o deixam montar, cachorros fogem ou atacam, e seu cheiro basta para apavorar a maioria das criaturas.",
     "rules": [
       {
         "name": "Pavor Animal",
@@ -1595,7 +1595,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Transmite uma condição sobrenatural infecciosa a quem sobrevive a um ataque.",
-    "fullDescription": "O personagem possui uma <strong>condição sobrenatural infecciosa</strong>, funcionando como a vantagem Dominação, mas sem controlar as pessoas infectadas — que ficam livres para usar seus novos poderes, inclusive contra ele.",
+    "fullDescription": "O personagem possui uma condição sobrenatural infecciosa, funcionando como a vantagem Dominação, mas sem controlar as pessoas infectadas — que ficam livres para usar seus novos poderes, inclusive contra ele.",
     "rules": [
       {
         "name": "Infecção Sem Controle",
@@ -1635,7 +1635,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Regride a um comportamento animal quando amedrontado, cansado ou ferido.",
-    "fullDescription": "O personagem <strong>regride temporariamente</strong> a um comportamento animalesco quando está amedrontado, nervoso, cansado ou ferido, agindo por impulso e instinto até se recuperar.",
+    "fullDescription": "O personagem regride temporariamente a um comportamento animalesco quando está amedrontado, nervoso, cansado ou ferido, agindo por impulso e instinto até se recuperar.",
     "rules": [
       {
         "name": "Gatilho de Estresse",
@@ -1687,7 +1687,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Foca em uma tarefa até terminá-la, ignorando interrupções.",
-    "fullDescription": "O personagem tem o hábito de se <strong>focar em uma mesma tarefa</strong> até concluí-la, o que ajuda em trabalhos longos, mas o torna alheio a interrupções importantes.",
+    "fullDescription": "O personagem tem o hábito de se focar em uma mesma tarefa até concluí-la, o que ajuda em trabalhos longos, mas o torna alheio a interrupções importantes.",
     "rules": [
       {
         "name": "Foco em Tarefas Longas",
@@ -1723,7 +1723,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Coordenação motora incomumente ruim.",
-    "fullDescription": "O personagem tem uma <strong>coordenação motora incomumente ruim</strong>, sofrendo penalidade em testes baseados em DX para trabalhos delicados e para Sacar Rápido.",
+    "fullDescription": "O personagem tem uma coordenação motora incomumente ruim, sofrendo penalidade em testes baseados em DX para trabalhos delicados e para Sacar Rápido.",
     "rules": [
       {
         "name": "Penalidade de DX",
@@ -1769,7 +1769,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Órgãos e sistema imunológico começam a falhar ao envelhecer.",
-    "fullDescription": "Assim que o personagem começa a envelhecer (aos 50 anos, no caso de humanos normais), seus órgãos e sistema imunológico passam a <strong>falhar rapidamente</strong>, exigindo testes de envelhecimento diários.",
+    "fullDescription": "Assim que o personagem começa a envelhecer (aos 50 anos, no caso de humanos normais), seus órgãos e sistema imunológico passam a falhar rapidamente, exigindo testes de envelhecimento diários.",
     "rules": [
       {
         "name": "Envelhecimento Acelerado",
@@ -1817,7 +1817,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Sempre preocupado em conservar suas riquezas.",
-    "fullDescription": "O personagem está sempre preocupado em <strong>conservar suas riquezas</strong> e busca o melhor acordo possível, precisando de um teste de autocontrole sempre que tiver que gastar dinheiro.",
+    "fullDescription": "O personagem está sempre preocupado em conservar suas riquezas e busca o melhor acordo possível, precisando de um teste de autocontrole sempre que tiver que gastar dinheiro.",
     "rules": [
       {
         "name": "Teste ao Gastar",
@@ -1857,7 +1857,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Sente aversão sobrenatural a um item ou substância específica.",
-    "fullDescription": "O personagem sente uma <strong>aversão sobrenatural</strong> a um determinado item ou substância, sendo obrigado a manter distância dela e a se afastar imediatamente caso seja forçado a se aproximar.",
+    "fullDescription": "O personagem sente uma aversão sobrenatural a um determinado item ou substância, sendo obrigado a manter distância dela e a se afastar imediatamente caso seja forçado a se aproximar.",
     "rules": [
       {
         "name": "Distância Obrigatória",
@@ -1897,7 +1897,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Evita um item ou situação específica sempre que possível.",
-    "fullDescription": "O personagem pode escolher qualquer item da lista de Fobias como uma mera <strong>aversão</strong>, evitando-o sempre que possível, embora isso não seja tão prejudicial quanto uma fobia.",
+    "fullDescription": "O personagem pode escolher qualquer item da lista de Fobias como uma mera aversão, evitando-o sempre que possível, embora isso não seja tão prejudicial quanto uma fobia.",
     "rules": [
       {
         "name": "Evitação Simples",
@@ -1933,7 +1933,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Tudo dá errado para o personagem, normalmente na pior hora.",
-    "fullDescription": "O personagem é um <strong>azarado</strong>. O Mestre deve, arbitrária e maliciosamente, fazer alguma coisa sair errada para ele uma vez a cada sessão de jogo.",
+    "fullDescription": "O personagem é um azarado. O Mestre deve, arbitrária e maliciosamente, fazer alguma coisa sair errada para ele uma vez a cada sessão de jogo.",
     "rules": [
       {
         "name": "Infortúnio Garantido",
@@ -1973,7 +1973,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Subestima suas próprias habilidades em situações adversas.",
-    "fullDescription": "O personagem não tem autoconfiança e <strong>subestima suas habilidades</strong> a ponto de isso interferir em suas atividades, especialmente quando acredita não ter chance de sucesso.",
+    "fullDescription": "O personagem não tem autoconfiança e subestima suas habilidades a ponto de isso interferir em suas atividades, especialmente quando acredita não ter chance de sucesso.",
     "rules": [
       {
         "name": "Penalidade Condicional",
@@ -2009,7 +2009,7 @@
     "isAllowedLevel": true,
     "maxLevel": 5,
     "shortDescription": "Emite sons constantemente, mesmo parado.",
-    "fullDescription": "O personagem <strong>faz muito barulho</strong>, emitindo sons constantemente mesmo quando está parado — exceto em coma ou desligado, no caso de máquinas.",
+    "fullDescription": "O personagem faz muito barulho, emitindo sons constantemente mesmo quando está parado — exceto em coma ou desligado, no caso de máquinas.",
     "rules": [
       {
         "name": "Facilidade de Detecção",
@@ -2060,7 +2060,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Pensa e reage como um animal selvagem.",
-    "fullDescription": "O personagem <strong>pensa e reage como um animal selvagem</strong>, sem noção de moral civilizada ou de propriedade, lutando ou fugindo de quem o ameaça.",
+    "fullDescription": "O personagem pensa e reage como um animal selvagem, sem noção de moral civilizada ou de propriedade, lutando ou fugindo de quem o ameaça.",
     "rules": [
       {
         "name": "Mentalidade Animal",
@@ -2104,7 +2104,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Drogas humanas têm efeito imprevisível em seu organismo.",
-    "fullDescription": "O personagem consegue se alimentar normalmente de comida humana, mas sua composição bioquímica é <strong>suficientemente diferente</strong> para que drogas feitas para humanos não surtam o efeito esperado.",
+    "fullDescription": "O personagem consegue se alimentar normalmente de comida humana, mas sua composição bioquímica é suficientemente diferente para que drogas feitas para humanos não surtam o efeito esperado.",
     "rules": [
       {
         "name": "Efeito Imprevisível",
@@ -2140,7 +2140,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Gosta de intimidar as pessoas sempre que pode.",
-    "fullDescription": "O personagem gosta de <strong>intimidar as pessoas</strong> sempre que pode fazê-lo impunemente, seja por agressão física, hostilidade intelectual ou frieza social.",
+    "fullDescription": "O personagem gosta de intimidar as pessoas sempre que pode fazê-lo impunemente, seja por agressão física, hostilidade intelectual ou frieza social.",
     "rules": [
       {
         "name": "Teste de Autocontrole",
@@ -2176,7 +2176,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Uma marca física que torna o personagem facilmente identificável.",
-    "fullDescription": "O personagem tem uma <strong>característica física marcante</strong> — como cabelo azul brilhante — que o torna diferente das outras pessoas, facilitando sua identificação.",
+    "fullDescription": "O personagem tem uma característica física marcante — como cabelo azul brilhante — que o torna diferente das outras pessoas, facilitando sua identificação.",
     "rules": [
       {
         "name": "Penalidade de Disfarce",
@@ -2212,7 +2212,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Traços perturbadores que revelam natureza sobrenatural sob exame atento.",
-    "fullDescription": "O personagem tem <strong>características perturbadoras</strong> que o qualificam como um demônio, vampiro ou outro ser sobrenatural. Consegue se passar por um mortal comum, mas um exame mais detalhado revela algo estranho.",
+    "fullDescription": "O personagem tem características perturbadoras que o qualificam como um demônio, vampiro ou outro ser sobrenatural. Consegue se passar por um mortal comum, mas um exame mais detalhado revela algo estranho.",
     "rules": [
       {
         "name": "Palidez",
@@ -2256,7 +2256,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "Não possui os órgãos sexuais típicos de sua raça, gênero e idade.",
-    "fullDescription": "O personagem não tem os órgãos sexuais típicos de sua raça, gênero e faixa etária. Em compensação, é <strong>imune à sedução</strong> e nunca terá um filho por acidente.",
+    "fullDescription": "O personagem não tem os órgãos sexuais típicos de sua raça, gênero e faixa etária. Em compensação, é imune à sedução e nunca terá um filho por acidente.",
     "rules": [
       {
         "name": "Ausência de Órgãos",
@@ -2300,7 +2300,7 @@
     "isAllowedLevel": false,
     "maxLevel": null,
     "shortDescription": "O personagem não enxerga.",
-    "fullDescription": "O personagem <strong>não enxerga</strong>. Precisa caminhar mais devagar em terreno desconhecido ou ser guiado por um companheiro ou animal. Muitas ações são impossíveis para um cego.",
+    "fullDescription": "O personagem não enxerga. Precisa caminhar mais devagar em terreno desconhecido ou ser guiado por um companheiro ou animal. Muitas ações são impossíveis para um cego.",
     "rules": [
       {
         "name": "Penalidade de Combate",

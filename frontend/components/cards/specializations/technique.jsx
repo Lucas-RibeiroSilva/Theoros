@@ -70,9 +70,20 @@ export default function TechniqueSection({ onLoading }) {
   }
 
   // Filtra a lista de técnica já adicionadas pelo texto de busca
-  const techniqueFilters = techniques.filter((technique) =>
-    technique.name?.toLowerCase().includes(filterTechnique.toLowerCase()),
-  );
+  const techniqueFilters = techniques.filter((technique) => {
+    const matchesText = technique.name?.toLowerCase().includes(filterTechnique.toLowerCase());
+
+    const hasActiveFilters = Object.values(filters).some(value => value === true);
+    if (!hasActiveFilters) return matchesText;
+
+    const matchesType = Object.keys(filters).some(typeName => {
+      if (!filters[typeName]) return false;
+      return hasType(technique, typeName);
+    });
+
+
+    return matchesText && matchesType;
+  });
 
   function handleToggleTechnique() {
     setShowTechnique((prev) => !prev);

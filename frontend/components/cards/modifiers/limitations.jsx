@@ -10,13 +10,13 @@ import { GiBiceps, GiAngelWings, GiCrossedSwords } from "react-icons/gi";
 import { RiSpeakLine } from "react-icons/ri";
 
 // Serve para aparecer uma mensagem de explicacao para quando passa o cursor em cima
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 
 // MOdal para adicionar limitação
-import LimitationsModal from "../../modals/limitationsModal"
+import LimitationsModal from "../../modals/limitationsModal";
 
 // CSS
-import "../../../styles/cards/sections.css"
+import "../../../styles/cards/sections.css";
 
 // Puxar e enviar os dados para o controller
 import { useCardStore } from "../../../stores/cardStore";
@@ -38,6 +38,7 @@ export default function LimitationsSection({ onLoading }) {
     Social: false,
     Supernatural: false,
     Exotic: false,
+    Combat: false,
   });
 
   // ──────────────────────────────────────────────
@@ -52,11 +53,9 @@ export default function LimitationsSection({ onLoading }) {
   useEffect(() => {
     async function loadLimitations() {
       try {
-
         const storedLimitations = useCardStore.getState().limitations;
 
         onLoading(false);
-
       } catch (error) {
         console.error("Erro:", error);
         onLoading(false);
@@ -75,9 +74,21 @@ export default function LimitationsSection({ onLoading }) {
   }
 
   // Filtra a lista de desvantagens já adicionadas pelo texto de busca
-  const limitationsFilters = limitations.filter((limitations) =>
-    limitations.name?.toLowerCase().includes(filterLimitations.toLowerCase())
-  );
+  const limitationsFilters = limitations.filter((limitation) => {
+    const matchesText = limitation.name?.toLowerCase().includes(filterLimitations.toLowerCase());
+
+    const hasActiveFilters = Object.values(filters).some(value => value === true);
+    if (!hasActiveFilters) return matchesText;
+
+    const matchesType = Object.keys(filters).some(typeName => {
+      if (!filters[typeName]) return false;
+      return hasType(limitation, typeName);
+    });
+
+
+    return matchesText && matchesType;
+  });
+
 
   function handleToggleLimitations() {
     setShowLimitations((prev) => !prev);
@@ -108,40 +119,66 @@ export default function LimitationsSection({ onLoading }) {
   }
 
   function getIcon(limitation) {
-      const icons = [];
-  
-      if (hasType(limitation, "Physical"))
-        icons.push(<Tooltip title="Físico" arrow key="Physical"><GiBiceps /></Tooltip>);
-  
-      if (hasType(limitation, "Combat"))
-        icons.push(<Tooltip title="Combate" arrow key="Combat"><GiCrossedSwords /></Tooltip>);
-  
-      if (hasType(limitation, "Supernatural"))
-        icons.push(<Tooltip title="Sobrenatural" arrow key="Supernatural"><TbGhost2 /></Tooltip>);
-  
-      if (hasType(limitation, "Mental"))
-        icons.push(<Tooltip title="Mental" arrow key="Mental"><PiBrainDuotone /></Tooltip>);
-  
-      if (hasType(limitation, "Social"))
-        icons.push(<Tooltip title="Social" arrow key="Social"><RiSpeakLine /></Tooltip>);
-  
-      if (hasType(limitation, "Exotic"))
-        icons.push(<Tooltip title="Exótico" arrow key="Exotic"><GiAngelWings /></Tooltip>);
-  
-      return icons;
-    }
+    const icons = [];
+
+    if (hasType(limitation, "Physical"))
+      icons.push(
+        <Tooltip title="Físico" arrow key="Physical">
+          <GiBiceps />
+        </Tooltip>,
+      );
+
+    if (hasType(limitation, "Combat"))
+      icons.push(
+        <Tooltip title="Combate" arrow key="Combat">
+          <GiCrossedSwords />
+        </Tooltip>,
+      );
+
+    if (hasType(limitation, "Supernatural"))
+      icons.push(
+        <Tooltip title="Sobrenatural" arrow key="Supernatural">
+          <TbGhost2 />
+        </Tooltip>,
+      );
+
+    if (hasType(limitation, "Mental"))
+      icons.push(
+        <Tooltip title="Mental" arrow key="Mental">
+          <PiBrainDuotone />
+        </Tooltip>,
+      );
+
+    if (hasType(limitation, "Social"))
+      icons.push(
+        <Tooltip title="Social" arrow key="Social">
+          <RiSpeakLine />
+        </Tooltip>,
+      );
+
+    if (hasType(limitation, "Exotic"))
+      icons.push(
+        <Tooltip title="Exótico" arrow key="Exotic">
+          <GiAngelWings />
+        </Tooltip>,
+      );
+
+    return icons;
+  }
 
   return (
     <>
       {/* Direita da seção Modificadores - Limitações */}
       <div className="limitation-box">
-
         {/* Titulo junto com botão "+" para abrir o modal de limitação */}
         <div className="box-header">
           <label>Buscar Limitação:</label>
 
           <Tooltip title="Adicionar Limitações" arrow>
-            <AddIcon className="add-limitation" onClick={openLimitationsModal} />
+            <AddIcon
+              className="add-limitation"
+              onClick={openLimitationsModal}
+            />
           </Tooltip>
         </div>
 
@@ -162,7 +199,6 @@ export default function LimitationsSection({ onLoading }) {
             />
           </Tooltip>
         </div>
-
 
         {/* Botões dos filtros */}
         {showLimitations && (
@@ -201,6 +237,13 @@ export default function LimitationsSection({ onLoading }) {
             >
               Exótica
             </button>
+
+            <button
+              className={filters.Combat ? "active" : ""}
+              onClick={() => toggleFilter("Combat")}
+            >
+              Combate
+            </button>
           </div>
         )}
 
@@ -220,19 +263,18 @@ export default function LimitationsSection({ onLoading }) {
             limitationsFilters.map((limitation) => (
               <li key={limitation.id} className="selected-limitation-item">
                 <div className="selected-limitation-info">
-
                   <span className="selected-limitation-cost">
                     {getCost(limitation)} pts
                   </span>
 
                   <span className="selected-limitation-name">
                     {limitation.name}
-                    {limitation.isAllowedLevel ? ` (Nível ${limitation.level ?? 1})` : ""}
+                    {limitation.isAllowedLevel
+                      ? ` (Nível ${limitation.level ?? 1})`
+                      : ""}
                   </span>
 
-                  <span id="icons">
-                    {getIcon(limitation)}
-                  </span>
+                  <span id="icons">{getIcon(limitation)}</span>
 
                   <span className="selected-limitation-level">
                     {limitation.level}
@@ -250,13 +292,11 @@ export default function LimitationsSection({ onLoading }) {
             ))
           )}
         </ul>
-
-        
-      </div >
+      </div>
 
       {showLimitationsModal && (
-          <LimitationsModal onClose={closeLimitationsModal} />
-        )}
+        <LimitationsModal onClose={closeLimitationsModal} />
+      )}
     </>
   );
 }

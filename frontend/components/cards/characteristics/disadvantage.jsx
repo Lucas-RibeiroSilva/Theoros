@@ -31,11 +31,12 @@ export default function DisadvantageSection({ onLoading }) {
   const [showDisadvantageModal, setShowDisadvantageModal] = useState(false);
   // Filtros
   const [filters, setFilters] = useState({
-    fisica: false,
-    mental: false,
-    social: false,
-    sobrenatural: false,
-    exotica: false,
+    Physical: false,
+    Mental: false,
+    Social: false,
+    Supernatural: false,
+    Exotic: false,
+    Combat: false,
   });
   // ──────────────────────────────────────────────
   // Store — desvantagens já selecionadas pelo usuário
@@ -71,9 +72,20 @@ export default function DisadvantageSection({ onLoading }) {
   }, []);
 
   // Filtra a lista de desvantagens já adicionadas pelo texto de busca
-  const disadvantagensFilters = disadvantages.filter((disadv) =>
-    disadv.name?.toLowerCase().includes(filterDisadvantage.toLowerCase())
-  );
+  const disadvantagensFilters = disadvantages.filter((disadv) => {
+    const matchesText = disadv.name?.toLowerCase().includes(filterDisadvantage.toLowerCase());
+
+    const hasActiveFilters = Object.values(filters).some(value => value === true);
+    if (!hasActiveFilters) return matchesText;
+
+    const matchesType = Object.keys(filters).some(typeName => {
+      if (!filters[typeName]) return false;
+      return hasType(disadv, typeName);
+    });
+
+
+    return matchesText && matchesType;
+  });
 
   function handleToggleDisadvantage() {
     setShowDisadvantage((prev) => !prev);
@@ -178,6 +190,10 @@ export default function DisadvantageSection({ onLoading }) {
 
             <button className={filters.Exotic ? "active" : ""} onClick={() => toggleFilter("Exotic")}>
               Exótica
+            </button>
+
+            <button className={filters.Combat ? "active" : ""} onClick={() => toggleFilter("Combat")}>
+              Combate
             </button>
           </div>
         )}

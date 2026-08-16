@@ -203,11 +203,13 @@ export default function BasicSection({ onLoading }) {
   // Função para abrir o modal
   function openRaceModal() {
     setShowRaceModal(true);
+    document.body.classList.add('modal-open');
   }
 
   // Função para fechar o modal
   function closeRaceModal() {
     setShowRaceModal(false);
+    document.body.classList.remove('modal-open');
   }
 
   // Função para buscar o ícone da raça

@@ -30,7 +30,7 @@ export default function AdvantagensSection({ onLoading }) {
 
   // Serve para ver se o modal está ou não na tela
   const [showAdvantagensModal, setShowAdvantagensModal] = useState(false);
-  
+
   // Filtros
   const [filters, setFilters] = useState({
     Physical: false,
@@ -38,6 +38,7 @@ export default function AdvantagensSection({ onLoading }) {
     Social: false,
     Supernatural: false,
     Exotic: false,
+    Combat: false,
   });
 
   // ──────────────────────────────────────────────
@@ -50,21 +51,21 @@ export default function AdvantagensSection({ onLoading }) {
   // Buscar vantagens do cardStore ao carregar a pagina
   // ──────────────────────────────────────────────
   useEffect(() => {
-  async function loadAdvantages() {
-    try {
-      
-      const storedAdvantages = useCardStore.getState().advantages;
-      
-      onLoading(false);
-      
-    } catch (error) {
-      console.error("Erro:", error);
-      onLoading(false);
-    }
-  }
+    async function loadAdvantages() {
+      try {
 
-  loadAdvantages();
-}, []);
+        const storedAdvantages = useCardStore.getState().advantages;
+
+        onLoading(false);
+
+      } catch (error) {
+        console.error("Erro:", error);
+        onLoading(false);
+      }
+    }
+
+    loadAdvantages();
+  }, []);
 
   // Funções para abrir e fechar o modal de adicionar Vantagens
   function openAdvantagensModal() {
@@ -75,9 +76,20 @@ export default function AdvantagensSection({ onLoading }) {
   }
 
   // Filtra a lista de vantagens já adicionadas pelo texto de busca
-  const advantagensFilters = advantages.filter((adv) =>
-    adv.name?.toLowerCase().includes(filterAdvantage.toLowerCase())
-  );
+  const advantagensFilters = advantages.filter((adv) => {
+    const matchesText = adv.name?.toLowerCase().includes(filterAdvantage.toLowerCase());
+
+    const hasActiveFilters = Object.values(filters).some(value => value === true);
+    if (!hasActiveFilters) return matchesText;
+
+    const matchesType = Object.keys(filters).some(typeName => {
+      if (!filters[typeName]) return false;
+      return hasType(adv, typeName);
+    });
+
+
+    return matchesText && matchesType;
+  });
 
   // Servirá para mostrar a lista de filtros
   function handleToggleAdvantagens() {
@@ -187,17 +199,21 @@ export default function AdvantagensSection({ onLoading }) {
             <button className={filters.Exotic ? "active" : ""} onClick={() => toggleFilter("Exotic")}>
               Exótica
             </button>
+
+            <button className={filters.Combat ? "active" : ""} onClick={() => toggleFilter("Combat")}>
+              Combate
+            </button>
           </div>
         )}
 
         <div className="topics-information">
-            <p id="topics-points">Custo</p>
-            <p id="topics-name">Nome</p>
-            <p id="topics-types">Tipos</p>
-            <p id="topics-level">Nível</p>
-            <p id="topics-remove"></p>
+          <p id="topics-points">Custo</p>
+          <p id="topics-name">Nome</p>
+          <p id="topics-types">Tipos</p>
+          <p id="topics-level">Nível</p>
+          <p id="topics-remove"></p>
         </div>
-        
+
         {/* Lista de vantagens */}
         <ul className="selected-advantagens-list">
           {advantagensFilters.length === 0 ? (
